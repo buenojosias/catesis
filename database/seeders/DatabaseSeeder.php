@@ -18,16 +18,7 @@ class DatabaseSeeder extends Seeder
             CommunitySeeder::class,
             RoleSeeder::class,
             PermissionSeeder::class,
+            UserSeeder::class,
         ]);
-
-        \App\Models\User::create([
-            'name' => 'Josias Bueno',
-            'email' => 'josias@catesis.com',
-            'password' => bcrypt('12345678')
-        ])->roles()->attach(1);
-        
-        // \App\Models\User::factory(10)->create();
-
-
     }
 }
