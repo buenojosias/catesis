@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', function () { return view('dashboard'); })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/', function () { return view('dashboard'); })->name('dashboard');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/comunidades', function () { return view('communities.index'); })->name('communities.index');
 });
 
 require __DIR__.'/auth.php';

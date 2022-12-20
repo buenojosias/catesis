@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li>
-                        <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.*')" icon="user">Perfil</x-nav-link>
+                        <x-nav-link :href="route('communities.index')" :active="request()->routeIs('communities.*')" icon="church">Comunidades</x-nav-link>
                     </li>
                 </ul>
 
