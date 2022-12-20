@@ -68,12 +68,36 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@perseveranca.com',
             'password' => bcrypt('12345678')
         ])->roles()->attach(3);
+        User::create([
+            'community_id' => 1,
+            'name' => 'Catequista da Matriz',
+            'email' => 'catequista@matriz.com',
+            'password' => bcrypt('12345678')
+        ])->roles()->attach(4);
+        User::create([
+            'community_id' => 2,
+            'name' => 'Catequista do Beato',
+            'email' => 'catequista@beato.com',
+            'password' => bcrypt('12345678')
+        ])->roles()->attach(4);
+        User::create([
+            'community_id' => 3,
+            'name' => 'Catequista da Misericórdia',
+            'email' => 'catequista@misericordia.com',
+            'password' => bcrypt('12345678')
+        ])->roles()->attach(4);
+        User::create([
+            'community_id' => 4,
+            'name' => 'Catequista da Perseverança',
+            'email' => 'catequista@perseveranca.com',
+            'password' => bcrypt('12345678')
+        ])->roles()->attach(4);
 
         User::factory(10)->create([
             'community_id' => rand(1,4)
         ]);
 
-        $users = \App\Models\User::where('id', '>', 9)->get();
+        $users = \App\Models\User::where('id', '>', 13)->get();
         foreach ($users as $user) {
             $user->roles()->attach(4);
         }

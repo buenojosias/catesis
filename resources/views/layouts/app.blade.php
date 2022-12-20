@@ -25,8 +25,8 @@
 
         <div class="h-full w-full relative overflow-y-auto lg:ml-64">
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4">
+                <header class="bg-white shadow px-4">
+                    <div class="max-w-7xl mx-auto py-4">
                         {{ $header }}
                     </div>
                 </header>

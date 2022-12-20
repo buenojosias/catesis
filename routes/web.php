@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/comunidades', function () { return view('communities.index'); })->name('communities.index');
+    Route::middleware('can:community_show')->group(function() {
+        Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
+        Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
+        Route::get('/comunidades/{community}/editar', [CommunityController::class, 'edit'])->name('communities.edit');
+    });
 });
 
 require __DIR__.'/auth.php';

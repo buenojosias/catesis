@@ -12,4 +12,11 @@ class Community extends Model
     public function users() {
         return $this->hasMany(User::class);
     }
+
+    public function coordinators() {
+        return $this->hasMany(User::class)->whereHas('roles', function($q) {
+            $q->where('name', 'coordinator');
+        });
+    }
+
 }
