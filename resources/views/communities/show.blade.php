@@ -3,9 +3,12 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Comunidades / {{ $community->name }}</h2>
     </x-slot>
    
-    Informações da comunidade
-    - Endereço
-    - Catequizandos
-    - Catequistas
-    - Turmas atuais
+    <h4 class="mt-4 font-bold">Informações da comunidade</h4>
+    <ul>
+        <li>- Endereço</li>
+        <li>- Coordenador(es)</li>
+        <li>- Catequizandos</li>
+        <li>- Catequistas</li>
+        <li>- Turmas atuais</li>
+    </ul>
 </x-app-layout>

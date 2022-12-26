@@ -31,7 +31,7 @@
                         data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="user photo">
+                            src="{{ asset('img/user-icon.webp') }}" alt="user photo">
                     </button>
                     <!-- Dropdown menu -->
                     <div x-show="usermenu" @click.outside="usermenu = false"

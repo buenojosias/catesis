@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
         Route::get('/comunidades/{community}/editar', [CommunityController::class, 'edit'])->name('communities.edit');
     });
+
+    Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
+    Route::get('/catequistas/{user}', [CatechistController::class, 'show'])->name('catechists.show');
 });
 
 require __DIR__.'/auth.php';
