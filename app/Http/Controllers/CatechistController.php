@@ -21,4 +21,8 @@ class CatechistController extends Controller
             'profile' => $profile,
         ]);
     }
+
+    public function create() {
+        return view('catechists.create');
+    }
 }

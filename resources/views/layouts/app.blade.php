@@ -37,7 +37,7 @@
             </main>
         </div>
     </div>
-    @livewire('notifications')
+    {{-- @livewire('notifications') --}}
 </body>
 
 </html>

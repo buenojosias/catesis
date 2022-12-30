@@ -32,7 +32,7 @@ class Index extends Component implements Tables\Contracts\HasTable
     protected function getTableFilters(): array
     {
         return [
-            SelectFilter::make('community')->relationship('community', 'name')
+            SelectFilter::make('community')->relationship('community', 'name')->label('Comunidade')
         ];
     }
 

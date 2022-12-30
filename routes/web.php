@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
+    Route::get('/catequistas/cadastrar', [CatechistController::class, 'create'])->name('catechists.create');
     Route::get('/catequistas/{user}', [CatechistController::class, 'show'])->name('catechists.show');
 });
 
