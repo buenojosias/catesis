@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'CateSis') }}</title>
     <link rel="stylesheet" href="{{ asset('icons/all.min.css') }}">
     <style>[x-cloak] { display: none !important; }</style>
+    @wireUiScripts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @livewireScripts
