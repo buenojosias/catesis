@@ -58,8 +58,8 @@ class Create extends Component
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:32',
             'password_confirmation' => 'required|same:password',
-            'community_id' => 'required|integer',
             'role' => 'required|integer',
+            'community_id' => 'nullable|required_unless:role,1|integer',
         ]);
         $validateProfile = $this->validate([
             'birth' => 'required|date|before:now',
