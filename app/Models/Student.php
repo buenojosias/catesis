@@ -9,7 +9,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['grade_id','name','birth','status'];
+    protected $fillable = ['community_id','grade_id','name','birth','status'];
 
     public function community() {
         return $this->belongsTo(Community::class);

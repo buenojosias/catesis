@@ -42,8 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
-    Route::get('/catequizandos/{student}', [StudentController::class, 'show'])->name('students.show');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
+    Route::get('/catequizandos/{student}', [StudentController::class, 'show'])->name('students.show');
     Route::get('/catequizandos/{student}/editar', [StudentController::class, 'edit'])->middleware('can:student_edit')->name('students.edit');
 });
 

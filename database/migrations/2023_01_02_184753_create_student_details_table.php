@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->enum('gender', ['male','female','other']);
             $table->string('naturalness')->nullable();
-            $table->boolean('has_baptism');
+            $table->boolean('has_baptism')->default(0);
             $table->date('baptism_date')->nullable();
             $table->string('baptism_church')->nullable();
-            $table->boolean('married_parents');
+            $table->boolean('married_parents')->default(0);
             $table->string('health_problems')->nullable();
             $table->string('school')->nullable();
             $table->timestamps();

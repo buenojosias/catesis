@@ -9,7 +9,7 @@ class StudentDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['community_id','grade_id','name','birth','status'];
+    protected $fillable = ['gender','naturalness','has_baptism','baptism_date','baptism_church','married_parents','health_problems','school'];
 
     public function student() {
         return $this->belongsTo(Student::class);
