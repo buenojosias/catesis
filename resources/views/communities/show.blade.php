@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Comunidades / {{ $community->name }}</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Comunidades: {{ $community->name }}</h2>
     </x-slot>
    
     <h4 class="mt-4 font-bold">Informações da comunidade</h4>

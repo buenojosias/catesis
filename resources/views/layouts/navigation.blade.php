@@ -17,6 +17,7 @@
                     @can('community_show')
                         <x-nav-link :href="route('communities.index')" :active="request()->routeIs('communities.*')" icon="church">Comunidades</x-nav-link>
                     @endcan
+                    <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')" icon="people-group">Grupos</x-nav-link>
                     <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.*')" icon="list-ol">Etapas</x-nav-link>
                 </div>
             </div>

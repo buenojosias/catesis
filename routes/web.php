@@ -3,6 +3,7 @@
 use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/etapas', [GradeController::class, 'index'])->name('grades.index');
     Route::get('/etapas/{grade}', [GradeController::class, 'show'])->name('grades.show');
+
+    Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
 });
 
 require __DIR__.'/auth.php';
