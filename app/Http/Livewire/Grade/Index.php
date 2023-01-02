@@ -23,6 +23,7 @@ class Index extends Component implements Tables\Contracts\HasTable
     {
         return [
             Tables\Columns\TextColumn::make('title')->label('Título'),
+            Tables\Columns\TextColumn::make('active_students_count')->counts('active_students')->label('Catequizandos'),
         ];
     }
 

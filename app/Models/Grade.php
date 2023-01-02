@@ -19,6 +19,12 @@ class Grade extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function active_students() {
+        return $this->hasMany(Student::class)->where(function($q) {
+            $q->where('status', 'ativo')->get();
+        });
+    }
+
     // public function themes() {
     //     return $this->hasMany(Theme::class);
     // }
