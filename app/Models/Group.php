@@ -9,6 +9,8 @@ class Group extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['grade_id','year','weekday','time','start_date','end_date','finished'];
+
     public function community() {
         return $this->belongsTo(Community::class);
     }

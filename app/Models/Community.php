@@ -9,6 +9,8 @@ class Community extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function users() {
         return $this->hasMany(User::class);
     }
@@ -17,6 +19,10 @@ class Community extends Model
         return $this->hasMany(User::class)->whereHas('roles', function($q) {
             $q->where('name', 'coordinator');
         });
+    }
+
+    public function students() {
+        return $this->hasMany(Student::class);
     }
 
 }
