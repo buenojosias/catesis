@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
-    Route::get('/catequistas/cadastrar', [CatechistController::class, 'create'])->name('catechists.create');
+    Route::get('/catequistas/cadastrar', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
     Route::get('/catequistas/{user}', [CatechistController::class, 'show'])->name('catechists.show');
+
+    Route::get('/etapas', [GradeController::class, 'index'])->name('grades.index');
+    Route::get('/etapas/{grade}', [GradeController::class, 'show'])->name('grades.show');
 });
 
 require __DIR__.'/auth.php';

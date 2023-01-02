@@ -4,8 +4,8 @@ namespace App\Http\Livewire\Catechist;
 
 use App\Models\Community;
 use App\Models\User;
+use Auth;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use WireUi\Traits\Actions;
@@ -14,16 +14,18 @@ class Create extends Component
 {
     use Actions;
 
-    public $name = 'Teste';
-    public $email = 'teste@teste.com';
-    public $password = '123456';
-    public $password_confirmation = '123456';
-    public $birth = '2008-12-05';
-    public $marital_status = 'Casado(a)';
+    public $name;
+    public $email;
+    public $password;
+    public $password_confirmation;
+    public $birth;
+    public $marital_status;
     public $community_id;
     public $role;
     public $communities;
     public $roles;
+
+    public $user;
 
     protected $validationAttributes = [
         'name' => 'Nome completo',
@@ -38,14 +40,15 @@ class Create extends Component
 
     public function mount(): void
     {
-        if(Auth()->user()->hasRole('admin')) {
+        $this->user = Auth::user();
+        if($this->user->hasRole('admin')) {
             $this->communities = Community::all();
         } else {
-            $this->community_id = Auth()->user()->community_id;
+            $this->community_id = $this->user->community_id;
         }
 
         $roles = Role::query();
-        if(!Auth()->user()->hasRole('admin')) {
+        if(!$this->user->hasRole('admin')) {
             $roles->where('name','<>','admin');
         }
         $this->roles = $roles->get();
