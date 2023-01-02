@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProfileSeeder::class,
             GradeSeeder::class,
+            GroupSeeder::class,
         ]);
     }
 }
