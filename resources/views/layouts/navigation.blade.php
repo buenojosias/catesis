@@ -9,6 +9,7 @@
                 <ul class="space-y-2 pb-2">
                     <li>
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="home">Dashboard</x-nav-link>
+                        <x-nav-link :href="route('students.index')" :active="request()->routeIs('students.*')" icon="children">Catequizandos</x-nav-link>
                         <x-nav-link :href="route('catechists.index')" :active="request()->routeIs('catechists.*')" icon="users">Catequistas</x-nav-link>
                     </li>
                 </ul>

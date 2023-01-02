@@ -5,6 +5,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
-    Route::get('/catequistas/cadastrar', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
+    Route::get('/catequistas/cadastro', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
     Route::get('/catequistas/{user}', [CatechistController::class, 'show'])->name('catechists.show');
 
     Route::get('/etapas', [GradeController::class, 'index'])->name('grades.index');
@@ -39,6 +40,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
+
+    Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
+    Route::get('/catequizandos/{student}', [StudentController::class, 'show'])->name('students.show');
+    Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
+    Route::get('/catequizandos/{student}/editar', [StudentController::class, 'edit'])->middleware('can:student_edit')->name('students.edit');
 });
 
 require __DIR__.'/auth.php';
