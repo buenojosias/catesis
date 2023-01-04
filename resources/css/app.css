@@ -14,26 +14,34 @@
     @apply border-t-[1px] py-3 px-4;
 }
 
+.tabs {
+    @apply mb-4 bg-gray-50 rounded-lg shadow;
+}
+.tabs a {
+    @apply block text-gray-900 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 text-base font-medium sm:rounded-md;
+}
+.tabs a.active {
+    @apply bg-sky-700 text-gray-100;
+}
+.tabs button {
+    @apply inline-flex items-center justify-center rounded-md p-2 text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
+}
+
 .form-card {
     @apply md:grid md:grid-cols-4 lg:grid-cols-3 bg-white rounded-lg shadow;
 }
-
 .form-card .heading {
     @apply md:col-span-1 p-4 shadow-sm md:shadow-none;
 }
-
 .form-card .heading h3 {
     @apply text-lg font-medium leading-6 text-gray-900;
 }
-
 .form-card .heading p {
     @apply mt-1 text-sm text-gray-600;
 }
-
 .form-card .body {
     @apply p-4 md:col-span-3 lg:col-span-2 md:mt-0;
 }
-
 .form-card .footer {
     @apply col-span-full bg-gray-50 px-4 py-3 text-right rounded-b-lg;
 }
@@ -41,7 +49,6 @@
 .btn {
     @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150;
 }
-
 .btn-primary {
     @apply bg-sky-800 hover:bg-sky-700 focus:bg-sky-700 focus:ring-sky-700 active:bg-sky-900;
 }

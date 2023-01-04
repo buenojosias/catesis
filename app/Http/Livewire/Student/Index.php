@@ -69,17 +69,16 @@ class Index extends Component implements Tables\Contracts\HasTable
         return fn (Student $student): string => route('students.show', ['student' => $student]);
     }
 
-    // protected function getTableActions(): array
-    // {
-    //     return [
-    //         Action::make('edit')
-    //             ->label(false)
-    //             ->url(fn (Community $record): string => route('communities.edit', $record))
-    //             ->icon('heroicon-s-pencil')
-    //             //->visible(auth()->user()->can(fn (Community $record): bool => 'community_edit' or (auth()->user()->can('community_edit_self') && auth()->user()->community_id === $record['id'])))
-    //             ->visible(fn (Community $record): bool => auth()->user()->can('community_edit', $record) or (auth()->user()->community_id === $record['id'] && auth()->user()->can('community_edit_self', $record)))
-    //     ];
-    // }
+    protected function getTableActions(): array
+    {
+        return [
+            Action::make('edit')
+                ->label(false)
+                ->url(fn (Student $record): string => route('students.edit', $record))
+                ->icon('heroicon-s-pencil')
+                ->visible(fn (Student $record): bool => auth()->user()->can('student_edit', $record))
+        ];
+    }
 
     public function render()
     {

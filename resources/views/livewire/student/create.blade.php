@@ -28,7 +28,7 @@
                         <x-input label="Naturalidade" placeholder="Cidade de nascimento" wire:model.defer="naturalness" />
                     </div>
                     <div class="sm:col-span-2">
-                        <x-toggle lg label="É batizado(a)?" wire:model="has_baptism" />
+                        <x-toggle md left-label="É batizado(a)" wire:model="has_baptism" />
                     </div>
                     @if ($has_baptism)
                         <div class="sm:col-span-2">
@@ -41,7 +41,7 @@
                         </div>
                     @endif
                     <div class="sm:col-span-2">
-                        <x-toggle lg label="Os pais são casados?" wire:model="married_parents" />
+                        <x-toggle md left-label="Os pais são casados na igreja" wire:model="married_parents" />
                     </div>
                     <div class="sm:col-span-4">
                         <x-input label="Onde estuda?" placeholder="Nome da escola/colégio" cornerHint="Opcional" wire:model.defer="school" />

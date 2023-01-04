@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -23,6 +25,7 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
+        abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
         return view('students.edit', [
             'student' => $student
         ]);
