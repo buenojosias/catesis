@@ -38,7 +38,6 @@
             </main>
         </div>
     </div>
-    {{-- @livewire('notifications') --}}
 </body>
 
 </html>

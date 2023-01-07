@@ -5,26 +5,42 @@
 @tailwind utilities;
 
 .card {
-    @apply bg-white rounded shadow;
+    @apply bg-white rounded-lg shadow;
 }
-.card .card-body {
+.card .heading {
+    @apply border-b-[1px] px-4 py-3;
+}
+.card .body {
     @apply p-4;
 }
-.card .card-footer {
-    @apply border-t-[1px] py-3 px-4;
+.card .footer {
+    @apply flex bg-gray-50 px-4 py-3 rounded-b-lg;
+}
+
+.card .heading h3, .form-card .heading h3 {
+    @apply text-lg font-medium leading-6 text-gray-900;
+}
+.card .heading p, .form-card .heading p {
+    @apply mt-1 text-sm text-gray-600;
+}
+.card .body.display h4 {
+    @apply text-sm font-medium text-gray-600;
+}
+.card .body.display p {
+    @apply font-medium text-gray-900;
 }
 
 .tabs {
-    @apply mb-4 bg-gray-50 rounded-lg shadow;
+    @apply mt-3 pb-1 md:pb-0 -mb-4 md:border-t-[1px];
 }
 .tabs a {
-    @apply block text-gray-900 hover:bg-gray-200 hover:text-gray-900 px-3 py-2 text-base font-medium sm:rounded-md;
+    @apply block my-2 md:my-0 px-2 py-0.5 md:py-2 border-l-[3px] md:border-b-[3px] md:border-l-0 border-transparent text-slate-700 hover:border-sky-700 hover:text-sky-800 text-base font-medium transition duration-75;
 }
 .tabs a.active {
-    @apply bg-sky-700 text-gray-100;
+    @apply border-sky-700 text-sky-800;
 }
 .tabs button {
-    @apply inline-flex items-center justify-center rounded-md p-2 text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
+    @apply inline-flex items-center justify-center p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800;
 }
 
 .form-card {
@@ -32,12 +48,6 @@
 }
 .form-card .heading {
     @apply md:col-span-1 p-4 shadow-sm md:shadow-none;
-}
-.form-card .heading h3 {
-    @apply text-lg font-medium leading-6 text-gray-900;
-}
-.form-card .heading p {
-    @apply mt-1 text-sm text-gray-600;
 }
 .form-card .body {
     @apply p-4 md:col-span-3 lg:col-span-2 md:mt-0;

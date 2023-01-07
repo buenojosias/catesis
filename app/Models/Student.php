@@ -11,6 +11,8 @@ class Student extends Model
 
     protected $fillable = ['community_id','grade_id','name','birth','status'];
 
+    protected $dates = ['birth'];
+
     public function community() {
         return $this->belongsTo(Community::class);
     }
