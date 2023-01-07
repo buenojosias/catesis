@@ -33,9 +33,9 @@ class Student extends Model
     //     return $this->morphOne(Contact::class, 'contactable');
     // }
 
-    // public function kinships() {
-    //     return $this->hasMany(Kinship::class);
-    // }
+    public function kinships() {
+        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together']);
+    }
 
     public function grade() {
         return $this->belongsTo(Grade::class);

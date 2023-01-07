@@ -10,6 +10,7 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = ['birth','marital_status'];
+    protected $dates = ['birth'];
 
     public function user() {
         return $this->belongsTo(User::class);
