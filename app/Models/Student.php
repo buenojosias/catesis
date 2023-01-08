@@ -17,8 +17,8 @@ class Student extends Model
         return $this->belongsTo(Community::class);
     }
 
-    public function detail() {
-        return $this->hasOne(StudentDetail::class);
+    public function profile() {
+        return $this->hasOne(StudentProfile::class);
     }
 
     public function address() {
@@ -34,7 +34,7 @@ class Student extends Model
     // }
 
     public function kinships() {
-        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together']);
+        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','kinship_title_id']);
     }
 
     public function grade() {

@@ -19,11 +19,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             UserSeeder::class,
-            ProfileSeeder::class,
+            UserProfileSeeder::class,
             GradeSeeder::class,
             GroupSeeder::class,
             StudentSeeder::class,
             KinshipTitleSeeder::class,
+            KinshipSeeder::class,
         ]);
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('community_id')->constrained();
             $table->foreignId('grade_id')->constrained();
             $table->year('year');
-            $table->$table->tinyInteger('weekday', 1);
+            $table->tinyInteger('weekday');
             $table->time('time', $precision = 0);
             $table->date('start_date');
             $table->date('end_date')->nullable();

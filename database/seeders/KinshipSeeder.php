@@ -22,6 +22,8 @@ class KinshipSeeder extends Seeder
                 'kinship_title_id' => rand(1,5),
                 'is_enroller' => rand(0,1),
                 'live_together' => rand(0,1),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

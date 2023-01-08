@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StudentDetailSeeder extends Seeder
+class UserProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +16,9 @@ class StudentDetailSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $users = User::all();
+        foreach ($users as $user) {
+            UserProfile::factory(1)->create(['user_id' => $user->id]);
+        }
     }
 }
