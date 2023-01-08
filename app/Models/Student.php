@@ -41,9 +41,9 @@ class Student extends Model
         return $this->belongsTo(Grade::class);
     }
 
-    // public function groups() {
-    //     return $this->belongsToMany(Group::class);
-    // }
+    public function groups() {
+        return $this->belongsToMany(Group::class)->withPivot(['matriculation_id','approved']);
+    }
 
     // public function comments() {
     //     return $this->hasMany(Comment::class);

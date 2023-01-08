@@ -27,7 +27,7 @@ class Index extends Component implements Tables\Contracts\HasTable
             Tables\Columns\TextColumn::make('grade.title')->label('Etapa')->sortable(),
             Tables\Columns\TextColumn::make('community.name')->label('Comunidade')
                 ->visible(auth()->user()->hasRole('admin')),
-            //Tables\Columns\TextColumn::make('students_count')->counts('students')->label('Catequizandos'),
+            Tables\Columns\TextColumn::make('students_count')->counts('students')->label('Catequizandos'),
             Tables\Columns\TextColumn::make('users.name')->label('Catequista(s)')
                 ->visible(auth()->user()->hasAnyRole(['coordinator','secretary']))
         ];

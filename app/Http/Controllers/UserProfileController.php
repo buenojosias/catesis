@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class ProfileController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display the user's profile form.

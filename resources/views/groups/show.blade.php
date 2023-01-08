@@ -3,6 +3,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Grupos: {{$group->grade->title}}</h2>
     </x-slot>
 
+    {{$group}}
+
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Etapa</li>

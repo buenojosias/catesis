@@ -23,9 +23,9 @@ class Group extends Model
         return $this->belongsToMany(User::class);
     }
 
-    // public function students() {
-    //     return $this->belongsToMany(Student::class);
-    // }
+    public function students() {
+        return $this->belongsToMany(Student::class)->withPivot(['matriculation_id','approved']);
+    }
 
     // public function encounters() {
     //     return $this->hasMany(Encounter::class);

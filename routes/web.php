@@ -4,7 +4,7 @@ use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () { return view('dashboard'); })->name('dashboard');
-    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/perfil', [UserProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/perfil', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/perfil', [UserProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('can:community_show')->group(function() {
         Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
