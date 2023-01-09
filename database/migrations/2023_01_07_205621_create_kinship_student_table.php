@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('kinship_student', function (Blueprint $table) {
             $table->foreignId('kinship_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->foreignId('kinship_title_id')->constrained('kinship_titles');
+            $table->string('title');
             $table->boolean('is_enroller')->default(false);
             $table->boolean('live_together')->default(false);
             $table->timestamps();

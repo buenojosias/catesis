@@ -34,7 +34,7 @@ class Student extends Model
     // }
 
     public function kinships() {
-        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','kinship_title_id']);
+        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','title']);
     }
 
     public function grade() {

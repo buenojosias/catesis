@@ -35,6 +35,8 @@ class MatriculationSeeder extends Seeder
                 ]);
                 $student->groups()->attach($group->id, [
                     'matriculation_id' => $matriculation->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         }
