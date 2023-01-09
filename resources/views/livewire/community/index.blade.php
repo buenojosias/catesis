@@ -1,3 +1,3 @@
 <div>
-    {{ $this->table }}
+    Recriar
 </div>

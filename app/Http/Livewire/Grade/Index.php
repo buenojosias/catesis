@@ -3,15 +3,23 @@
 namespace App\Http\Livewire\Grade;
 
 use App\Models\Grade;
-use Filament\Tables;
-use Filament\Tables\Actions\Action;
+// use Filament\Tables;
+// use Filament\Tables\Actions\Action;
 // use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 // use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
-class Index extends Component implements Tables\Contracts\HasTable
+class Index extends Component
 {
+    public function render()
+    {
+        return view('livewire.grade.index');
+    }
+}
+
+
+/*
     use Tables\Concerns\InteractsWithTable;
 
     protected function getTableQuery(): Builder 
@@ -36,9 +44,4 @@ class Index extends Component implements Tables\Contracts\HasTable
     {
         return false;
     }
-
-    public function render()
-    {
-        return view('livewire.grade.index');
-    }
-}
+*/

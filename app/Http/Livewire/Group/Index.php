@@ -3,14 +3,22 @@
 namespace App\Http\Livewire\Group;
 
 use App\Models\Group;
-use Filament\Tables;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Filters\SelectFilter;
+// use Filament\Tables;
+// use Filament\Tables\Actions\Action;
+// use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class Index extends Component implements Tables\Contracts\HasTable
+class Index extends Component
 {
+    public function render()
+    {
+        return view('livewire.group.index');
+    }
+}
+
+
+/*
     use Tables\Concerns\InteractsWithTable;
 
     protected function getTableQuery(): Builder
@@ -52,9 +60,4 @@ class Index extends Component implements Tables\Contracts\HasTable
     {
         return auth()->user()->hasRole('admin');
     }
-    
-    public function render()
-    {
-        return view('livewire.group.index');
-    }
-}
+*/

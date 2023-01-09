@@ -3,16 +3,24 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Student;
-use Filament\Tables;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Filters\SelectFilter;
+// use Filament\Tables;
+// use Filament\Tables\Actions\Action;
+// use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
-class Index extends Component implements Tables\Contracts\HasTable
+class Index extends Component
 {
+    public function render()
+    {
+        return view('livewire.student.index');
+    }
+}
+
+
+/*
     use Tables\Concerns\InteractsWithTable;
 
     protected function getTableQuery(): Builder 
@@ -79,9 +87,4 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->visible(fn (Student $record): bool => auth()->user()->can('student_edit', $record))
         ];
     }
-
-    public function render()
-    {
-        return view('livewire.student.index');
-    }
-}
+*/
