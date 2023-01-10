@@ -22,6 +22,7 @@ class StudentController extends Controller
         abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
         $student->age = Carbon::parse($student->birth)->age;
         $student->load('grade');
+        $student->load('groups')->with('user');
         return view('students.show', [
             'student' => $student
         ]);

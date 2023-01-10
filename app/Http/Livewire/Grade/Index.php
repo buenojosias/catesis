@@ -3,18 +3,20 @@
 namespace App\Http\Livewire\Grade;
 
 use App\Models\Grade;
-// use Filament\Tables;
-// use Filament\Tables\Actions\Action;
-// use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-// use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
 class Index extends Component
 {
     public function render()
     {
-        return view('livewire.grade.index');
+        $grades = Grade::query()
+            ->withCount('active_students')
+            ->get();
+            # FILTRAR POR COMUNIDADE
+
+        return view('livewire.grade.index', [
+            'grades' => $grades
+        ]);
     }
 }
 
@@ -22,7 +24,7 @@ class Index extends Component
 /*
     use Tables\Concerns\InteractsWithTable;
 
-    protected function getTableQuery(): Builder 
+    protected function getTableQuery(): Builder
     {
         return Grade::query();
     }

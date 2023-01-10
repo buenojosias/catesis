@@ -4,7 +4,8 @@
     </x-slot>
 
     @can('user_create')
-        <a href="{{ route('catechists.create') }}" class="btn btn-primary mb-4">Cadastrar novo</a>
+        <x-button blue label="Cadastrar novo" class="mb-4" href="{{ route('catechists.create') }}" />
+        {{-- <a href="{{ route('catechists.create') }}" class="btn btn-primary mb-4">Cadastrar novo</a> --}}
     @endcan
    
     @livewire('catechist.index')

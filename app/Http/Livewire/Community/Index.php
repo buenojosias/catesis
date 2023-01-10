@@ -3,18 +3,21 @@
 namespace App\Http\Livewire\Community;
 
 use App\Models\Community;
-// use Filament\Tables;
-// use Filament\Tables\Actions\Action;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
 class Index extends Component
 {
     public function render()
     {
-        return view('livewire.community.index');
+        $communities = Community::query()
+            ->withCount('active_students')
+            ->withCount('users')
+            ->with('coordinators')
+            ->get();
+
+        return view('livewire.community.index', [
+            'communities' => $communities
+        ]);
     }
 }
 
@@ -22,7 +25,7 @@ class Index extends Component
 /*
     use Tables\Concerns\InteractsWithTable;
 
-    protected function getTableQuery(): Builder 
+    protected function getTableQuery(): Builder
     {
         return Community::query();
     }
@@ -53,7 +56,7 @@ class Index extends Component
                 ->visible(fn (Community $record): bool => auth()->user()->can('community_edit', $record) or (auth()->user()->community_id === $record['id'] && auth()->user()->can('community_edit_self', $record)))
         ];
     }
-    
+
     protected function isTablePaginationEnabled(): bool
     {
         return false;

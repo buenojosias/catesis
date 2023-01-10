@@ -2,20 +2,62 @@
 
 namespace App\Http\Livewire\Student;
 
+use App\Models\Community;
+use App\Models\Grade;
 use App\Models\Student;
-// use Filament\Tables;
-// use Filament\Tables\Actions\Action;
-// use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
+    public $search = null;
+    public $community = null;
+    public $grade = null;
+    public $status = 'ativo';
+
     public function render()
     {
-        return view('livewire.student.index');
+        $grades = Grade::all();
+        if(auth()->user()->hasRole('admin')) {
+            $communities = Community::all();
+        }
+
+        $students = Student::query()
+            ->when(auth()->user()->hasRole('admin'), function($query) {
+                return $query->with('community');
+            })
+            ->when(auth()->user()->community_id, function($query) {
+                return $query->where('community_id', auth()->user()->community_id);
+            })
+            ->when(auth()->user()->hasRole('catechist'), function($query) {
+                $group = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->first();
+                return $group->students();
+                // DEPOIS VERIFICAR SE ESTÁ SEMPRE BUSCANDO A TURMA ATUAL
+            })
+            ->when($this->community, function($query) {
+                return $query->where('community_id', $this->community);
+            })
+            ->when($this->grade, function($query) {
+                return $query->where('grade_id', $this->grade);
+            })
+            ->when($this->status, function($query) {
+                return $query->where('status', $this->status);
+            })
+            ->when($this->search, function($query) {
+                return $query->where('name', 'LIKE', "%$this->search%");
+            })
+            ->with('grade')
+
+            ->orderBy('name', 'asc')
+            ->paginate();
+
+        return view('livewire.student.index', [
+            'students' => $students,
+            'grades' => $grades,
+            'communities' => $communities ?? null,
+        ]);
     }
 }
 
@@ -23,11 +65,11 @@ class Index extends Component
 /*
     use Tables\Concerns\InteractsWithTable;
 
-    protected function getTableQuery(): Builder 
+    protected function getTableQuery(): Builder
     {
         if(auth()->user()->hasRole('admin'))
             return Student::query();
-        
+
         if(auth()->user()->hasRole('catechist'))
             return Student::query()
                 ->where('community_id', auth()->user()->community_id);
@@ -66,7 +108,7 @@ class Index extends Component
     {
         return 'name';
     }
-    
+
     protected function getDefaultTableSortDirection(): ?string
     {
         return 'asc';
