@@ -14,11 +14,12 @@ class CatechistController extends Controller
 
     public function show(User $user)
     {
-        $profile = $user->load('profile');
-        $community = $user->load('community');
+        $user->load('profile');
+        $user->load('community');
+        $groups = $user->groups()->with('grade')->withCount('students')->orderBy('year', 'desc')->get();
         return view('catechists.show', [
-            'user' => $user,
-            'profile' => $profile,
+            'catechist' => $user,
+            'groups' => $groups,
         ]);
     }
 

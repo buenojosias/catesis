@@ -11,10 +11,12 @@ class Group extends Model
 
     protected $fillable = ['grade_id','year','weekday','time','start_date','end_date','finished'];
 
+    protected $dates = ['start_date','end_date','time'];
+
     public function community() {
         return $this->belongsTo(Community::class);
     }
-    
+
     public function grade() {
         return $this->belongsTo(Grade::class);
     }

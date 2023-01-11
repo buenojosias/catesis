@@ -14,9 +14,17 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $students = $group->students;
+        abort_unless(auth()->user()->hasRole('admin') or $group->community_id === auth()->user()->community_id, 403);
+        if(auth()->user()->hasRole('admin')) {
+            $group->load('community');
+        }
+        $group->load('grade');
+        $catechists = $group->users;
+        $students = $group->students()->orderBy('name', 'asc')->get();
         return view('groups.show', [
             'group' => $group,
+            'catechists' => $catechists,
+            'students' => $students,
         ]);
     }
 }

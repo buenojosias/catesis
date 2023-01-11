@@ -24,7 +24,7 @@
     @apply py-3 mx-3 border-b last:border-none;
 }
 
-.card .footer {
+.card .card-footer {
     @apply flex bg-gray-50 px-4 py-3 rounded-b-lg;
 }
 
@@ -33,6 +33,9 @@
 }
 .card .card-header p, .form-card .card-header p {
     @apply mt-1 text-sm text-gray-600;
+}
+.card .card-body.display {
+    @apply p-4;
 }
 .card .card-body.display h4 {
     @apply text-sm font-medium text-gray-600;

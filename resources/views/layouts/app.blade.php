@@ -17,7 +17,7 @@
     @stack('scripts')
 </head>
 
-<body x-data="{ showsidebar: false, usermenu: false }" class="bg-gray-100 antialiased">
+<body x-data="{ showsidebar: false, usermenu: false }" class="bg-gray-200 antialiased">
     @include('layouts.navstack')
 
     <div class="flex overflow-hidden pt-14">

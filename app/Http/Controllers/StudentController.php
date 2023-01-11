@@ -16,15 +16,17 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $kinships = $student->kinships;
-        //return $student;
-        
         abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
         $student->age = Carbon::parse($student->birth)->age;
         $student->load('grade');
-        $student->load('groups')->with('user');
+        $groups = $student->groups()->with('grade')->get();
+        $catechists = $groups->where('year', 2023)->where('finished', false)->first()->users;
+        $kinships = $student->kinships;
         return view('students.show', [
-            'student' => $student
+            'student' => $student,
+            'groups' => $groups,
+            'kinships' => $kinships,
+            'catechists' => $catechists,
         ]);
     }
 

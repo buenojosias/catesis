@@ -32,9 +32,11 @@ class Index extends Component
                 return $query->where('community_id', auth()->user()->community_id);
             })
             ->when(auth()->user()->hasRole('catechist'), function($query) {
-                $group = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->first();
-                return $group->students();
-                // DEPOIS VERIFICAR SE ESTÁ SEMPRE BUSCANDO A TURMA ATUAL
+                $students = $query->whereHas('groups', function($query) {
+                    $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
+                    return $query->whereIn('group_id', $groups);
+                });
+                # DEPOIS VERIFICAR SE ESTÁ SEMPRE BUSCANDO OS CATEQUIZANDOS O CATEQUISTA LOGADO
             })
             ->when($this->community, function($query) {
                 return $query->where('community_id', $this->community);
@@ -49,7 +51,6 @@ class Index extends Component
                 return $query->where('name', 'LIKE', "%$this->search%");
             })
             ->with('grade')
-
             ->orderBy('name', 'asc')
             ->paginate();
 
