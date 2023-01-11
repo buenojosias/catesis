@@ -29,7 +29,7 @@ class Grade extends Model
         });
     }
 
-    // public function themes() {
-    //     return $this->hasMany(Theme::class);
-    // }
+    public function themes() {
+        return $this->hasMany(Theme::class);
+    }
 }
