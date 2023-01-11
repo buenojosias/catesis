@@ -49,8 +49,8 @@
         </div>
     </div>
 
-    <div class="mt-4 grid grid-cols-2 gap-4">
-        <div class="card">
+    <div class="mt-4 md:grid md:grid-cols-2 gap-4">
+        <div class="card mb-4">
             <div class="card-header">
                 <h3 class="card-title">Histórico de etapas</h3>
             </div>
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header">
                 <h3 class="card-title">Familiares</h3>
             </div>

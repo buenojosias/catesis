@@ -11,7 +11,7 @@
             <p>{{ $grade->description ?? 'Nenhuma descrição disponível.' }}</p>
         </div>
     </div>
-    <div class="mt-4 grid grid-cols-2 gap-4">
+    <div class="mt-4 sm:grid sm:grid-cols-2 gap-4">
         @hasrole('admin')
             <div class="card mb-4">
                 <div class="card-header">
@@ -40,7 +40,7 @@
                     <tbody>
                         @foreach ($themes as $theme)
                             <tr>
-                                <td>{{ $theme->sequence }}. {{ $theme->title }}</td>
+                                <td><span class="font-medium">{{ $theme->sequence }}.</span> {{ $theme->title }}</td>
                             </tr>
                         @endforeach
                     </tbody>
