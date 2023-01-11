@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             KinshipTitleSeeder::class,
             KinshipSeeder::class,
             MatriculationSeeder::class,
+            ThemeSeeder::class,
+            EncounterSeeder::class,
         ]);
     }
 }

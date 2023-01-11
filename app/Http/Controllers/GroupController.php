@@ -18,12 +18,15 @@ class GroupController extends Controller
         if(auth()->user()->hasRole('admin')) {
             $group->load('community');
         }
+
         $group->load('grade');
         $catechists = $group->users;
+        $encounters = $group->encounters()->orderBy('date', 'asc')->with('theme')->get();
         $students = $group->students()->orderBy('name', 'asc')->get();
         return view('groups.show', [
             'group' => $group,
             'catechists' => $catechists,
+            'encounters' => $encounters,
             'students' => $students,
         ]);
     }

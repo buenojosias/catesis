@@ -29,7 +29,7 @@ class Group extends Model
         return $this->belongsToMany(Student::class)->withPivot(['matriculation_id','approved']);
     }
 
-    // public function encounters() {
-    //     return $this->hasMany(Encounter::class);
-    // }
+    public function encounters() {
+        return $this->hasMany(Encounter::class);
+    }
 }

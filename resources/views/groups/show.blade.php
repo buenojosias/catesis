@@ -94,6 +94,35 @@
         <div class="card-header">
             <h3 class="card-title">Encontros</h3>
         </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover whitespace-nowrap">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Método</th>
+                        <th>Tema</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($encounters as $encounter)
+                        <tr>
+                            <td><a href="#">{{ $encounter->date->format('d/m/Y') }}</a></td>
+                            <td>{{ $encounter->method }}</td>
+                            <td>{{ $encounter->theme->title }}</td>
+                            <td class="text-right">
+                                <x-button href="#" flat primary sm icon="eye" />
+                                <x-button href="#" flat sm icon="table" />
+                                @can('encounter_edit')
+                                    <x-button href="#" flat primary sm
+                                        icon="pencil" />
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <h4 class="mt-4 font-bold">Recursos</h4>
