@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserProfileController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/', DashboardController::class)->name('dashboard');
     Route::get('/perfil', [UserProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/perfil', [UserProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [UserProfileController::class, 'destroy'])->name('profile.destroy');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -23,6 +24,9 @@ class GroupController extends Controller
         $catechists = $group->users;
         $encounters = $group->encounters()->orderBy('date', 'asc')->with('theme')->get();
         $students = $group->students()->orderBy('name', 'asc')->get();
+        foreach($students as $student) {
+            $student->age = Carbon::parse($student->birth)->age;
+        }
         return view('groups.show', [
             'group' => $group,
             'catechists' => $catechists,

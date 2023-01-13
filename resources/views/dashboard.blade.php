@@ -1,15 +1,55 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-    </x-slot>
 
     <div class="infobox-wrapper">
-        <x-infobox value="100" label="Catequizandos ativos" href="#" icon="users" background="slate" />
-        <x-infobox value="150" label="Grupos ativos" href="#" icon="church" />
-        <x-infobox value="200" label="Catequistas" />
+        <x-infobox value="{{$students_count}}" label="Catequizandos ativos" href="#" icon="children" />
+        <x-infobox value="{{$groups_count}}" label="Grupos ativos" href="#" icon="people-group" />
+        <x-infobox value="{{$catechists_count}}" label="Catequistas" href="#" icon="users" />
     </div>
 
-    <div class="bg-white overflow-hidden shadow sm:rounded-lg">
-        <div class="p-2 text-gray-900">Você está logado.</div>
+    <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-2">
+            <div class="mb-4 bg-white shadow rounded">
+                <div class="flex flex-col md:flex-row">
+                    <div class="p-4 flex-1">
+                        <p class="font-semibold text-gray-700">Bem vindo(a),</p>
+                        <h2 class="text-3xl font-bold">{{$name}}</h2>
+                        <p class="font-semibold text-gray-700">
+                            @hasrole('admin')
+                                Coordenador Paroquial
+                            @else
+                                {{$community->name}}
+                            @endhasrole
+                        </p>
+                    </div>
+                    <div class="px-4 pb-4 md:pb-0 flex items-center">
+                        <x-button label="Ação" class="w-full" />
+                    </div>
+                </div>
+                <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
+                    <div class="text-center font-semibold">
+                        <a href="#" class="block p-2 border-t">Item 1</a>
+                    </div>
+                    <div class="text-center font-semibold">
+                        <a href="#" class="block p-2 border-t">Item 2</a>
+                    </div>
+                    <div class="text-center font-semibold">
+                        <a href="#" class="block p-2 border-t">Item 3</a>
+                    </div>
+                </div>
+            </div>
+            {{-- mais cards... --}}
+        </div>
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    Próximos eventos
+                </div>
+            </div>
+            {{-- mais cards... --}}
+        </div>
+
     </div>
+
+
+
 </x-app-layout>

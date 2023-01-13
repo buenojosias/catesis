@@ -62,7 +62,9 @@
                         <tbody>
                             @foreach ($catechists as $catechist)
                                 <tr>
-                                    <td>{{ $catechist->name }}</td>
+                                    <td>
+                                        <a href="{{ route('catechists.show', $catechist) }}">{{ $catechist->name }}</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -84,7 +86,9 @@
                     <tbody>
                         @foreach ($groups as $group)
                             <tr>
-                                <td>{{ $group->grade->title }}</td>
+                                <td>
+                                    <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
+                                </td>
                                 <td>{{ $group->students_count }}</td>
                             </tr>
                         @endforeach
