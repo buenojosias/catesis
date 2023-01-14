@@ -16,6 +16,8 @@ class Index extends Component
     public $community = null;
     public $grade = null;
     public $status = 'ativo';
+    public $simpleModal;
+    public $student;
 
     public function render()
     {
@@ -60,74 +62,10 @@ class Index extends Component
             'communities' => $communities ?? null,
         ]);
     }
+
+    public function openStudentModal($studentId) {
+        $this->selectedStudent = Student::find($studentId);
+        //dd($this->selectedStudent);
+        $this->simpleModal = true;
+    }
 }
-
-
-/*
-    use Tables\Concerns\InteractsWithTable;
-
-    protected function getTableQuery(): Builder
-    {
-        if(auth()->user()->hasRole('admin'))
-            return Student::query();
-
-        if(auth()->user()->hasRole('catechist'))
-            return Student::query()
-                ->where('community_id', auth()->user()->community_id);
-                //->where('group_id', auth()->user()->community_id);
-
-        return Student::query()->where('community_id', auth()->user()->community_id);
-    }
-
-    protected function getTableColumns(): array
-    {
-        return [
-            Tables\Columns\TextColumn::make('name')->label('Nome')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('community.name')->label('Comunidade')->sortable()
-                ->visible(auth()->user()->hasRole('admin')),
-            Tables\Columns\TextColumn::make('grade.title')->label('Etapa atual')->sortable(),
-            Tables\Columns\TextColumn::make('status')->label('Status'),
-        ];
-    }
-
-    protected function getTableFilters(): array
-    {
-        return [
-            SelectFilter::make('community')->relationship('community', 'name')->label('Comunidade')
-                ->visible(auth()->user()->hasRole('admin')),
-            SelectFilter::make('grade')->relationship('grade', 'title')->label('Etapa')
-                ->visible(auth()->user()->hasAnyRole(['admin','coordinator','secretary'])),
-            SelectFilter::make('status')->label('Status')
-                ->options([
-                    'ativo' => 'Ativos',
-                    'desistente' => 'Desistentes',
-                ]),
-        ];
-    }
-
-    protected function getDefaultTableSortColumn(): ?string
-    {
-        return 'name';
-    }
-
-    protected function getDefaultTableSortDirection(): ?string
-    {
-        return 'asc';
-    }
-
-    protected function getTableRecordUrlUsing()
-    {
-        return fn (Student $student): string => route('students.show', ['student' => $student]);
-    }
-
-    protected function getTableActions(): array
-    {
-        return [
-            Action::make('edit')
-                ->label(false)
-                ->url(fn (Student $record): string => route('students.edit', $record))
-                ->icon('heroicon-s-pencil')
-                ->visible(fn (Student $record): bool => auth()->user()->can('student_edit', $record))
-        ];
-    }
-*/

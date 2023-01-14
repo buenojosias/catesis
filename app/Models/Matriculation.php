@@ -9,10 +9,12 @@ class Matriculation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id','community_id','student_id','kinship_id','year'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
-    
+
     public function community() {
         return $this->belongsTo(Community::class);
     }

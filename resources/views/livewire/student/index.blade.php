@@ -2,7 +2,8 @@
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
             <div class="card-search">
-                <x-input type="text" right-icon="search" wire:model.debounce.500ms="search" placeholder="Buscar catequizando(a)" />
+                <x-input type="text" right-icon="search" wire:model.debounce.500ms="search"
+                    placeholder="Buscar catequizando(a)" />
             </div>
             <div class="card-tools">
                 <x-button flat icon="filter" @click="filters = !filters" />
@@ -60,13 +61,18 @@
                             @endrole
                             <td>{{ $student->grade->title }}</td>
                             <td>
-                                <span class="px-2 pt-0.5 py-1 rounded text-xs font-semibold text-white bg-green-700">{{ $student->status }}</span>
+                                <span
+                                    class="px-2 pt-0.5 py-1 rounded text-xs font-semibold text-white bg-green-700">{{ $student->status }}</span>
                             </td>
                             <td class="text-right">
                                 <x-button href="{{ route('students.show', $student) }}" flat primary sm
                                     icon="eye" />
+                                <x-icon name="eye" class="w-4 md:w-6 stroke-red-400 hover:stroke-red-500"
+                                    wire:click="openStudentModal({{ $student->id }})" />
+
                                 @can('student_edit')
-                                    <x-button href="{{ route('students.edit', $student) }}" flat primary sm icon="pencil" />
+                                    <x-button href="{{ route('students.edit', $student) }}" flat primary sm
+                                        icon="pencil" />
                                 @endcan
                             </td>
                         </tr>
@@ -78,4 +84,21 @@
             {{ $students->links() }}
         </div>
     </div>
+
+    @if ($simpleModal)
+        <x-modal wire:model.defer="simpleModal">
+            <x-card title="Consent Terms">
+                <p class="text-gray-600">
+                    {{ $selectedStudent ?? null }}
+                </p>
+
+                <x-slot name="footer">
+                    <div class="flex justify-end gap-x-4">
+                        <x-button flat label="Cancel" x-on:click="close" />
+                        <x-button primary label="I Agree" />
+                    </div>
+                </x-slot>
+            </x-card>
+        </x-modal>
+    @endif
 </div>

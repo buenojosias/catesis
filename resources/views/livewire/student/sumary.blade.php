@@ -43,7 +43,18 @@
             </div>
         </div>
         <div class="card-footer">
-            footer
+            @can('student_edit')
+                <x-button label="Rematrícula" outline blue wire:click="openRematriculationModal()" />
+            @endcan
         </div>
     </div>
+
+    @if ($rematriculationModal)
+        @can('student_edit')
+            <x-modal wire:model.defer="rematriculationModal">
+                @livewire('student.rematriculation', ['student' => $student])
+            </x-modal>
+        @endcan
+    @endif
+
 </div>

@@ -45,6 +45,10 @@ class Student extends Model
         return $this->belongsToMany(Group::class)->withPivot(['matriculation_id','approved']);
     }
 
+    public function matriculations() {
+        return $this->hasMany(Matriculation::class);
+    }
+
     // public function comments() {
     //     return $this->hasMany(Comment::class);
     // }
