@@ -109,16 +109,22 @@
 }
 
 .form-card {
-    @apply md:grid md:grid-cols-4 lg:grid-cols-3 bg-white rounded-lg shadow;
+    @apply md:grid md:grid-cols-4 lg:grid-cols-3 bg-white rounded shadow;
 }
 .form-card .heading {
     @apply md:col-span-1 p-4 shadow-sm md:shadow-none;
+}
+.form-card .heading > h3 {
+    @apply font-medium;
+}
+.form-card .heading > p {
+    @apply text-sm;
 }
 .form-card .body {
     @apply p-4 md:col-span-3 lg:col-span-2 md:mt-0;
 }
 .form-card .footer {
-    @apply col-span-full bg-gray-50 px-4 py-3 text-right rounded-b-lg;
+    @apply col-span-full bg-gray-50 px-4 py-3 text-right rounded-b;
 }
 
 .btn {

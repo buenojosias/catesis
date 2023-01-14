@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,19 +13,14 @@ class StudentController extends Controller
         return view('students.index');
     }
 
-    public function show(Student $student)
+    public function show(Student $student, $section = null)
     {
         abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
-        $student->age = Carbon::parse($student->birth)->age;
-        $student->load('grade');
-        $groups = $student->groups()->with('grade')->get();
-        $catechists = $groups->where('year', 2023)->where('finished', false)->first()->users;
-        $kinships = $student->kinships;
+        // $groups = $student->groups()->with('grade')->get();
         return view('students.show', [
+            'section' => $section,
             'student' => $student,
-            'groups' => $groups,
-            'kinships' => $kinships,
-            'catechists' => $catechists,
+            // 'groups' => $groups,
         ]);
     }
 
