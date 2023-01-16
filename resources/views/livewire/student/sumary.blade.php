@@ -25,7 +25,7 @@
                 @endhasrole
                 <div>
                     <h4>Etapa atual</h4>
-                    <p>{{ $student->grade->title }}</p>
+                    <p>{{ $student->grade->title ?? 'Nenhuma' }}</p>
                 </div>
                 <div class="col-span-2">
                     <h4>Catequista(s)</h4>
@@ -61,9 +61,7 @@
             </x-modal>
         @endcan
     @endif
-
     @if ($comments)
         @livewire('student.comments', ['student' => $student])
     @endif
-
 </div>

@@ -59,7 +59,7 @@
                             @hasrole('admin')
                                 <td>{{ $student->community->name }}</td>
                             @endrole
-                            <td>{{ $student->grade->title }}</td>
+                            <td>{{ $student->grade->title ?? 'Nenhuma' }}</td>
                             <td>
                                 <span
                                     class="px-2 pt-0.5 py-1 rounded text-xs font-semibold text-white bg-green-700">{{ $student->status }}</span>

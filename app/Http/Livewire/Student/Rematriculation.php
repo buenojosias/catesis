@@ -29,7 +29,9 @@ class Rematriculation extends Component
         $this->kinships = $student->kinships;
         $this->groups = Group::query()
             ->where('community_id', $student->community_id)
-            ->where('grade_id', '>=', $student->grade_id)
+            ->when($student->grade_id, function($query) use ($student) {
+                return $query->where('grade_id', '>=', $student->grade_id);
+            })
             ->where('finished', false)
             ->with('grade')
             ->get();
@@ -62,6 +64,12 @@ class Rematriculation extends Component
             $update_student = $this->student->update([
                 'grade_id' => $group->grade_id,
             ]);
+            if($this->comment) {
+                $this->student->comments()->create([
+                    'user_id' => auth()->user()->id,
+                    'description' => $this->comment,
+                ]);
+            }
         } catch (\Throwable $th) {
             $this->dialog(['description'=>'Ocorreu um erro ao fazer rematrícula.','icon'=>'error']);
             dd($th);

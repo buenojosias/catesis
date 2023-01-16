@@ -22,9 +22,9 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'phone' => $this->faker->phoneNumber(),
-            'whatsapp' => $this->faker->phoneNumber(),
-            'email' => $this->faker->email(),
+            'phone' => randomElement(null,$this->faker->phoneNumber()),
+            'whatsapp' => randomElement(null,$this->faker->phoneNumber()),
+            'email' => randomElement(null,$this->faker->email()),
         ];
     }
 }
