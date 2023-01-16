@@ -44,7 +44,9 @@
             <tbody>
                 @foreach ($groups->where('year', date('Y'))->where('finished', false) as $group)
                     <tr>
-                        <td>{{ $group->grade->title }}</td>
+                        <td>
+                            <a href="{{route('groups.show', $group)}}">{{ $group->grade->title }}</a>
+                        </td>
                         <td>{{ $group->weekday }}, {{ $group->time->format('H:i') }}</td>
                         <td>{{ $group->students_count }} catequizandos</td>
                     </tr>
@@ -71,7 +73,9 @@
                         @foreach ($groups->where('finished', true) as $group)
                             <tr>
                                 <td>{{ $group->year }}</td>
-                                <td>{{ $group->grade->title }}</td>
+                                <td>
+                                    <a href="{{route('groups.show', $group)}}">{{ $group->grade->title }}</a>
+                                </td>
                                 <td>{{ $group->students_count }}</td>
                             </tr>
                         @endforeach

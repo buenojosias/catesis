@@ -65,11 +65,10 @@
                                     class="px-2 pt-0.5 py-1 rounded text-xs font-semibold text-white bg-green-700">{{ $student->status }}</span>
                             </td>
                             <td class="text-right">
-                                <x-button href="{{ route('students.show', $student) }}" flat primary sm
-                                    icon="eye" />
-                                <x-icon name="eye" class="w-4 md:w-6 stroke-red-400 hover:stroke-red-500"
+                                <x-button icon="eye" flat red sm
                                     wire:click="openStudentModal({{ $student->id }})" />
-
+                                <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary sm
+                                    />
                                 @can('student_edit')
                                     <x-button href="{{ route('students.edit', $student) }}" flat primary sm
                                         icon="pencil" />
