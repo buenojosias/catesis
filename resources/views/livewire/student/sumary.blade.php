@@ -42,19 +42,28 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            @can('student_edit')
-                <x-button label="Rematrícula" outline blue wire:click="openRematriculationModal()" />
-            @endcan
+        <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
+            <div class="text-center font-semibold">
+                <a wire:click="showComments" class="block p-2 border-t cursor-pointer">Comentários</a>
+            </div>
+            <div class="text-center font-semibold">
+                <a class="block p-2 border-t cursor-pointer">Editar</a>
+            </div>
+            <div class="text-center font-semibold">
+                <a class="block p-2 border-t cursor-pointer" wire:click="openRematriculationModal()">Fazer rematrícula</a>
+            </div>
         </div>
     </div>
-
     @if ($rematriculationModal)
         @can('student_edit')
             <x-modal wire:model.defer="rematriculationModal">
                 @livewire('student.rematriculation', ['student' => $student])
             </x-modal>
         @endcan
+    @endif
+
+    @if ($comments)
+        @livewire('student.comments', ['student' => $student])
     @endif
 
 </div>

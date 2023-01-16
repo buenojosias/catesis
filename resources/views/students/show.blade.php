@@ -56,8 +56,6 @@
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Contatos e endereço</li>
-        <li>- Informações de contato</li>
         <li>- Documentos (lazy)</li>
-        <li>- Anotações (lazy)</li>
     </ul>
 </x-app-layout>

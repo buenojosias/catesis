@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             MatriculationSeeder::class,
             ThemeSeeder::class,
             EncounterSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

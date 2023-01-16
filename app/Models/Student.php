@@ -49,9 +49,9 @@ class Student extends Model
         return $this->hasMany(Matriculation::class);
     }
 
-    // public function comments() {
-    //     return $this->hasMany(Comment::class);
-    // }
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 
     // public function pastorals() {
     //     return $this->morphToMany(Pastoral::class, 'pastorable');

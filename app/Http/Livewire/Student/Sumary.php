@@ -13,6 +13,7 @@ class Sumary extends Component
     public $catechists;
 
     public $rematriculationModal;
+    public $comments = false;
     public $groups;
 
     public function mount($student) {
@@ -21,6 +22,10 @@ class Sumary extends Component
         $this->student->load('grade');
         $this->group = $this->student->groups()->where('finished', false)->where('year', date('Y'))->first();
         $this->catechists = $this->group->users ?? [];
+    }
+
+    public function showComments() {
+        $this->comments = true;
     }
 
     public function openRematriculationModal() {
