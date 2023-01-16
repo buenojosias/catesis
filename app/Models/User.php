@@ -45,15 +45,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile() {
-        return $this->hasOne(UserProfile::class);
-    }
-
     public function community() {
         return $this->belongsTo(Community::class);
+    }
+
+    public function contact() {
+        return $this->morphOne(Contact::class, 'contactable');
     }
 
     public function groups() {
         return $this->belongsToMany(Group::class);
     }
+
+    public function profile() {
+        return $this->hasOne(UserProfile::class);
+    }
+
 }

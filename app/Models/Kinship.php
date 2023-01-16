@@ -10,7 +10,12 @@ class Kinship extends Model
     use HasFactory;
 
     protected $fillable = ['name','birth'];
+
     protected $dates = ['birth'];
+
+    public function contact() {
+        return $this->morphOne(Contact::class, 'contactable');
+    }
 
     public function profile() {
         return $this->hasOne(KinshipProfile::class);

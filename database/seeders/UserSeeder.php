@@ -19,81 +19,81 @@ class UserSeeder extends Seeder
             'name' => 'Coodenador Paroquial',
             'email' => 'admin@catesis.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(1);
+        ])->hasContact()->roles()->attach(1);
         User::create([
             'community_id' => 1,
             'name' => 'Coodenador da Matriz',
             'email' => 'coordenador@matriz.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(2);
+        ])->hasContact()->roles()->attach(2);
         User::create([
             'community_id' => 2,
             'name' => 'Coodenador do Beato',
             'email' => 'coordenador@beato.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(2);
+        ])->hasContact()->roles()->attach(2);
         User::create([
             'community_id' => 3,
             'name' => 'Coodenador da Misericórdia',
             'email' => 'coordenador@misericordia.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(2);
+        ])->hasContact()->roles()->attach(2);
         User::create([
             'community_id' => 4,
             'name' => 'Coodenador da Perseverança',
             'email' => 'coordenador@perseveranca.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(2);
+        ])->hasContact()->roles()->attach(2);
         User::create([
             'community_id' => 1,
             'name' => 'Secretária da Matriz',
             'email' => 'secretaria@matriz.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(3);
+        ])->hasContact()->roles()->attach(3);
         User::create([
             'community_id' => 2,
             'name' => 'Secretária do Beato',
             'email' => 'secretaria@beato.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(3);
+        ])->hasContact()->roles()->attach(3);
         User::create([
             'community_id' => 3,
             'name' => 'Secretária da Misericórdia',
             'email' => 'secretaria@misericordia.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(3);
+        ])->hasContact()->roles()->attach(3);
         User::create([
             'community_id' => 4,
             'name' => 'Secretária da Perseverança',
             'email' => 'secretaria@perseveranca.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(3);
+        ])->hasContact()->roles()->attach(3);
         User::create([
             'community_id' => 1,
             'name' => 'Catequista da Matriz',
             'email' => 'catequista@matriz.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(4);
+        ])->hasContact()->roles()->attach(4);
         User::create([
             'community_id' => 2,
             'name' => 'Catequista do Beato',
             'email' => 'catequista@beato.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(4);
+        ])->hasContact()->roles()->attach(4);
         User::create([
             'community_id' => 3,
             'name' => 'Catequista da Misericórdia',
             'email' => 'catequista@misericordia.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(4);
+        ])->hasContact()->roles()->attach(4);
         User::create([
             'community_id' => 4,
             'name' => 'Catequista da Perseverança',
             'email' => 'catequista@perseveranca.com',
             'password' => bcrypt('12345678')
-        ])->roles()->attach(4);
+        ])->hasContact()->roles()->attach(4);
 
-        User::factory(10)->create([
+        User::factory(10)->hasContact()->create([
             'community_id' => rand(1,4)
         ]);
 

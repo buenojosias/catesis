@@ -13,29 +13,25 @@ class Student extends Model
 
     protected $dates = ['birth'];
 
+    public function address() {
+        return $this->hasOne(StudentAddress::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public function community() {
         return $this->belongsTo(Community::class);
     }
 
-    public function profile() {
-        return $this->hasOne(StudentProfile::class);
-    }
-
-    public function address() {
-        return $this->hasOne(StudentAddress::class);
+    public function contact() {
+        return $this->morphOne(Contact::class, 'contactable');
     }
 
     // public function documents() {
     //     return $this->hasMany(Document::class);
     // }
-
-    // public function contact() {
-    //     return $this->morphOne(Contact::class, 'contactable');
-    // }
-
-    public function kinships() {
-        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','title']);
-    }
 
     public function grade() {
         return $this->belongsTo(Grade::class);
@@ -45,15 +41,19 @@ class Student extends Model
         return $this->belongsToMany(Group::class)->withPivot(['matriculation_id','approved']);
     }
 
-    public function matriculations() {
-        return $this->hasMany(Matriculation::class);
+    public function kinships() {
+        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','title']);
     }
 
-    public function comments() {
-        return $this->hasMany(Comment::class);
+    public function matriculations() {
+        return $this->hasMany(Matriculation::class);
     }
 
     // public function pastorals() {
     //     return $this->morphToMany(Pastoral::class, 'pastorable');
     // }
+
+    public function profile() {
+        return $this->hasOne(StudentProfile::class);
+    }
 }
