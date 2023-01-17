@@ -41,16 +41,12 @@ class Profile extends Component
 
     public function mount(): void
     {
-        //$this->student = Student::where('community_id', auth()->user()->community_id)->first(); # APAGAR DEPOIS DOS TESTES
         $this->community_id = Auth::user()->community_id;
     }
 
     public function submit()
     {
-        $this->student = Student::where('community_id', auth()->user()->community_id)->first(); # APAGAR DEPOIS DOS TESTES
-        $this->emit('emitStudent', $this->student);
-        $this->notification()->success($title = 'Catequizando(a) cadastrado(a) com sucesso', $description = 'Continue completando as informações.');
-        /*$validateStudent = $this->validate([
+        $validateStudent = $this->validate([
             'community_id' => 'required',
             'name' => 'required|string|min:6|max:255',
             'birth' => 'required|date|before:now',
@@ -77,11 +73,12 @@ class Profile extends Component
         if($student && $profile) {
             DB::commit();
             $this->student = $student;
+            $this->emit('emitStudent', $this->student->id);
             $this->notification()->success($title = 'Catequizando(a) cadastrado(a) com sucesso', $description = 'Continue completando as informações.');
         } else {
             DB::rollback();
             $this->dialog(['description'=>'Ocorreu um erro ao cadastrar catequizando(a).','icon'=>'error']);
-        }*/
+        }
     }
 
     public function render()

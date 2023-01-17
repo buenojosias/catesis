@@ -15,9 +15,9 @@ class Create extends Component
         'emitKinship',
     ];
 
-    public function emitStudent(Student $student)
+    public function emitStudent($student)
     {
-        $this->student = $student;
+        $this->student = Student::find($student);
     }
 
     public function emitKinship($kinship)
