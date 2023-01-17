@@ -42,15 +42,21 @@
                 </div>
             </div>
         </div>
+
         <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
+            <div class="text-center font-semibold">
+                @can('student_edit')
+                    <a class="block p-2 border-t cursor-pointer">Editar</a>
+                @endcan
+            </div>
             <div class="text-center font-semibold">
                 <a wire:click="showComments" class="block p-2 border-t cursor-pointer">Comentários</a>
             </div>
             <div class="text-center font-semibold">
-                <a class="block p-2 border-t cursor-pointer">Editar</a>
-            </div>
-            <div class="text-center font-semibold">
-                <a class="block p-2 border-t cursor-pointer" wire:click="openRematriculationModal()">Fazer rematrícula</a>
+                @can('student_edit')
+                    <a class="block p-2 border-t cursor-pointer" wire:click="openRematriculationModal()">Fazer
+                        rematrícula</a>
+                @endcan
             </div>
         </div>
     </div>

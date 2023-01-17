@@ -11,64 +11,73 @@ class Contact extends Component
     use Actions;
 
     public $student;
-    public $address;
-    public $contact;
+    public $fulladdress, $fullcontact;
+    public $address, $complement, $district, $city;
+    public $phone, $whatsapp, $email, $facebook, $instagram;
     public $kinships;
 
     public $showAddressModal;
     public $showContactModal;
 
-    public $addressform = ['address','complement','district','city'];
-    public $contactform = ['phone' => '','whatsapp' => '','email' => '','facebook' => '','instagram' => ''];
-
     protected $validationAttributes = [
-        'contactform.phone' => 'Telefone',
-        'contactform.whatsapp' => 'WhatsApp',
-        'contactform.email' => 'E-mail',
-        'contactform.facebook' => 'Facebook',
-        'contactform.instagram' => 'Instagram',
-        'addressform.address' => 'Endereço',
-        'addressform.complement' => 'Complemento',
-        'addressform.district' => 'Bairro',
-        'addressform.city' => 'Cidade',
+        'phone' => 'Telefone',
+        'whatsapp' => 'WhatsApp',
+        'email' => 'E-mail',
+        'facebook' => 'Facebook',
+        'instagram' => 'Instagram',
+        'address' => 'Endereço',
+        'complement' => 'Complemento',
+        'district' => 'Bairro',
+        'city' => 'Cidade',
     ];
 
     public function mount(Student $student)
     {
         $this->student = $student;
-        $this->address = $student->address;
-        $this->contact = $student->contact;
+        $address = $student->address;
+        $contact = $student->contact;
         $this->kinships = $student->kinships()->with('contact')->get();
+        if($address) {
+            $this->fulladdress = $address;
+            $this->address = $address->address;
+            $this->complement = $address->complement;
+            $this->district = $address->district;
+            $this->city = $address->city;
+        }
+        if($contact) {
+            $this->fullcontact = $contact;
+            $this->phone = $contact->phone;
+            $this->whatsapp = $contact->whatsapp;
+            $this->email = $contact->email;
+            $this->facebook = $contact->facebook;
+            $this->instagram = $contact->instagram;
+        }
     }
 
     public function submitAddress()
     {
         $validateAddress = $this->validate([
-            'addressform.address' => 'required|string|min:5|max:140',
-            'addressform.complement' => 'nullable|string|max:100',
-            'addressform.district' => 'required|string|min:3|max:90',
-            'addressform.city' => 'required|string|min:3|max:90',
+            'address' => 'required|string|min:5|max:140',
+            'complement' => 'nullable|string|max:100',
+            'district' => 'required|string|min:3|max:90',
+            'city' => 'required|string|min:3|max:90',
         ]);
         try {
-            $updated = $this->student->address()->update([
-                'address' => $this->addressform['address'],
-                'complement' => $this->addressform['complement'],
-                'district' => $this->addressform['district'],
-                'city' => $this->addressform['city'],
-            ]);
-            $this->address['address'] = $this->addressform['address'];
-            $this->address['complement'] = $this->addressform['complement'];
-            $this->address['district'] = $this->addressform['district'];
-            $this->address['city'] = $this->addressform['city'];
+            if($this->fulladdress) {
+                $save = $this->student->address()->update($validateAddress);
+            } else {
+                $this->fulladdress = $this->student->address()->create($validateAddress);
+            }
+            $this->fulladdress = $validateAddress;
             $this->notification()->success(
-                $title = 'Atualizado',
-                $description = 'Endereço atualizado com sucesso.'
+                $title = 'Endereço salvo',
+                $description = 'Endereço salvo com sucesso.'
             );
             $this->showAddressModal = false;
         } catch (\Throwable $th) {
             $this->notification()->error(
                 $title = 'Erro',
-                $description = 'Ocorreu um erro ao atualizar endereço.'
+                $description = 'Ocorreu um erro ao salvar endereço.'
             );
             dd($th);
         }
@@ -76,28 +85,22 @@ class Contact extends Component
     public function submitContact()
     {
         $validateContact = $this->validate([
-            'contactform.phone' => 'nullable|required_without:contactform.whatsapp|string|min:14|max:15',
-            'contactform.whatsapp' => 'nullable|required_without:contactform.phone|string|min:14|max:15',
-            'contactform.email' => 'nullable|email',
-            'contactform.facebook' => 'nullable|url',
-            'contactform.instagram' => 'nullable|url',
+            'phone' => 'nullable|required_without:whatsapp|string|min:14|max:15',
+            'whatsapp' => 'nullable|required_without:phone|string|min:14|max:15',
+            'email' => 'nullable|email',
+            'facebook' => 'nullable|url',
+            'instagram' => 'nullable|url',
         ]);
         try {
-            $updated = $this->student->contact()->update([
-                'phone' => $this->contactform['phone'],
-                'whatsapp' => $this->contactform['whatsapp'],
-                'email' => $this->contactform['email'],
-                'facebook' => $this->contactform['facebook'],
-                'instagram' => $this->contactform['instagram'],
-            ]);
-            $this->contact['phone'] = $this->contactform['phone'];
-            $this->contact['whatsapp'] = $this->contactform['whatsapp'];
-            $this->contact['email'] = $this->contactform['email'];
-            $this->contact['facebook'] = $this->contactform['facebook'];
-            $this->contact['instagram'] = $this->contactform['instagram'];
+            if($this->fullcontact) {
+                $save = $this->student->contact()->update($validateContact);
+            } else {
+                $this->fullcontact = $this->student->contact()->create($validateContact);
+            }
+            $this->fullcontact = $validateContact;
             $this->notification()->success(
                 $title = 'Contato salvo',
-                $description = 'Informações de contato atualizadas com sucesso.'
+                $description = 'Informações de contato salvas com sucesso.'
             );
             $this->showContactModal = false;
         } catch (\Throwable $th) {
@@ -109,22 +112,13 @@ class Contact extends Component
         }
     }
 
-    public function openContactModal()
-    {
-        $this->contactform['phone'] = $this->student->contact['phone'];
-        $this->contactform['whatsapp'] = $this->student->contact['whatsapp'];
-        $this->contactform['email'] = $this->student->contact['email'];
-        $this->contactform['facebook'] = $this->student->contact['facebook'];
-        $this->contactform['instagram'] = $this->student->contact['instagram'];
-        $this->showContactModal = true;
-    }
     public function openAddressModal()
     {
-        $this->addressform['address'] = $this->student->address['address'];
-        $this->addressform['complement'] = $this->student->address['complement'];
-        $this->addressform['district'] = $this->student->address['district'];
-        $this->addressform['city'] = $this->student->address['city'];
         $this->showAddressModal = true;
+    }
+    public function openContactModal()
+    {
+        $this->showContactModal = true;
     }
 
     public function render()

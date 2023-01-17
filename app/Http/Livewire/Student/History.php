@@ -7,9 +7,11 @@ use Livewire\Component;
 class History extends Component
 {
     public $groups;
+    public $student;
 
     public function mount($student)
     {
+        $this->student = $student;
         $this->groups = $student->groups()->with('grade')->get();
     }
 

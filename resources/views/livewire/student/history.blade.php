@@ -21,7 +21,12 @@
                         <tr>
                             <td>{{ $group->year }}</td>
                             <td>{{ $group->grade->title }}</td>
-                            <td>{{ $group->pivot->matriculation_id }}</td>
+                            <td>
+                                {{ $group->pivot->matriculation_id }}
+                                @if ($group->community_id !== $student->community_id)
+                                    ({{ $group->community->name }})
+                                @endif
+                            </td>
                             <td>{{ $group->pivot->approved }}</td>
                         </tr>
                     @endforeach
