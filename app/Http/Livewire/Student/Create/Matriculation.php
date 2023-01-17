@@ -1,52 +1,42 @@
 <?php
 
-namespace App\Http\Livewire\Student;
+namespace App\Http\Livewire\Student\Create;
 
 use App\Models\Group;
-use App\Models\Matriculation;
-use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Rematriculation extends Component
+class Matriculation extends Component
 {
     use Actions;
 
     public $student;
-    public $groups;
-    public $kinships;
-
-    public $group;
-    public $kinship;
     public $comment;
+    public $groups;
+    public $kinship;
+    public $matriculation;
+    public $group;
 
-    protected $listeners = ['submitRematriculation'];
+    protected $listeners = [
+        'emitKinship'
+    ];
 
-    public function mount(Student $student)
+    protected $validationAttributes = [
+        'group' => 'Grupo',
+        'kinship' => 'Familiar responsável',
+        'comment' => 'Observações',
+    ];
+
+    public function submit()
     {
-        $this->student = $student;
-        $this->kinships = $student->kinships;
-        $this->groups = Group::query()
-            ->where('community_id', $student->community_id)
-            ->when($student->grade_id, function($query) use ($student) {
-                return $query->where('grade_id', '>=', $student->grade_id);
-            })
-            ->where('finished', false)
-            ->with('grade')
-            ->get();
-    }
-
-    public function submitRematriculation() {
         $validGroups = $this->groups->pluck('id')->toArray();
-        $validKinships = $this->kinships->pluck('id')->toArray();
         $validate = $this->validate([
             'group' => 'required|in:' . implode(',', $validGroups),
-            'kinship' => 'required|in:' . implode(',', $validKinships),
+            'kinship' => 'required|integer',
             'comment' => 'nullable|string',
         ]);
-
-        $group = $this->groups -> where('id', $this->group)->first();
+        $group = $this->groups->where('id', $this->group)->first();
 
         DB::beginTransaction();
         try {
@@ -71,26 +61,34 @@ class Rematriculation extends Component
                 ]);
             }
         } catch (\Throwable $th) {
-            $this->dialog(['description'=>'Ocorreu um erro ao fazer rematrícula.','icon'=>'error']);
+            $this->notification()->error($description = 'Ocorreu um erro ao concluir rematrícula.');
             dd($th);
         }
         if($matriculation && $update_student) {
             DB::commit();
-            return redirect()->route('students.show', [$this->student, 'historico'])->with('success','Rematrícula efetuada com sucesso.');
+            $this->matriculation = $matriculation;
+            $this->group = $group;
+            // $this->notification()->success($description = 'Matrícula concluída com sucesso.');
+            // $this->dispatchBrowserEvent('close', ['form' => false]);
+            return redirect()->route('students.show', $this->student)->with('success','Cadastro concluído com sucesso.');
         } else {
             DB::rollback();
-            $this->dialog(['description'=>'Ocorreu um erro ao fazer rematrícula.','icon'=>'error']);
+            $this->notification()->error($description = 'Ocorreu um erro ao concluir rematrícula.');
         }
     }
 
-    protected $validationAttributes = [
-        'group' => 'Grupo',
-        'kinship' => 'Familiar representante',
-        'comment' => 'Observações',
-    ];
+    public function mount($student)
+    {
+        $this->student = $student;
+        $this->groups = Group::query()
+            ->where('community_id', $student->community_id)
+            ->where('finished', false)
+            ->with('grade')
+            ->get();
+    }
 
     public function render()
     {
-        return view('livewire.student.rematriculation');
+        return view('livewire.student.create.matriculation');
     }
 }

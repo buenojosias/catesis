@@ -32,7 +32,6 @@
                 <x-textarea wire:model.defer="comment" label="Comentário"
                     placeholder="Se preferir, você pode escrever uma observação sobre o(a) catequizando(a)." />
             </div>
-
         </div>
         <div class="card-footer">
             <div class="flex justify-between gap-x-4">

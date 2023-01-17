@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if (session('success'))
+        <x-success message="{{ session('success') }}" />
+    @endif
     <x-notifications />
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Catequizando: {{ $student->name }}</h2>
@@ -6,11 +9,16 @@
             <div>
                 <div class="hidden sm:block">
                     <div class="flex items-baseline space-x-2">
-                        <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}" label="Resumo" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}" active="{{ $section === 'comentarios' }}" label="Comentários" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}" active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}" active="{{ $section === 'familiares' }}" label="Familiares" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}" active="{{ $section === 'historico' }}" label="Histórico" />
+                        <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}"
+                            label="Resumo" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
+                            active="{{ $section === 'comentarios' }}" label="Comentários" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
+                            active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}"
+                            active="{{ $section === 'familiares' }}" label="Familiares" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
+                            active="{{ $section === 'historico' }}" label="Histórico" />
                     </div>
                 </div>
             </div>
@@ -28,11 +36,16 @@
                 x-transition:leave="transition ease-in duration-90"
                 x-transition:leave-start="transform opacity-100 scale-100"
                 x-transition:leave-end="transform opacity-0 scale-95">
-                <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}" label="Resumo" />
-                <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}" active="{{ $section === 'comentarios' }}" label="Comentários" />
-                <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}" active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
-                <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}" active="{{ $section === 'familiares' }}" label="Familiares" />
-                <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}" active="{{ $section === 'historico' }}" label="Histórico" />
+                <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}"
+                    label="Resumo" />
+                <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
+                    active="{{ $section === 'comentarios' }}" label="Comentários" />
+                <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
+                    active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
+                <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}"
+                    active="{{ $section === 'familiares' }}" label="Familiares" />
+                <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
+                    active="{{ $section === 'historico' }}" label="Histórico" />
             </div>
         </nav>
     </x-slot>
@@ -59,6 +72,7 @@
 
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
-        <li>- Documentos (lazy)</li>
+        <li>- Documentos</li>
+        <li>- Pastorais</li>
     </ul>
 </x-app-layout>

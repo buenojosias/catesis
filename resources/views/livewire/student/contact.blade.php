@@ -61,7 +61,7 @@
                     <h3 class="card-title">Contatos</h3>
                     @can('student_edit')
                         <div class="card-tools">
-                            <x-button wire:click="openContactModal()" sm outline label="Editar" />
+                            <x-button wire:click="openContactModal()" sm flat label="Editar" />
                         </div>
                     @endcan
                 </div>
@@ -102,12 +102,22 @@
                 <div class="card-body">
                     <ul>
                         @foreach ($kinships as $kinship)
-                            <li class="py-2 px-4 border-b">
-                                <h4 class="text-sm font-medium text-gray-600">{{ $kinship->name }}
-                                    ({{ $kinship->pivot->title ?? '' }})
-                                </h4>
-                                <p class="font-medium text-gray-900">
-                                    {{ $kinship->contact->whatsapp ?? $kinship->contact->phone }}</p>
+                            <li class="flex py-2 px-4 border-b">
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-600">{{ $kinship->name }}
+                                        ({{ $kinship->pivot->title ?? '' }})
+                                    </h4>
+                                    <p class="font-medium text-gray-900">
+                                        {{ $kinship->contact->phone ?? '' }}
+                                        @if (@$kinship->contact->phone && @$kinship->contact->whatsapp)
+                                            •
+                                        @endif
+                                        {{ $kinship->contact->whatsapp ?? '' }}
+                                    </p>
+                                </div>
+                                <div class="flex items-center">
+                                    <x-button flat icon="pencil-alt" />
+                                </div>
                             </li>
                         @endforeach
                     </ul>

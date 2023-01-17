@@ -20,8 +20,8 @@
                 </div>
             </div>
         </div>
-        <div class="card-header border-t">
-            <h3 class="my-2">Informações adicionais</h3>
+        <div class="card-header bg-gray-50">
+            <h3 class="card-title">Informações adicionais</h3>
         </div>
         <div class="card-body display">
             <div class="md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-header border-t">
+        <div class="card-header bg-gray-50">
             <h3 class="my-2">Informações catequéticas</h3>
         </div>
         <div class="card-body display">
