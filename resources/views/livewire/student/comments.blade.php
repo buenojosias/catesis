@@ -1,6 +1,6 @@
 <div>
     <x-notifications />
-    <div class="card mt-4" x-data="{ showTextarea: false }">
+    <div class="card" x-data="{ showTextarea: false }">
         <div class="card-header">
             <h3 class="card-title">Comentários</h3>
             <div class="card-tools">

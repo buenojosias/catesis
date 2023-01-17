@@ -50,7 +50,7 @@ class Create extends Component
             'name' => 'required|string|min:6|max:255',
             'birth' => 'required|date|before:now',
         ]);
-        $validateDatails = $this->validate([
+        $validateProfile = $this->validate([
             'gender' => 'required|string',
             'naturalness' => 'nullable|string|max:100',
             'has_baptism' => 'required|boolean',
@@ -64,12 +64,12 @@ class Create extends Component
         DB::beginTransaction();
         try {
             $student = Student::create($validateStudent);
-            $detail = $student->detail()->create($validateDatails);
+            $profile = $student->profile()->create($validateProfile);
         } catch (\Throwable $th) {
             $this->dialog(['description'=>'Ocorreu um erro ao cadastrar catequizando(a).','icon'=>'error']);
             dd($th);
         }
-        if($student && $detail) {
+        if($student && $profile) {
             DB::commit();
             return redirect()->route('students.edit', $student)->with('success','Catequizando(a) cadastrado(a) com sucesso.');
         } else {

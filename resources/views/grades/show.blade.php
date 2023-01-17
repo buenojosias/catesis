@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Etapas: {{ $grade->title }}</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Etapa: {{ $grade->title }}</h2>
     </x-slot>
 
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Descrição</h3>
+            <h3 class="card-title">Descrição</h3>
         </div>
         <div class="card-body py-3 px-4">
             <p>{{ $grade->description ?? 'Nenhuma descrição disponível.' }}</p>
@@ -15,7 +15,7 @@
         @hasrole('admin')
             <div class="card mb-4">
                 <div class="card-header">
-                    <h3>Catequizandos por comunidade</h3>
+                    <h3 class="card-title">Catequizandos por comunidade</h3>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -33,7 +33,7 @@
         @endhasrole
         <div class="card mb-4">
             <div class="card-header">
-                <h3>Temas</h3>
+                <h3 class="card-title">Temas</h3>
             </div>
             <div class="card-body table-responsive">
                 <table class="table">

@@ -11,6 +11,8 @@ class StudentProfile extends Model
 
     protected $fillable = ['gender','naturalness','has_baptism','baptism_date','baptism_church','married_parents','health_problems','school'];
 
+    protected $dates = ['baptism_date'];
+
     public function student() {
         return $this->belongsTo(Student::class);
     }

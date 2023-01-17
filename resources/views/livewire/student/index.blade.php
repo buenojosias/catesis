@@ -13,7 +13,7 @@
                     <x-native-select label="Status" wire:model="status">
                         <option value="">Todos</option>
                         <option value="ativo">Ativos</option>
-                        <option value="crismado">Crismatos</option>
+                        <option value="crismado">Crismados</option>
                         <option value="desistente">Desistentes</option>
                     </x-native-select>
                 </div>

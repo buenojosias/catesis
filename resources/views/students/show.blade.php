@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-notifications />
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Catequizando: {{ $student->name }}</h2>
         <nav class="tabs" x-data="{ showtabs: false }">
@@ -6,7 +7,7 @@
                 <div class="hidden sm:block">
                     <div class="flex items-baseline space-x-2">
                         <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}" label="Resumo" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'detalhes']) }}" active="{{ $section === 'detalhes' }}" label="Adicionais" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}" active="{{ $section === 'comentarios' }}" label="Comentários" />
                         <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}" active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
                         <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}" active="{{ $section === 'familiares' }}" label="Familiares" />
                         <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}" active="{{ $section === 'historico' }}" label="Histórico" />
@@ -28,7 +29,7 @@
                 x-transition:leave-start="transform opacity-100 scale-100"
                 x-transition:leave-end="transform opacity-0 scale-95">
                 <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}" label="Resumo" />
-                <x-tab-link href="{{ route('students.show', [$student, 'detalhes']) }}" active="{{ $section === 'detalhes' }}" label="Adicionais" />
+                <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}" active="{{ $section === 'comentarios' }}" label="Comentários" />
                 <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}" active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
                 <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}" active="{{ $section === 'familiares' }}" label="Familiares" />
                 <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}" active="{{ $section === 'historico' }}" label="Histórico" />
@@ -41,6 +42,9 @@
     @endif
     @if ($section === 'contatos')
         @livewire('student.contact', ['student' => $student])
+    @endif
+    @if ($section === 'comentarios')
+        @livewire('student.comments', ['student' => $student])
     @endif
     @if ($section === 'familiares')
         @livewire('student.kinship', ['student' => $student])

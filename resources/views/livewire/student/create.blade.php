@@ -14,7 +14,7 @@
                     </div>
                     <div class="sm:col-span-2">
                         <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento"
-                            wire:model.defer="birth" without-tips without-time :min="now()->subYears(18)" :max="now()->subYears(5)" />
+                            wire:model.defer="birth" without-tips without-time without-timezone :min="now()->subYears(18)" :max="now()->subYears(5)" />
                     </div>
                     <div class="sm:col-span-2">
                         <x-native-select label="Sexo" wire:model.defer="gender">
@@ -33,7 +33,7 @@
                     @if ($has_baptism)
                         <div class="sm:col-span-2">
                             <x-datetime-picker label="Data do batismo" placeholder="Data do batismo"
-                                wire:model.defer="baptism_date" without-tips without-time :min="now()->subYears(18)"
+                                wire:model.defer="baptism_date" without-tips without-time without-timezone :min="now()->subYears(18)"
                                 :max="now()" />
                         </div>
                         <div class="sm:col-span-4">
