@@ -18,30 +18,27 @@ class ContactSeeder extends Seeder
      */
     public function run()
     {
-        # Será semeado com os outros seeders
-        return;
-
         // Contact::query()->truncate();
 
-        // foreach(Student::all() as $student) {
-        //     Contact::factory(1)->create([
-        //         'contactable_type' => 'App\Models\Student',
-        //         'contactable_id' => $student->id,
-        //     ]);
-        // }
+        foreach(Student::all() as $student) {
+            Contact::factory(1)->create([
+                'contactable_type' => 'App\Models\Student',
+                'contactable_id' => $student->id,
+            ]);
+        }
 
-        // foreach(Kinship::all() as $kinship) {
-        //     Contact::factory(1)->create([
-        //         'contactable_type' => 'App\Models\Kinship',
-        //         'contactable_id' => $kinship->id,
-        //     ]);
-        // }
+        foreach(Kinship::all() as $kinship) {
+            Contact::factory(1)->create([
+                'contactable_type' => 'App\Models\Kinship',
+                'contactable_id' => $kinship->id,
+            ]);
+        }
 
-        // foreach(User::all() as $user) {
-        //     Contact::factory(1)->create([
-        //         'contactable_type' => 'App\Models\User',
-        //         'contactable_id' => $user->id,
-        //     ]);
-        // }
+        foreach(User::all() as $user) {
+            Contact::factory(1)->create([
+                'contactable_type' => 'App\Models\User',
+                'contactable_id' => $user->id,
+            ]);
+        }
     }
 }

@@ -22,11 +22,21 @@ class StudentProfileFactory extends Factory
 
     public function definition()
     {
+        $has_baptism = $this->faker->boolean();
+        if($has_baptism) {
+            $baptism_date = $this->faker->dateTimeBetween('-8 years', '-1 years');
+            $baptism_church = $this->faker->randomElement([null,'Paróquia São Marcos','Santuário Nossa Senhora do Perpétuo Socorro','Igreja Nossa Senhora das Mercês','Igreja do Rosário']);
+        } else {
+            $baptism_date = null;
+            $baptism_church = null;
+        }
         return [
             'gender' => $this->faker->randomElement($array = array ('male','female')),
-            'naturalness' => $this->faker->city(),
-            'has_baptism' => $this->faker->boolean(),
-            'married_parents' => $this->faker->boolean()
+            'naturalness' => $this->faker->randomElement(['Curitiba/PR','Curitiba/PR','Curitiba/PR','Curitiba/PR','Almirante Tamandaré/PR','São José dos Pinhais/PR',$this->faker->city().'/'.$this->faker->stateAbbr()]),
+            'has_baptism' => $has_baptism,
+            'married_parents' => $this->faker->boolean(),
+            'baptism_date' => $baptism_date,
+            'baptism_church' => $baptism_church,
         ];
     }
 }

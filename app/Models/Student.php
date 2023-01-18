@@ -38,7 +38,7 @@ class Student extends Model
     }
 
     public function groups() {
-        return $this->belongsToMany(Group::class)->withPivot(['matriculation_id','approved']);
+        return $this->belongsToMany(Group::class)->withPivot(['matriculation_id','status']);
     }
 
     public function kinships() {

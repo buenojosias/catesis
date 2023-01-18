@@ -19,14 +19,14 @@ class UserFactory extends Factory
     {
         return \Faker\Factory::create('pt_BR');
     }
-    
+
     public function definition()
     {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ];
     }

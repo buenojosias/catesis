@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->integer('matriculation_id');
-            $table->boolean('approved')->nullable();
+            $table->enum('status', ['waiting','in_progress','approved','reproved','removed','transferred']);
             $table->timestamps();
         });
     }

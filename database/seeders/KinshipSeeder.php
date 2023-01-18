@@ -16,7 +16,7 @@ class KinshipSeeder extends Seeder
      */
     public function run()
     {
-        Kinship::factory(400)->hasProfile()->hasContact()->create();
+        Kinship::factory(400)->hasProfile()->create();
         $titles = KinshipTitle::pluck('title');
 
         foreach(Kinship::all() as $kinship) {

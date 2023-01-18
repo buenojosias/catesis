@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             KinshipTitleSeeder::class,
             KinshipSeeder::class,
+            ContactSeeder::class,
             MatriculationSeeder::class,
             ThemeSeeder::class,
             EncounterSeeder::class,

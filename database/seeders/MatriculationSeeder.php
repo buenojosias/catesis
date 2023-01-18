@@ -8,17 +8,15 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class MatriculationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        //Matriculation::query()->truncate();
+        // Matriculation::query()->truncate(); DB::table('group_student')->truncate(); return;
+
         $students = Student::whereHas('kinships')->get();
         $year = 2023;
         foreach($students as $student) {
@@ -37,6 +35,7 @@ class MatriculationSeeder extends Seeder
                     ]);
                     $student->groups()->attach($retroactive_group->id, [
                         'matriculation_id' => $retroactive_matriculation->id,
+                        'status' => Arr::random(['approved','approved','approved','approved','approved','transferred','reproved','removed']),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
@@ -51,6 +50,7 @@ class MatriculationSeeder extends Seeder
                 ]);
                 $student->groups()->attach($group->id, [
                     'matriculation_id' => $matriculation->id,
+                    'status' => Arr::random(['in_progress','in_progress','in_progress','in_progress','in_progress','transferred','removed']),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

@@ -15,6 +15,6 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        Student::factory(1)->hasAddress()->hasProfile()->hasContact()->create();
+        Student::factory(200)->hasAddress()->hasProfile()->create();
     }
 }
