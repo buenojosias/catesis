@@ -6,6 +6,7 @@ use App\Models\Community;
 use App\Models\User;
 use Auth;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use WireUi\Traits\Actions;
@@ -14,21 +15,16 @@ class Create extends Component
 {
     use Actions;
 
-    public $name;
-    public $email;
-    public $password;
-    public $password_confirmation;
-    public $birth;
-    public $marital_status;
-    public $community_id;
-    public $role;
+    public $name, $email, $password, $password_confirmation, $community_id, $role;
+    public $birth, $marital_status;
     public $communities;
     public $roles;
-
+    public $catechist;
+    public $profile;
     public $user;
 
     protected $validationAttributes = [
-        'name' => 'Nome completo',
+        'name' => 'Nome',
         'email' => 'E-mail',
         'password' => 'Senha',
         'password_confirmation' => 'Confirmação de senha',
@@ -46,7 +42,6 @@ class Create extends Component
         } else {
             $this->community_id = $this->user->community_id;
         }
-
         $roles = Role::query();
         if(!$this->user->hasRole('admin')) {
             $roles->where('name','<>','admin');
@@ -54,7 +49,7 @@ class Create extends Component
         $this->roles = $roles->get();
     }
 
-    public function submit() 
+    public function submit()
     {
         $validateUser = $this->validate([
             'name' => 'required|string|min:6|max:255',
@@ -69,6 +64,7 @@ class Create extends Component
             'marital_status' => 'required|string',
         ]);
 
+        DB::beginTransaction();
         try {
             $user = User::create([
                 'name' => $this->name,
@@ -78,10 +74,18 @@ class Create extends Component
             ]);
             $profile = $user->profile()->create($validateProfile);
             $role = $user->roles()->attach((int)$this->role);
-            return redirect()->route('catechists.show', $user)->with('success','Catequista cadastrado(a) com sucesso!');
         } catch (\Throwable $th) {
-            $this->dialog(['description' => 'Ocorreu um erro ao cadastrar catequista.','icon'=>'error']);
+            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequista.');
             dd($th);
+        }
+        if($user && $profile) {
+            DB::commit();
+            $this->catechist = $user;
+            $this->profile = $profile;
+            $this->notification()->success($title = 'Catequista cadastrado(a) com sucesso', $description = 'Continue completando as informações.');
+        } else {
+            DB::rollback();
+            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequista.');
         }
     }
 

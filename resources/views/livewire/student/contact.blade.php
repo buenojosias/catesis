@@ -154,10 +154,10 @@
                     <div class="card-body display">
                         <div class="grid sm:grid-cols-4 gap-4">
                             <div class="sm:col-span-4">
-                                <x-input wire:model.defer="facebook" label="Facebook" />
+                                <x-input wire:model.defer="facebook" label="Facebook" placeholder="https://facebook.com/usuario" />
                             </div>
                             <div class="sm:col-span-4">
-                                <x-input wire:model.defer="instagram" label="Instagram" />
+                                <x-input wire:model.defer="instagram" label="Instagram" placeholder="Apenas nome do usuário" />
                             </div>
                         </div>
                     </div>

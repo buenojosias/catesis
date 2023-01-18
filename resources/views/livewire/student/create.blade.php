@@ -1,7 +1,5 @@
 <div>
     <x-notifications />
-
-
     @livewire('student.create.profile')
     @if ($student)
         @livewire('student.create.address', ['student' => $student])

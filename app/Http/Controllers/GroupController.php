@@ -15,7 +15,7 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        abort_unless(auth()->user()->hasRole('admin') or $group->community_id === auth()->user()->community_id, 403);
+        abort_unless(auth()->user()->hasAnyRole(['admin','coordinator']) or $group->community_id === auth()->user()->community_id, 403);
         if(auth()->user()->hasRole('admin')) {
             $group->load('community');
         }

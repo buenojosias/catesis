@@ -85,11 +85,11 @@ class Contact extends Component
     public function submitContact()
     {
         $validateContact = $this->validate([
-            'phone' => 'nullable|required_without:whatsapp|string|min:14|max:15',
-            'whatsapp' => 'nullable|required_without:phone|string|min:14|max:15',
+            'phone' => 'nullable|string|min:14|max:15',
+            'whatsapp' => 'nullable|string|min:14|max:15',
             'email' => 'nullable|email',
             'facebook' => 'nullable|url',
-            'instagram' => 'nullable|url',
+            'instagram' => 'nullable|string',
         ]);
         try {
             if($this->fullcontact) {

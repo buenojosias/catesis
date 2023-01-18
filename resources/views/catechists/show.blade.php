@@ -85,7 +85,7 @@
         </div>
 
         <div class="card">
-            ...
+            @livewire('catechist.contact', ['catechist' => $catechist])
         </div>
     </div>
 

@@ -1,10 +1,11 @@
 <div>
     <div class="card">
-        <div class="card-header relative" x-data="{ filters: false }">
-            <div class="card-search">
-                <x-input type="text" right-icon="search" wire:model.debounce.500ms="search" placeholder="Buscar catequista" />
-            </div>
-            @role('admin')
+        @role('admin')
+            <div class="card-header relative" x-data="{ filters: false }">
+                <div class="card-search">
+                    <x-input type="text" right-icon="search" wire:model.debounce.500ms="search"
+                        placeholder="Buscar catequista" />
+                </div>
                 <div class="card-tools">
                     <x-button flat icon="filter" @click="filters = !filters" />
                 </div>
@@ -18,8 +19,8 @@
                         </x-native-select>
                     </div>
                 </div>
-            @endrole
-        </div>
+            </div>
+        @endrole
         <div class="card-body table-responsive">
             <table class="table table-hover whitespace-nowrap">
                 <thead>

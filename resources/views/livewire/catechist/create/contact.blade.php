@@ -1,20 +1,10 @@
-<div x-data="{ 'form': false }" class="mb-2">
-    <div x-show="!form" @click="form = true" class="card flex p-4 cursor-pointer">
-        <div class="flex-1 font-semibold">
-            Contatos
-        </div>
-        @if ($contact)
-            <div>
-                <x-icon name="check-circle" class="w-6 h-6 text-green-800" />
-            </div>
-        @endif
-    </div>
-    <div x-show="form" @close.window="form = false">
+<div>
+    <div>
         @if (!$contact)
             <form wire:submit.prevent="submit" class="form-card">
                 <div class="heading">
                     <h3>Contatos</h3>
-                    <p>Informe os contatos do catequizando. Os contatos dos familiares e responsáveis serão solicitados nas próximas etapas.</p>
+                    <p>Informe os contatos do(a) catequista.</p>
                     <x-errors class="shadow" />
                 </div>
                 <div class="body">
@@ -28,9 +18,6 @@
                                 mask="['(##) ####-####', '(##) #####-####']" emitFormatted="true" />
                         </div>
                         <div class="sm:col-span-4">
-                            <x-input wire:model.defer="email" label="E-mail" />
-                        </div>
-                        <div class="sm:col-span-4">
                             <x-input wire:model.defer="facebook" label="Facebook" placeholder="https://facebook.com/usuario" />
                         </div>
                         <div class="sm:col-span-4">
@@ -39,12 +26,12 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <x-button type="submit" primary label="Continuar" />
+                    <x-button type="submit" primary label="Concluir" />
                 </div>
             </form>
         @else
             <div class="card mb-4">
-                <div class="card-header cursor-pointer" @click="form = false">
+                <div class="card-header">
                     <h3 class="card-title">Contatos</h3>
                 </div>
                 <div class="card-body display">
