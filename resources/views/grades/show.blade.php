@@ -2,7 +2,6 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Etapa: {{ $grade->title }}</h2>
     </x-slot>
-
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Descrição</h3>
@@ -38,17 +37,18 @@
             <div class="card-body table-responsive">
                 <table class="table">
                     <tbody>
-                        @foreach ($themes as $theme)
+                        @forelse ($themes as $theme)
                             <tr>
                                 <td><span class="font-medium">{{ $theme->sequence }}.</span> {{ $theme->title }}</td>
                             </tr>
-                        @endforeach
+                            @empty
+                                <x-empty span="1" label="Nenhum tema cadastrado." />
+                            @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Nome / descrição</li>

@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($catechists as $catechist)
+                    @forelse ($catechists as $catechist)
                         <tr>
                             <td><a href="{{ route('catechists.show', $catechist) }}">{{ $catechist->name }}</a></td>
                             @hasrole('admin')
@@ -49,7 +49,9 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <x-empty />
+                    @endforelse
                 </tbody>
             </table>
         </div>

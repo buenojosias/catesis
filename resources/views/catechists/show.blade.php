@@ -2,11 +2,9 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Catequista: {{ $catechist->name }}</h2>
     </x-slot>
-
     @if (session('success'))
         <x-success message="{{ session('success') }}" />
     @endif
-
     <div class="card">
         <div class="card-body display">
             <div class="md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
@@ -35,60 +33,62 @@
             </div>
         </div>
     </div>
-
-    <div class="card my-4">
-        <div class="card-header">
-            <h3 class="card-title">Grupo atual</h3>
-        </div>
-        <table class="table">
-            <tbody>
-                @foreach ($groups->where('year', date('Y'))->where('finished', false) as $group)
-                    <tr>
-                        <td>
-                            <a href="{{route('groups.show', $group)}}">{{ $group->grade->title }}</a>
-                        </td>
-                        <td>{{ $group->weekday }}, {{ $group->time->format('H:i') }}</td>
-                        <td>{{ $group->students_count }} catequizandos</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
     <div class="mt-4 md:grid md:grid-cols-2 gap-4">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Histórico de grupos</h3>
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{ $groups->where('year', date('Y'))->where('finished', false)->count() > 1? 'Grupos atuais': 'Grupo atual' }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @foreach ($groups->where('year', date('Y'))->where('finished', false) as $group)
+                        <div class="flex justify-between flex-wrap p-4 borber-b">
+                            <div class="font-semibold">
+                                <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
+                            </div>
+                            <div
+                                class="pt-0.5 px-2 bg-gray-100 border border-gray-300 rounded-full text-gray-800 text-xs font-semibold">
+                                {{ $group->weekday }}, {{ $group->time->format('H:i') }}</div>
+                            <div class="basis-full text-sm">{{ $group->students_count }} catequizandos</div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            <div class="card-body table-responsive">
-                <table class="table table-hover whitespace-nowrap">
-                    <thead>
-                        <tr>
-                            <th>Ano</th>
-                            <th>Etapa</th>
-                            <th>Catequizandos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($groups->where('finished', true) as $group)
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Histórico de grupos</h3>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover whitespace-nowrap">
+                        <thead>
                             <tr>
-                                <td>{{ $group->year }}</td>
-                                <td>
-                                    <a href="{{route('groups.show', $group)}}">{{ $group->grade->title }}</a>
-                                </td>
-                                <td>{{ $group->students_count }}</td>
+                                <th>Ano</th>
+                                <th>Etapa</th>
+                                <th>Catequizandos</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($groups->where('finished', true) as $group)
+                                <tr>
+                                    <td>{{ $group->year }}</td>
+                                    <td>
+                                        <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
+                                    </td>
+                                    <td>{{ $group->students_count }}</td>
+                                </tr>
+                            @empty
+                                <x-empty span="3" />
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
         <div class="card">
             @livewire('catechist.contact', ['catechist' => $catechist])
         </div>
     </div>
-
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Turma atual</li>

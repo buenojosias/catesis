@@ -20,7 +20,6 @@
                     <i class="ml-2 fa fa-chevron-down"></i>
                 </button>
             </div>
-    
             <div class="sm:hidden" x-show="showtabs"
                 x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="transform opacity-0 scale-95"
@@ -39,8 +38,5 @@
     @if (session('success'))
         <x-success message="{{ session('success') }}" />
     @endif
-
-
     {{ $student }}
-
 </x-app-layout>

@@ -1,11 +1,9 @@
 <x-app-layout>
-
     <div class="infobox-wrapper">
         <x-infobox value="{{$students_count}}" label="Catequizandos ativos" href="{{route('students.index')}}" icon="children" />
         <x-infobox value="{{$groups_count}}" label="Grupos ativos" href="{{route('groups.index')}}" icon="people-group" />
         <x-infobox value="{{$catechists_count}}" label="Catequistas" href="{{route('catechists.index')}}" icon="users" />
     </div>
-
     <div class="grid md:grid-cols-3 gap-4">
         <div class="md:col-span-2">
             <div class="mb-4 bg-white shadow rounded">

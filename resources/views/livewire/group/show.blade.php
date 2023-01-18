@@ -53,7 +53,6 @@
             </div>
         </div>
     </div>
-
     @if ($students)
         <div class="card mb-4">
             <div class="card-header">
@@ -95,7 +94,6 @@
             </div>
         </div>
     @endif
-
     @if ($encounters)
         <div class="card mb-4">
             <div class="card-header">

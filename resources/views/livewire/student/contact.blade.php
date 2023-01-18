@@ -36,8 +36,6 @@
                 @endcan
             </div>
         @endif
-
-
         @can('student_edit')
             <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
                 <div class="text-center font-semibold">
@@ -53,7 +51,6 @@
             </div>
         @endcan
     </div>
-
     <div class="grid sm:grid-cols-2 gap-4">
         <div>
             <div class="card">

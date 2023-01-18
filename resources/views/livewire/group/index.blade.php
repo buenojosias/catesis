@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($groups as $group)
+                    @forelse ($groups as $group)
                         <tr>
                             <td><a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a></td>
                             @hasrole('admin')
@@ -68,7 +68,9 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <x-empty />
+                    @endforelse
                 </tbody>
             </table>
         </div>

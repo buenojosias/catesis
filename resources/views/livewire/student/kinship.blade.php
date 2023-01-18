@@ -30,7 +30,6 @@
             @endcan
         </div>
     </div>
-
     @can('student_edit')
         <x-modal wire:model.defer="kinshipCreateModal">
             <form wire:submit.prevent="kinshipSubmit">
@@ -109,5 +108,4 @@
             </form>
         </x-modal>
     @endcan
-
 </div>

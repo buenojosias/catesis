@@ -29,7 +29,6 @@
                     <i class="ml-2 fa fa-chevron-down"></i>
                 </button>
             </div>
-
             <div class="sm:hidden" x-show="showtabs" x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="transform opacity-0 scale-95"
                 x-transition:enter-end="transform opacity-100 scale-100"
@@ -49,7 +48,6 @@
             </div>
         </nav>
     </x-slot>
-
     @if (!$section)
         @livewire('student.sumary', ['student' => $student])
     @endif
@@ -65,11 +63,8 @@
     @if ($section === 'historico')
         @livewire('student.history', ['student' => $student])
     @endif
-
     {{-- <div class="mt-4 md:grid md:grid-cols-2 gap-4">
-
     </div> --}}
-
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Documentos</li>

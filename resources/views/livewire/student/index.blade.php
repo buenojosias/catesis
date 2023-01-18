@@ -53,7 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($students as $student)
+                    @forelse ($students as $student)
                         <tr>
                             <td><a href="{{ route('students.show', $student) }}">{{ $student->name }}</a></td>
                             @hasrole('admin')
@@ -67,15 +67,17 @@
                             <td class="text-right">
                                 <x-button icon="eye" flat red sm
                                     wire:click="openStudentModal({{ $student->id }})" />
-                                <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary sm
-                                    />
+                                <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary
+                                    sm />
                                 @can('student_edit')
                                     <x-button href="{{ route('students.edit', $student) }}" flat primary sm
                                         icon="pencil" />
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <x-empty />
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -83,7 +85,6 @@
             {{ $students->links() }}
         </div>
     </div>
-
     @if ($simpleModal)
         <x-modal wire:model.defer="simpleModal">
             <x-card title="Consent Terms">

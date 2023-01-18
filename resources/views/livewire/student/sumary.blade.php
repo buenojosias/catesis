@@ -89,7 +89,6 @@
                 </div>
             </div>
         </div>
-
         <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
             <div class="text-center font-semibold">
                 @can('student_edit')

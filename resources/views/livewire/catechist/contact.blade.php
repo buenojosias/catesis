@@ -1,11 +1,6 @@
 <div>
     <div class="card-header">
         <h3 class="card-title">Contatos</h3>
-        @can('student_edit')
-            <div class="card-tools">
-                <x-button wire:click="openContactModal()" sm flat label="Editar" />
-            </div>
-        @endcan
     </div>
     <div class="card-body">
         <ul>
