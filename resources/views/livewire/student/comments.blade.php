@@ -10,7 +10,7 @@
         <div class="card-body">
             <div x-show="showTextarea" @close-textarea.window="showTextarea = false" class="py-2 px-4 border-b">
                 <x-errors class="mb-4" />
-                <x-textarea wire:model.defer="description" placeholder="Adicionar novo comentário" rows="2" />
+                <x-textarea wire:model.defer="description" placeholder="Adicionar novo comentário" rows="2" required />
                 <div class="mt-2 flex justify-end space-x-2">
                     <x-button wire:click="resetDescription" @click="showTextarea = false" sm flat label="Cancelar" />
                     <x-button wire:click="submitComment" sm primary label="Salvar" />

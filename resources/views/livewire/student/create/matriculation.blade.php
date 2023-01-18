@@ -21,7 +21,7 @@
                 <div class="body">
                     <div class="grid sm:grid-cols-4 gap-4">
                         <div class="col-span-4">
-                            <x-native-select wire:model.defer="group" label="Grupo">
+                            <x-native-select wire:model.defer="group" label="Grupo *" required>
                                 <option value="">Selecione</option>
                                 @foreach ($groups as $group)
                                     <option value="{{ $group->id }}">{{ $group->grade->title }} -

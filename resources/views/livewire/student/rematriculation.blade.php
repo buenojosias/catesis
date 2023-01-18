@@ -11,7 +11,7 @@
             </div>
             <x-errors class="mb-4 shadow" />
             <div>
-                <x-native-select wire:model.defer="group" label="Grupo">
+                <x-native-select wire:model.defer="group" label="Grupo *" required>
                     <option value="">Selecione</option>
                     @foreach ($groups as $group)
                         <option value="{{ $group->id }}">{{ $group->grade->title }} - {{ $group->year }}</option>
@@ -19,8 +19,8 @@
                 </x-native-select>
             </div>
             <div class="my-4">
-                <x-native-select wire:model.defer="kinship" label="Familiar representante"
-                    hint="Se o familiar não estiver disponível, é necessário vinculá-lo na guia Familiares.">
+                <x-native-select wire:model.defer="kinship" label="Familiar representante *"
+                    hint="Se o familiar não estiver disponível, é necessário vinculá-lo na guia Familiares." required>
                     <option value="">Selecione</option>
                     @foreach ($kinships as $kinship)
                         <option value="{{ $kinship->id }}">{{ $kinship->name }} ({{ $kinship->pivot->title ?? '' }})

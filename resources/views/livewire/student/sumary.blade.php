@@ -125,15 +125,16 @@
                         <x-errors class="mb-4 shadow" />
                         <div class="grid sm:grid-cols-4 gap-4">
                             <div class="sm:col-span-4">
-                                <x-input label="Nome" placeholder="Informe o nome completo" wire:model.defer="name" />
+                                <x-input label="Nome *" placeholder="Informe o nome completo" wire:model.defer="name"
+                                    required />
                             </div>
                             <div class="sm:col-span-2">
-                                <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento"
+                                <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
                                     wire:model.defer="birth" without-tips without-time without-timezone :min="now()->subYears(18)"
-                                    :max="now()->subYears(5)" />
+                                    :max="now()->subYears(5)" required />
                             </div>
                             <div class="sm:col-span-2">
-                                <x-native-select label="Sexo" wire:model.defer="gender">
+                                <x-native-select label="Sexo *" wire:model.defer="gender" required>
                                     <option value="">Selecione</option>
                                     <option value="male">Masculino</option>
                                     <option value="female">Feminino</option>
@@ -162,12 +163,12 @@
                                 <x-toggle md left-label="Os pais são casados na igreja" wire:model="married_parents" />
                             </div>
                             <div class="sm:col-span-4">
-                                <x-input label="Onde estuda?" placeholder="Nome da escola/colégio" cornerHint="Opcional"
+                                <x-input label="Onde estuda?" placeholder="Nome da escola/colégio"
                                     wire:model.defer="school" />
                             </div>
                             <div class="sm:col-span-4">
                                 <x-input label="Possui problema de saúde?" placeholder="Se sim, descreva"
-                                    cornerHint="Opcional" wire:model.defer="health_problems" />
+                                    wire:model.defer="health_problems" />
                             </div>
                         </div>
                     </div>

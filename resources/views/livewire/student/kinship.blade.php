@@ -68,16 +68,16 @@
                             @endif
                             @if ($option === 'create')
                                 <div class="sm:col-span-4">
-                                    <x-input wire:model.defer="ks_name" label="Nome" placeholder="Nome completo" />
+                                    <x-input wire:model.defer="ks_name" label="Nome *" placeholder="Nome completo" required />
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento"
-                                        wire:model.defer="ks_birth" without-tips without-time :max="now()->subYears(2)" />
+                                    <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
+                                        wire:model.defer="ks_birth" without-tips without-time :max="now()->subYears(2)" required />
                                 </div>
                             @endif
                             @if ($option)
                                 <div class="sm:col-span-2">
-                                    <x-native-select label="Grau de parentesco" wire:model.defer="ks_title">
+                                    <x-native-select label="Grau de parentesco *" wire:model.defer="ks_title" required>
                                         <option value="">Selecione</option>
                                         @foreach ($titles as $title)
                                             <option>{{ $title }}</option>

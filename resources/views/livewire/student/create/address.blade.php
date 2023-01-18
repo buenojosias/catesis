@@ -20,16 +20,16 @@
                 <div class="body">
                     <div class="grid sm:grid-cols-4 gap-4">
                         <div class="sm:col-span-4">
-                            <x-input wire:model.defer="address" label="Endreço" />
+                            <x-input wire:model.defer="address" label="Endreço *" required />
                         </div>
                         <div class="sm:col-span-4">
-                            <x-input wire:model.defer="complement" label="Complemento" cornerHint="Opcional" />
+                            <x-input wire:model.defer="complement" label="Complemento" />
                         </div>
                         <div class="sm:col-span-2">
-                            <x-input wire:model.defer="district" label="Bairro" />
+                            <x-input wire:model.defer="district" label="Bairro *" required />
                         </div>
                         <div class="sm:col-span-2">
-                            <x-input wire:model.defer="city" label="Cidade" />
+                            <x-input wire:model.defer="city" label="Cidade *" required />
                         </div>
                     </div>
                 </div>
