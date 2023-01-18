@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                     @foreach ($groups->where('year', date('Y'))->where('finished', false) as $group)
-                        <div class="flex justify-between flex-wrap p-4 borber-b">
+                        <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
                             <div class="font-semibold">
                                 <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
                             </div>
@@ -85,8 +85,15 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            @livewire('catechist.contact', ['catechist' => $catechist])
+        <div>
+            <div class="card">
+                @livewire('catechist.contact', ['catechist' => $catechist])
+            </div>
+            @can('catechist_edit')
+                <div class="card mt-4">
+                    @livewire('catechist.edit-role', ['catechist' => $catechist])
+                </div>
+            @endcan
         </div>
     </div>
     <h4 class="mt-4 font-bold">Recursos</h4>

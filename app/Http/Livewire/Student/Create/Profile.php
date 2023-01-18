@@ -67,7 +67,7 @@ class Profile extends Component
             $student = Student::create($validateStudent);
             $profile = $student->profile()->create($validateProfile);
         } catch (\Throwable $th) {
-            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequizando(a).');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar catequizando(a).');
             dd($th);
         }
         if($student && $profile) {
@@ -77,7 +77,7 @@ class Profile extends Component
             $this->notification()->success($title = 'Catequizando(a) cadastrado(a) com sucesso', $description = 'Continue completando as informações.');
         } else {
             DB::rollback();
-            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequizando(a).');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar catequizando(a).');
         }
     }
 

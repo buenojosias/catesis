@@ -75,7 +75,7 @@ class Create extends Component
             $profile = $user->profile()->create($validateProfile);
             $role = $user->roles()->attach((int)$this->role);
         } catch (\Throwable $th) {
-            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequista.');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar catequista.');
             dd($th);
         }
         if($user && $profile) {
@@ -85,7 +85,7 @@ class Create extends Component
             $this->notification()->success($title = 'Catequista cadastrado(a) com sucesso', $description = 'Continue completando as informações.');
         } else {
             DB::rollback();
-            $this->notification()->error($description, 'Ocorreu um erro ao cadastrar catequista.');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar catequista.');
         }
     }
 
