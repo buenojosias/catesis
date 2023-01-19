@@ -20,8 +20,6 @@ class Sumary extends Component
     public $gender, $naturalness, $has_baptism, $baptism_date, $baptism_church, $married_parents, $health_problems, $school;
 
     public $showEditProfileModal;
-    public $rematriculationModal;
-    public $comments = false;
     public $groups;
 
     protected $validationAttributes = [
@@ -76,37 +74,20 @@ class Sumary extends Component
         try {
             $saveStudent = $this->student->update($validateStudent);
             $saveProfile = $this->student->profile()->update($validateProfile);
-            $this->student = $validateStudent;
-            $this->profile = $validateProfile;
-            $this->notification()->success(
-                $title = 'Informações salvas',
-                $description = 'Informações de perfil atualizadas com sucesso..'
-            );
+            // $this->student = $validateStudent;
+            // $this->profile = $validateProfile;
+            $this->notification()->success($description = 'Informações de perfil atualizadas com sucesso.');
             $this->showEditProfileModal = false;
         } catch (\Throwable $th) {
             $this->notification()->error(
-                $title = 'Erro',
-                $description = 'Ocorreu um erro ao salvar endereço.'
-            );
+                $description = 'Ocorreu um erro ao salvar informações.');
             dd($th);
         }
-    }
-
-    public function showComments() {
-        $this->comments = true;
     }
 
     public function openEditProfileModal()
     {
         $this->showEditProfileModal = true;
-    }
-
-    public function openRematriculationModal() {
-        $this->rematriculationModal = true;
-    }
-
-    public function submitRematriculation() {
-        $this->emit('submitRematriculation');
     }
 
     public function render()

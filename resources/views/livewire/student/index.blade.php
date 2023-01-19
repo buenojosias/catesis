@@ -61,8 +61,11 @@
                             @endrole
                             <td>{{ $student->grade->title ?? 'Nenhuma' }}</td>
                             <td>
-                                <span
-                                    class="px-2 pt-0.5 py-1 rounded text-xs font-semibold text-white bg-green-700">{{ $student->status }}</span>
+                                @if ($student->status === 'ativo')
+                                    <x-badge outline positive label="{{ $student->status }}" />
+                                @else
+                                    <x-badge outline warning label="{{ $student->status }}" />
+                                @endif
                             </td>
                             <td class="text-right">
                                 <x-button icon="eye" flat red sm

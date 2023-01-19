@@ -47,9 +47,9 @@
                             <div class="font-semibold">
                                 <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
                             </div>
-                            <div
-                                class="pt-0.5 px-2 bg-gray-100 border border-gray-300 rounded-full text-gray-800 text-xs font-semibold">
-                                {{ $group->weekday }}, {{ $group->time->format('H:i') }}</div>
+                            <div>
+                                <x-badge outline secondary label="{{ $group->weekday }}, {{ $group->time->format('H:i') }}" />
+                            </div>
                             <div class="basis-full text-sm">{{ $group->students_count }} catequizandos</div>
                         </div>
                     @endforeach

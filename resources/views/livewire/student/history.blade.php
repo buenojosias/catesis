@@ -1,7 +1,4 @@
 <div>
-    @if (session('success'))
-        <x-success message="{{ session('success') }}" />
-    @endif
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Histórico de etapas</h3>
@@ -22,16 +19,28 @@
                             <td>{{ $group->year }}</td>
                             <td>{{ $group->grade->title }}</td>
                             <td>
-                                {{ $group->pivot->matriculation_id }}
+                                {{ $group->pivot->matriculation_id ?? '' }}
                                 @if ($group->community_id !== $student->community_id)
                                     ({{ $group->community->name }})
                                 @endif
                             </td>
-                            <td>{{ $group->pivot->approved }}</td>
+                            <td>{{ $group->pivot->status ?? '' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    @can('student_edit')
+        <x-button wire:click="openRematriculationModal()" primary label="Fazer rematrícula" />
+    @endcan
+
+    {{-- @if ($rematriculationModal) --}}
+    @can('student_edit')
+        <x-modal wire:model.defer="rematriculationModal">
+            @livewire('student.rematriculation', ['student' => $student])
+        </x-modal>
+    @endcan
+    {{-- @endif --}}
+
 </div>

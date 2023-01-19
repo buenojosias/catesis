@@ -24,9 +24,4 @@ class Kinship extends Model
     public function students() {
         return $this->belongsToMany(Student::class)->withPivot(['is_enroller','live_together','title']);
     }
-
-    public function title() {
-        return $this->belongsTo(KinshipTitle::class);
-    }
-
 }

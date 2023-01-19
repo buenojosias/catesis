@@ -16,7 +16,9 @@
                 <tbody>
                     @foreach ($kinships as $kinship)
                         <tr>
-                            <td>{{ $kinship->name }}</td>
+                            <td>
+                                <a href="{{ route('kinships.show', $kinship) }}">{{ $kinship->name }}</a>
+                            </td>
                             <td>{{ $kinship->pivot->title ?? '' }}</td>
                             <td>{{ $kinship->pivot->is_enroller ?? '' }}</td>
                         </tr>
@@ -67,7 +69,8 @@
                             @endif
                             @if ($option === 'create')
                                 <div class="sm:col-span-4">
-                                    <x-input wire:model.defer="ks_name" label="Nome *" placeholder="Nome completo" required />
+                                    <x-input wire:model.defer="ks_name" label="Nome *" placeholder="Nome completo"
+                                        required />
                                 </div>
                                 <div class="sm:col-span-2">
                                     <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"

@@ -99,20 +99,10 @@
                 <a wire:click="showComments" class="block p-2 border-t cursor-pointer">Comentários</a>
             </div>
             <div class="text-center font-semibold">
-                @can('student_edit')
-                    <a class="block p-2 border-t cursor-pointer" wire:click="openRematriculationModal()">Fazer
-                        rematrícula</a>
-                @endcan
+                Um botão qualquer
             </div>
         </div>
     </div>
-    {{-- @if ($rematriculationModal) --}}
-    @can('student_edit')
-        <x-modal wire:model.defer="rematriculationModal">
-            @livewire('student.rematriculation', ['student' => $student])
-        </x-modal>
-    @endcan
-    {{-- @endif --}}
     @can('student_edit')
         <x-modal wire:model.defer="showEditProfileModal">
             <div class="card w-full">
@@ -172,7 +162,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="flex justify-between gap-x-4">
+                        <div class="flex justify-end gap-x-4">
                             <x-button flat label="Cancelar" x-on:click="close" />
                             <x-button type="submit" primary label="Salvar" />
                         </div>

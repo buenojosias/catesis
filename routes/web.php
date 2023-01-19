@@ -5,6 +5,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\KinshipController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
     Route::get('/catequizandos/{student}/{section?}', [StudentController::class, 'show'])->name('students.show');
     Route::get('/catequizandos/{student}/editar', [StudentController::class, 'edit'])->middleware('can:student_edit')->name('students.edit');
+
+    Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');
 });
 
 require __DIR__.'/auth.php';
