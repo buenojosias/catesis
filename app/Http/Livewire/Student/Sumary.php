@@ -79,8 +79,7 @@ class Sumary extends Component
             $this->notification()->success($description = 'Informações de perfil atualizadas com sucesso.');
             $this->showEditProfileModal = false;
         } catch (\Throwable $th) {
-            $this->notification()->error(
-                $description = 'Ocorreu um erro ao salvar informações.');
+            $this->notification()->error($description = 'Ocorreu um erro ao salvar informações.');
             dd($th);
         }
     }

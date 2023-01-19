@@ -1,4 +1,9 @@
 <div>
+    @can('group_create')
+        <div class="flex justify-end mb-4">
+            <x-button wire:click="openFormModal" primary label="Novo grupo" />
+        </div>
+    @endcan
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
             <div class="card-search"></div>
@@ -64,7 +69,7 @@
                             <td class="text-right">
                                 <x-button href="{{ route('groups.show', $group) }}" flat primary sm icon="eye" />
                                 @can('group_edit')
-                                    <x-button href="{{ route('groups.edit', $group) }}" flat primary sm icon="pencil" />
+                                    {{-- <x-button href="{{ route('groups.edit', $group) }}" flat primary sm icon="pencil" /> --}}
                                 @endcan
                             </td>
                         </tr>
@@ -78,4 +83,11 @@
             {{ $groups->links() }}
         </div>
     </div>
+    @can('group_create')
+        @if ($showFormModal)
+            <x-modal wire:model.defer="showFormModal" max-width="md">
+                @livewire('group.form');
+            </x-modal>
+        @endif
+    @endcan
 </div>

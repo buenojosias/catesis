@@ -13,6 +13,11 @@ class Show extends Component
     public $encounters;
     public $students;
     public $students_count;
+    public $showFormModal;
+
+    public function openFormModal() {
+        $this->showFormModal = true;
+    }
 
     public function mount(Group $group)
     {

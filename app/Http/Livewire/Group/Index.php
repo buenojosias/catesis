@@ -16,6 +16,11 @@ class Index extends Component
     public $year = 2023;
     public $community = null;
     public $grade = null;
+    public $showFormModal;
+
+    public function openFormModal() {
+        $this->showFormModal = true;
+    }
 
     public function render()
     {

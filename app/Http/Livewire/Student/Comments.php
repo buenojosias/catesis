@@ -38,15 +38,10 @@ class Comments extends Component
             $this->comments->prepend($comment);
             $this->resetDescription();
             $this->dispatchBrowserEvent('close-textarea', ['showTextarea' => false]);
-            $this->notification()->success(
-                $title = 'Comentário salvo',
-                $description = 'O comentário foi adicionado com sucesso.'
+            $this->notification()->success($description = 'O comentário foi adicionado com sucesso.'
             );
         } catch (\Throwable $th) {
-            $this->notification()->error(
-                $title = 'Erro',
-                $description = 'Ocorreu um erro ao salvar comentário.'
-            );
+            $this->notification()->error($description = 'Ocorreu um erro ao salvar comentário.');
             dd($th);
         }
     }

@@ -7,22 +7,28 @@
                     <p>{{ $group->grade->title }}</p>
                 </div>
                 <div>
+                    <h4>Ano</h4>
+                    <p>{{ $group->year }}</p>
+                </div>
+                <div>
                     <h4>Catequizandos</h4>
                     <p>{{ $students_count }}</p>
                 </div>
-                <div class="col-span-2">
+                <div>
                     <h4>Dia e horário dos encontros</h4>
                     <p>{{ $group->weekday }} | {{ $group->time->format('H:i') }}</p>
                 </div>
                 <div class="col-span-2">
                     <h4>Catequista(s)</h4>
                     <p>
-                        @foreach ($catechists as $catechist)
+                        @forelse ($catechists as $catechist)
                             {{ $catechist->name }}
                             @if (!$loop->last)
                                 e
                             @endif
-                        @endforeach
+                        @empty
+                        Nenhum catequista adicionado
+                        @endforelse
                     </p>
                 </div>
                 <div>
@@ -31,7 +37,7 @@
                 </div>
                 <div>
                     <h4>Data final</h4>
-                    <p>{{ $group->end_date->format('d/m/Y') }}</p>
+                    <p>{{ $group->end_date ? $group->end_date->format('d/m/Y') : '' }}</p>
                 </div>
                 @hasrole('admin')
                     <div class="col-span-4">
@@ -48,9 +54,11 @@
             <div class="text-center font-semibold">
                 <a class="block p-2 border-t cursor-pointer" wire:click="showEncounters">Exibir encontros</a>
             </div>
-            <div class="text-center font-semibold">
-                <a href="#" class="block p-2 border-t">Editar ou Exibir temas</a>
-            </div>
+            @can('group_edit')
+                <div class="text-center font-semibold">
+                    <a wire:click="openFormModal" class="block p-2 border-t cursor-pointer">Editar</a>
+                </div>
+            @endcan
         </div>
     </div>
     @if ($students)
@@ -73,7 +81,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students as $student)
+                        @forelse ($students as $student)
                             <tr>
                                 <td><a href="{{ route('students.show', $student) }}">{{ $student->name }}</a></td>
                                 <td>{{ $student->age }} anos</td>
@@ -88,7 +96,9 @@
                                     @endcan
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <x-empty />
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -113,7 +123,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($encounters as $encounter)
+                        @forelse ($encounters as $encounter)
                             <tr>
                                 <td><a href="#">{{ $encounter->date->format('d/m/Y') }}</a></td>
                                 <td>{{ $encounter->method }}</td>
@@ -126,10 +136,20 @@
                                     @endcan
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <x-empty />
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
     @endif
+    @can('group_edit')
+        @if ($showFormModal)
+            <x-modal wire:model.defer="showFormModal" max-width="md">
+                @livewire('group.form', ['group' => $group]);
+            </x-modal>
+        @endif
+    @endcan
+
 </div>
