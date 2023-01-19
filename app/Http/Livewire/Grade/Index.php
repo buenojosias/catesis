@@ -12,7 +12,6 @@ class Index extends Component
         $grades = Grade::query()
             ->withCount('active_students')
             ->get();
-            # FILTRAR POR COMUNIDADE
 
         return view('livewire.grade.index', [
             'grades' => $grades
