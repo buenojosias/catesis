@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Group;
 
 use App\Models\Group;
+use App\Models\Theme;
 use Carbon\Carbon;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -39,7 +40,7 @@ class Show extends Component
         $this->method = $method;
         $this->edit_encounter = $encounter;
         if($method === 'create') { $this->edit_encounter['date'] = null; }
-        $this->edit_themes = $this->group->grade->themes()->orderBy('sequence', 'asc')->get();
+        $this->edit_themes = Theme::where('grade_id', $this->group->encounter_id)->orderBy('sequence', 'asc')->get();
         $this->showEncounterModal = true;
     }
 

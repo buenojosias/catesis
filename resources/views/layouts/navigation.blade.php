@@ -1,5 +1,5 @@
 <aside :class="{ 'block': showsidebar, 'hidden': !showsidebar }"
-    class="fixed z-20 h-full top-0 left-0 pt-14 flex lg:flex flex-shrink-0 flex-col w-64 bg-white"
+    class="fixed z-20 h-full top-0 left-0 pt-10 flex lg:flex flex-shrink-0 flex-col w-64 bg-white"
     x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95"
     x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-90"
     x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">

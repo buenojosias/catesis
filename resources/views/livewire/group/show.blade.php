@@ -115,7 +115,7 @@
             <div class="card-header">
                 <h3 class="card-title">Encontros</h3>
                 <div class="card-tools">
-                    @can('encounter_edit')
+                    @can('group_edit')
                         <x-button outline primary xs label="Adicionar" wire:click="openEncounterModal('create')" />
                     @endcan
                     <x-button flat sm icon="x" wire:click="hideEncounters" />

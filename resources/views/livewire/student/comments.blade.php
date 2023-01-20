@@ -1,4 +1,4 @@
-<div>
+<div class="md:max-w-3xl mx-auto">
     <x-notifications />
     <div class="card" x-data="{ showTextarea: false }">
         <div class="card-header">

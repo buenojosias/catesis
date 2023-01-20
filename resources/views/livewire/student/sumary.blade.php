@@ -96,7 +96,7 @@
                 @endcan
             </div>
             <div class="text-center font-semibold">
-                <a wire:click="showComments" class="block p-2 border-t cursor-pointer">Comentários</a>
+                <a href="{{ route('students.show', [$student, 'comentarios']) }}" class="block p-2 border-t cursor-pointer">Comentários</a>
             </div>
             <div class="text-center font-semibold">
                 Um botão qualquer

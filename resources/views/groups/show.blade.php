@@ -11,8 +11,4 @@
         </div>
     @endif
     @livewire('group.show', ['group' => $group])
-    <h4 class="mt-4 font-bold">Recursos</h4>
-    <ul>
-        <li>- Encontros/temas</li>
-    </ul>
 </x-app-layout>

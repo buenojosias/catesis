@@ -1,5 +1,5 @@
 <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="px-3 py-2 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
                 <button @click="showsidebar = !showsidebar"
@@ -27,11 +27,12 @@
             <div class="flex items-center">
                 <div class="relative md:order-2">
                     <button @click="usermenu = !usermenu"
-                        class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        class="flex mr-3 text-sm bg-gray-100 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 px-2 py-0.5"
                         data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full"
-                            src="{{ asset('img/user-icon.webp') }}" alt="user photo">
+                        <i class="fa fa-user text-xl text-slate-800"></i>
+                        {{-- <img class="w-8 h-8 rounded-full"
+                            src="{{ asset('img/user-icon.webp') }}" alt="user photo"> --}}
                     </button>
                     <!-- Dropdown menu -->
                     <div x-show="usermenu" @click.outside="usermenu = false"

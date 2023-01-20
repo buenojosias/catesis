@@ -23,13 +23,22 @@
                 </div>
             </div>
             <div class="flex sm:hidden">
-                <button type="button" aria-controls="mobile-menu" aria-expanded="false" @click="showtabs = !showtabs">
+                <x-button type="button" right-icon="chevron-down" class="block w-full" aria-controls="mobile-menu"
+                    aria-expanded="false" @click="showtabs = !showtabs">
+                    @php
+                        switch ($section) {
+                            case 'comentarios': echo 'Comentários'; break;
+                            case 'contatos': echo 'Contatos e endereço'; break;
+                            case 'familiares': echo 'Familiares'; break;
+                            case 'historico': echo 'Histórico'; break;
+                            default: echo 'Resumo';
+                        }
+                    @endphp
                     <span class="sr-only">Open menu</span>
-                    Links
-                    <i class="ml-2 fa fa-chevron-down"></i>
-                </button>
+                </x-button>
             </div>
-            <div class="sm:hidden" x-show="showtabs" x-transition:enter="transition ease-out duration-200"
+            <div class="sm:hidden" x-show="showtabs" @click.outside="showtabs=false"
+                x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="transform opacity-0 scale-95"
                 x-transition:enter-end="transform opacity-100 scale-100"
                 x-transition:leave="transition ease-in duration-90"
@@ -63,8 +72,6 @@
     @if ($section === 'historico')
         @livewire('student.history', ['student' => $student])
     @endif
-    {{-- <div class="mt-4 md:grid md:grid-cols-2 gap-4">
-    </div> --}}
     <h4 class="mt-4 font-bold">Recursos</h4>
     <ul>
         <li>- Documentos</li>

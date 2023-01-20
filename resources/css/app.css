@@ -96,10 +96,10 @@
 }
 
 .tabs {
-    @apply mt-3 pb-1 md:pb-0 -mb-4 md:border-t-[1px];
+    @apply mt-3 pb-1.5 sm:pb-0.5 -mb-4 sm:border-t-[1px];
 }
 .tabs a {
-    @apply block my-2 md:my-0 px-2 py-0.5 md:py-2 border-l-[3px] md:border-b-[3px] md:border-l-0 border-transparent text-slate-700 hover:border-sky-700 hover:text-sky-800 text-base font-medium transition duration-75;
+    @apply block my-2 sm:my-0 px-2 py-0.5 sm:py-2 border-l-[3px] sm:border-b-[3px] sm:border-l-0 border-transparent text-slate-700 hover:border-sky-700 hover:text-sky-800 text-base font-medium transition duration-75;
 }
 .tabs a.active {
     @apply border-sky-700 text-sky-800;
