@@ -48,24 +48,29 @@
                 @endhasrole
             </div>
         </div>
-        <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
-            <div class="text-center font-semibold">
-                <a class="block p-2 border-t cursor-pointer" wire:click="showStudents">Exibir catequizandos</a>
-            </div>
-            <div class="text-center font-semibold">
-                <a class="block p-2 border-t cursor-pointer" wire:click="showEncounters">Exibir encontros</a>
-            </div>
-            @can('group_edit')
+        @if ($group->community_id === auth()->user()->community_id || auth()->user()->hasRole('admin'))
+            <div class="md:grid md:grid-cols-4 bg-gray-50 divide-x rounded-b">
                 <div class="text-center font-semibold">
-                    <a wire:click="openFormModal" class="block p-2 border-t cursor-pointer">Editar</a>
+                    <a class="block p-2 border-t cursor-pointer" wire:click="showStudents">Exibir catequizandos</a>
                 </div>
-            @endcan
-            @cannot('group_edit')
                 <div class="text-center font-semibold">
-                    <a class="block p-2 border-t cursor-pointer" wire:click="showThemes">Exibir temas</a>
+                    <a class="block p-2 border-t cursor-pointer" wire:click="showEncounters">Exibir encontros</a>
                 </div>
-            @endcannot
-        </div>
+                @can('group_edit')
+                    <div class="text-center font-semibold">
+                        <a wire:click="openFormModal" class="block p-2 border-t cursor-pointer">Editar</a>
+                    </div>
+                @endcan
+                @cannot('group_edit')
+                    <div class="text-center font-semibold">
+                        <a class="block p-2 border-t cursor-pointer" wire:click="showThemes">Exibir temas</a>
+                    </div>
+                @endcannot
+                <div class="text-center font-semibold">
+                    <a href="#" class="block p-2 border-t cursor-pointer">Gerar chamada</a>
+                </div>
+            </div>
+        @endif
     </div>
     @if ($students)
         <div class="card mb-4">
@@ -92,7 +97,9 @@
                                 <td><a href="{{ route('students.show', $student) }}">{{ $student->name }}</a></td>
                                 <td>{{ $student->age }} anos</td>
                                 <td>{{ $student->status }}</td>
-                                <td>xxx</td>
+                                <td>
+                                    {{ $student->encounters->count() }}
+                                </td>
                                 <td class="text-right">
                                     <x-button href="{{ route('students.show', $student) }}" flat primary sm
                                         icon="eye" />
@@ -138,10 +145,8 @@
                                 <td>{{ $encounter->method }}</td>
                                 <td>{{ $encounter->theme->title ?? '' }}</td>
                                 <td class="text-right">
-                                    @if ($encounter->date <= now())
-                                        <x-button href="#" flat sm icon="table" />
-                                    @endif
-                                    <x-button href="#" flat primary sm icon="eye" />
+                                    <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" flat primary
+                                        sm icon="eye" />
                                     @can('group_edit')
                                         <x-button wire:click="openEncounterModal('edit', {{ $encounter }})" flat primary
                                             sm icon="pencil" />

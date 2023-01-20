@@ -16,6 +16,10 @@ class Encounter extends Model
         return $this->belongsTo(Group::class);
     }
 
+    public function students() {
+        return $this->belongsToMany(Student::class)->withPivot(['attendance']);
+    }
+
     public function theme() {
         return $this->belongsTo(Theme::class);
     }

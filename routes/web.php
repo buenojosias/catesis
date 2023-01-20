@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');

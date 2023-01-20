@@ -29,6 +29,10 @@ class Student extends Model
         return $this->morphOne(Contact::class, 'contactable');
     }
 
+    public function encounters() {
+        return $this->belongsToMany(Encounter::class)->withPivot(['attendance']);
+    }
+
     // public function documents() {
     //     return $this->hasMany(Document::class);
     // }

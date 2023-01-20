@@ -40,7 +40,7 @@ class Show extends Component
         $this->method = $method;
         $this->edit_encounter = $encounter;
         if($method === 'create') { $this->edit_encounter['date'] = null; }
-        $this->edit_themes = Theme::where('grade_id', $this->group->encounter_id)->orderBy('sequence', 'asc')->get();
+        $this->edit_themes = Theme::where('grade_id', $this->group->grade_id)->orderBy('sequence', 'asc')->get();
         $this->showEncounterModal = true;
     }
 
@@ -108,7 +108,7 @@ class Show extends Component
             try {
                 $encounter = $this->group->encounters()->create($this->edit_encounter);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
-                $this->encounters->push($encounter);
+                //$this->encounters->push($encounter);
                 $this->showEncounterModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar encontro.');
@@ -117,7 +117,7 @@ class Show extends Component
             try {
                 $save = $this->group->encounters()->findOrFail($this->edit_encounter['id'])->update($this->edit_encounter);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
-                $this->encounters = $this->group->encounters()->orderBy('date', 'asc')->with('theme')->get();
+                //$this->encounters = $this->group->encounters()->orderBy('date', 'asc')->with('theme')->get();
                 $this->showEncounterModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar encontro.');

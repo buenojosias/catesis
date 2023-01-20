@@ -45,6 +45,7 @@ class Index extends Component
             ->when($this->grade, function($query) {
                 return $query->where('grade_id', $this->grade);
             })
+            ->orderBy('grade_id', 'asc')
             ->paginate();
 
         return view('livewire.group.index', [
