@@ -1,4 +1,5 @@
 <div>
+    <x-notifications />
     <div class="card mb-4">
         <div class="card-body display">
             <div class="md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
@@ -27,7 +28,7 @@
                                 e
                             @endif
                         @empty
-                        Nenhum catequista adicionado
+                            Nenhum catequista adicionado
                         @endforelse
                     </p>
                 </div>
@@ -59,6 +60,11 @@
                     <a wire:click="openFormModal" class="block p-2 border-t cursor-pointer">Editar</a>
                 </div>
             @endcan
+            @cannot('group_edit')
+                <div class="text-center font-semibold">
+                    <a class="block p-2 border-t cursor-pointer" wire:click="showThemes">Exibir temas</a>
+                </div>
+            @endcannot
         </div>
     </div>
     @if ($students)
@@ -97,7 +103,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <x-empty />
+                            <x-empty label="Nenhum catequizando adicionado." />
                         @endforelse
                     </tbody>
                 </table>
@@ -109,6 +115,9 @@
             <div class="card-header">
                 <h3 class="card-title">Encontros</h3>
                 <div class="card-tools">
+                    @can('encounter_edit')
+                        <x-button outline primary xs label="Adicionar" wire:click="openEncounterModal('create')" />
+                    @endcan
                     <x-button flat sm icon="x" wire:click="hideEncounters" />
                 </div>
             </div>
@@ -127,27 +136,98 @@
                             <tr>
                                 <td><a href="#">{{ $encounter->date->format('d/m/Y') }}</a></td>
                                 <td>{{ $encounter->method }}</td>
-                                <td>{{ $encounter->theme->title }}</td>
+                                <td>{{ $encounter->theme->title ?? '' }}</td>
                                 <td class="text-right">
+                                    @if ($encounter->date <= now())
+                                        <x-button href="#" flat sm icon="table" />
+                                    @endif
                                     <x-button href="#" flat primary sm icon="eye" />
-                                    <x-button href="#" flat sm icon="table" />
-                                    @can('encounter_edit')
-                                        <x-button href="#" flat primary sm icon="pencil" />
+                                    @can('group_edit')
+                                        <x-button wire:click="openEncounterModal('edit', {{ $encounter }})" flat primary
+                                            sm icon="pencil" />
                                     @endcan
                                 </td>
                             </tr>
                         @empty
-                            <x-empty />
+                            <x-empty label="Nenhum encontro programado." />
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
     @endif
+    @if ($themes)
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title">Temas</h3>
+                <div class="card-tools">
+                    <x-button flat sm icon="x" wire:click="hideThemes" />
+                </div>
+            </div>
+            <ul>
+                @forelse ($themes as $theme)
+                    <li x-data="{ show: false }" class="py-2 px-4 border-b last:border-none">
+                        <div class="flex space-x-4 items-center">
+                            <div class="grow">
+                                <a @click="show = !show" class="block cursor-pointer">
+                                    <span class="font-medium">{{ $theme->sequence }}.</span> {{ $theme->title }}
+                                </a>
+                            </div>
+                        </div>
+                        <div x-show="show" class="py-2 pl-4 text-sm">
+                            {{ $theme->description }}
+                        </div>
+                    </li>
+                @empty
+                    <x-empty label="Nenhum tema cadastrado para esta etapa." />
+                @endforelse
+            </ul>
+        </div>
+    @endif
     @can('group_edit')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 @livewire('group.form', ['group' => $group]);
+            </x-modal>
+        @endif
+        @if ($showEncounterModal)
+            <x-modal wire:model.defer="showEncounterModal" max-width="md">
+                <form wire:submit.prevent="submitEncounter">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ $method === 'create' ? 'Adicionar encontro' : 'Editar encontro' }}
+                            </h3>
+                        </div>
+                        <div class="card-body display">
+                            <x-errors class="mb-4 shadow" />
+                            <div class="grid grid-cols-2 space-y-3 space-y-0 gap-4">
+                                <div>
+                                    <x-datetime-picker wire:model.defer="edit_encounter.date" label="Data"
+                                        placeholder="Data do encontro" without-tips without-timezone without-time />
+                                </div>
+                                <x-native-select wire:model.defer="edit_encounter.method" label="Modalidade">
+                                    <option value="">Selecione</option>
+                                    <option value="presencial">Presencial</option>
+                                    <option value="familiar">Familiar</option>
+                                </x-native-select>
+                                <div class="col-span-2">
+                                    <x-native-select wire:model.defer="edit_encounter.theme_id" label="Tema">
+                                        <option value="">Selecione</option>
+                                        @foreach ($edit_themes as $theme)
+                                            <option value="{{ $theme->id }}">{{ $theme->title }}</option>
+                                        @endforeach
+                                    </x-native-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="flex justify-between gap-x-4">
+                                <x-button flat label="Cancelar" x-on:click="close" />
+                                <x-button type="submit" primary label="Salvar" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </x-modal>
         @endif
     @endcan

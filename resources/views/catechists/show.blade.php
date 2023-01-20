@@ -27,7 +27,7 @@
                 @hasrole('admin')
                     <div class="col-span-4">
                         <h4>Comunidade</h4>
-                        <p>{{ $catechist->community->name }}</p>
+                        <p>{{ $catechist->community->name ?? '' }}</p>
                     </div>
                 @endhasrole
             </div>
@@ -55,7 +55,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header">
                     <h3 class="card-title">Histórico de grupos</h3>
                 </div>

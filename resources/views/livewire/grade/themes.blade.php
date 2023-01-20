@@ -9,7 +9,7 @@
                 </div>
             @endcan
         </div>
-        <div class="card-body table-responsive">
+        <div class="card-body">
             <ul>
                 @forelse ($themes as $theme)
                     <li x-data="{ show: false }" class="py-1.5 px-4 border-b last:border-none">
