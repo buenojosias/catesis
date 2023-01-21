@@ -8,7 +8,7 @@
     </div>
     <div class="">
         <p>
-            {{ strtoupper($group->grade->title) }} - {{ $group->year }}<br>
+            ETAPA: {{ strtoupper($group->grade->title) }} - {{ $group->year }}<br>
             CATEQUISTA(S):
             @foreach ($group->users as $catechist)
                 {{ strtoupper($catechist->name) }}

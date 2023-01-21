@@ -21,10 +21,13 @@ class Show extends Component
     public $showFormModal;
 
     public $showEncounterModal;
+    public $catechistsModal;
     public $encounterModalTitle;
     public $method;
     public $edit_encounter;
     public $edit_themes;
+    public $avaliable_catechists;
+    public $selected_catechist;
 
     protected $validationAttributes = [
         'edit_encounter.date' => 'Data do encontro',
@@ -32,14 +35,18 @@ class Show extends Component
         'edit_encounter.theme_id' => 'Tema',
     ];
 
-    public function openFormModal() {
+    public function openFormModal()
+    {
         $this->showFormModal = true;
     }
 
-    public function openEncounterModal($method, $encounter = null) {
+    public function openEncounterModal($method, $encounter = null)
+    {
         $this->method = $method;
         $this->edit_encounter = $encounter;
-        if($method === 'create') { $this->edit_encounter['date'] = null; }
+        if ($method === 'create') {
+            $this->edit_encounter['date'] = null;
+        }
         $this->edit_themes = Theme::where('grade_id', $this->group->grade_id)->orderBy('sequence', 'asc')->get();
         $this->showEncounterModal = true;
     }
@@ -55,10 +62,10 @@ class Show extends Component
     {
         $this->hideEncounters();
         $this->hideThemes();
-        if($this->students)
+        if ($this->students)
             return;
         $this->students = $this->group->students()->orderBy('name', 'asc')->get();
-        foreach($this->students as $student) {
+        foreach ($this->students as $student) {
             $student->age = Carbon::parse($student->birth)->age;
         }
     }
@@ -67,7 +74,7 @@ class Show extends Component
     {
         $this->hideStudents();
         $this->hideThemes();
-        if($this->encounters)
+        if ($this->encounters)
             return;
         $this->encounters = $this->group->encounters()->orderBy('date', 'asc')->with('theme')->get();
     }
@@ -76,9 +83,17 @@ class Show extends Component
     {
         $this->hideStudents();
         $this->hideEncounters();
-        if($this->themes)
+        if ($this->themes)
             return;
         $this->themes = $this->group->grade->themes()->orderBy('sequence', 'asc')->get();
+    }
+
+    public function openCatechistsModal()
+    {
+        $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+            return $query->where('group_id', $this->group->id);
+        })->get();
+        $this->catechistsModal = true;
     }
 
     public function hideStudents()
@@ -96,6 +111,11 @@ class Show extends Component
         $this->themes = null;
     }
 
+    public function hideCatechistsModal()
+    {
+        $this->catechistsModal = false;
+    }
+
     public function submitEncounter()
     {
         $validThemes = $this->edit_themes->pluck('id')->toArray();
@@ -104,7 +124,7 @@ class Show extends Component
             'edit_encounter.method' => 'required|string',
             'edit_encounter.theme_id' => 'nullable|integer|in:' . implode(',', $validThemes),
         ]);
-        if($this->method === 'create') {
+        if ($this->method === 'create') {
             try {
                 $encounter = $this->group->encounters()->create($this->edit_encounter);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
@@ -113,7 +133,7 @@ class Show extends Component
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar encontro.');
             }
-        } else if($this->method === 'edit') {
+        } else if ($this->method === 'edit') {
             try {
                 $save = $this->group->encounters()->findOrFail($this->edit_encounter['id'])->update($this->edit_encounter);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
@@ -124,6 +144,37 @@ class Show extends Component
             }
         }
     }
+
+    public function detachCatechist($catechist)
+    {
+        try {
+            $this->group->users()->detach($catechist);
+            $this->catechists = $this->group->users()->get();
+            $this->notification()->success($description = 'Catequista removido(a) com sucesso.');
+            $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+                return $query->where('group_id', $this->group->id);
+            })->get();
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Erro ao remover catequista.');
+        }
+    }
+
+    public function syncCatechist()
+    {
+        $selected = $this->avaliable_catechists->where('id', $this->selected_catechist);
+        try {
+            $this->group->users()->syncWithoutDetaching($this->selected_catechist);
+            $this->catechists->push($selected->first());
+            $this->notification()->success($description = 'Catequista adicionado com sucesso.');
+            $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+                return $query->where('group_id', $this->group->id);
+            })->get();
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Erro ao adicionar catequista.');
+        }
+    }
+
+
 
     public function render()
     {

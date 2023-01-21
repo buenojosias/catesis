@@ -20,7 +20,9 @@
                     <p>{{ $group->weekday }} | {{ $group->time->format('H:i') }}</p>
                 </div>
                 <div class="col-span-2">
-                    <h4>Catequista(s)</h4>
+                    <h4>Catequista(s)
+                        <x-button wire:click="openCatechistsModal" flat xs icon="pencil" />
+                    </h4>
                     <p>
                         @forelse ($catechists as $catechist)
                             {{ $catechist->name }}
@@ -48,7 +50,9 @@
                 @endhasrole
             </div>
         </div>
-        @if ($group->community_id === auth()->user()->community_id || auth()->user()->hasRole('admin'))
+        @if (
+            $group->community_id === auth()->user()->community_id ||
+                auth()->user()->hasRole('admin'))
             <div class="md:grid md:grid-cols-4 bg-gray-50 divide-x rounded-b">
                 <div class="text-center font-semibold">
                     <a class="block p-2 border-t cursor-pointer" wire:click="showStudents">Exibir catequizandos</a>
@@ -67,7 +71,8 @@
                     </div>
                 @endcannot
                 <div class="text-center font-semibold">
-                    <a href="{{ route('groups.printableattendance', $group) }}" target="_blank" class="block p-2 border-t cursor-pointer">Emitir chamada</a>
+                    <a href="{{ route('groups.printableattendance', $group) }}" target="_blank"
+                        class="block p-2 border-t cursor-pointer">Emitir chamada</a>
                 </div>
             </div>
         @endif
@@ -233,6 +238,51 @@
                         </div>
                     </div>
                 </form>
+            </x-modal>
+        @endif
+        @if ($catechistsModal)
+            <x-modal wire:model.defer="catechistsModal" max-width="md">
+                <div class="card w-full">
+                    <div class="card-header">
+                        <h3 class="card-title">Catequistas do grupo</h3>
+                        <div class="card-tools">
+                            <x-button flat sm icon="x" wire:click="hideCatechistsModal" />
+                        </div>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <tbody>
+                                @foreach ($catechists as $catechist)
+                                    <tr>
+                                        <td>{{ $catechist->name }}</td>
+                                        <td class="w-4">
+                                            <x-button wire:click="detachCatechist({{$catechist}})" flat xs negative icon="trash" />
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-4 py-1.5 bg-gray-100 text-sm font-semibold">
+                        ADICIONAR CATEQUISTA
+                    </div>
+                    <div class="card-body display">
+                        <div class="flex items-center space-x-2">
+                            <div class="grow">
+                                <x-native-select wire:model="selected_catechist">
+                                    <option value="">Selecione</option>
+                                    @foreach ($avaliable_catechists as $catechist)
+                                        <option value="{{ $catechist->id }}">{{ $catechist->name }}</option>
+                                    @endforeach
+                                </x-native-select>
+                            </div>
+                            <div>
+                                <x-button wire:click="syncCatechist" label="Salvar" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </x-modal>
         @endif
     @endcan
