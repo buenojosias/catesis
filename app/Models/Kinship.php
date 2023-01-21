@@ -17,6 +17,10 @@ class Kinship extends Model
         return $this->morphOne(Contact::class, 'contactable');
     }
 
+    public function pastorals() {
+        return $this->morphToMany(Pastoral::class, 'pastorable');
+    }
+
     public function profile() {
         return $this->hasOne(KinshipProfile::class);
     }
