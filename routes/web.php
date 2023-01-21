@@ -43,7 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
-    Route::get('/grupos/{group}/chamada', App\Http\Livewire\Group\PrintableAttendance::class)->name('groups.printableattendance');
+    Route::get('/grupos/{group}/chamada', function ($group) {
+        return view('groups.printable-attendance', ['group' => $group]);
+    })->name('groups.printableattendance');
     Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');

@@ -68,9 +68,7 @@
                             </td>
                             <td class="text-right">
                                 <x-button href="{{ route('groups.show', $group) }}" flat primary sm icon="eye" />
-                                @can('group_edit')
-                                    {{-- <x-button href="{{ route('groups.edit', $group) }}" flat primary sm icon="pencil" /> --}}
-                                @endcan
+                                <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" flat sm icon="table" />
                             </td>
                         </tr>
                     @empty

@@ -1,58 +1,64 @@
-<div>
-    <div class="p-1 sm:p-2 overflow-x-auto bg-white shadow">
-        <div class="w-full flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4 p-2 divide-y sm:divide-y-0 border border-black font-semibold uppercase">
-            <div class="sm:w-1/2 text-center sm:text-left">
-                <p>
-                    {!! $group->community_id > 1 ? 'PARÓQUIA SÃO MARCOS<br>' : '' !!}
-                    {{ strtoupper($group->community->name) }}<br>
-                    PASTORAL DA CATEQUESE
-                </p>
-            </div>
-            <div class="sm:w-1/2 text-center sm:text-left">
-                <p>
-                    {{ strtoupper($group->grade->title) }} - {{ $group->year }}<br>
-                    CATEQUISTA(S):<br>
-                    @foreach ($group->users as $catechist)
-                        {{ strtoupper($catechist->name) }}
-                        @if (!$loop->last)
-                            E
-                        @endif
-                    @endforeach
-                </p>
-            </div>
-        </div>
-        <div class="py-0.5 border-l border-r border-black bg-gray-100 text-center font-semibold">
-            CONTROLE DE FREQUÊNCIA
-        </div>
-        <div class="table-responsive whitespace-nowrap border border-black text-sm">
-            {{--  --}}
-            <table class="table-attendance text-sm w-full">
-                <thead>
-                    <tr>
-                        <td class="font-semibold"></td>
-                        @foreach ($encounters->sortBy('date') as $encounter)
-                            <td class="w-10 px-1 border-l border-black font-semibold">{{ $encounter->date->format('d/m') }}
-                            </td>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $student)
-                        <tr class="border-t border-black">
-                            <td class="py-0.5 px-1 {{ $student->status !== 'ativo' ? 'text-gray-400' : '' }}">{{ $student->name }}</td>
-                            @foreach ($student->encounters->sortBy('date') as $cell)
-                                <td
-                                    class="border-l border-black text-center font-semibold {{ $cell->pivot->attendance === 'F' ? 'text-red-700' : '' }}">
-                                    {{ $cell->pivot->attendance ?? '-' }}
-                                </td>
-                            @endforeach
-                            @for ($x = 1; $x <= $encounters->count() - $student->encounters->count(); $x++)
-                                <td class="border-l border-black"></td>
-                            @endfor
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+<div class="header">
+    <div class="">
+        <p>
+            {!! $group->community_id > 1 ? 'PARÓQUIA SÃO MARCOS<br>' : '' !!}
+            {{ strtoupper($group->community->name) }}<br>
+            PASTORAL DE ANIMAÇÃO BÍBLICO CATEQUÉTICA
+        </p>
     </div>
+    <div class="">
+        <p>
+            {{ strtoupper($group->grade->title) }} - {{ $group->year }}<br>
+            CATEQUISTA(S):
+            @foreach ($group->users as $catechist)
+                {{ strtoupper($catechist->name) }}
+                @if (!$loop->last)
+                    E
+                @endif
+            @endforeach
+        </p>
+    </div>
+</div>
+<div class="title">
+    CONTROLE DE FREQUÊNCIA
+</div>
+<div>
+    <table class="table-attendance">
+        <thead>
+            <tr>
+                <td class="column-name"></td>
+                @foreach ($encounters->sortBy('date') as $encounter)
+                    <th>
+                        <span class="date-day">{{ $encounter->date->format('d') }}</span>
+                        {{ $encounter->date->format('m') }}
+                    </th>
+                @endforeach
+                @for ($x = 1; $x <= 34 - $encounters->count(); $x++)
+                    <th></th>
+                @endfor
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($students as $student)
+                <tr>
+                    <td class="column-name">
+                        <div class="truncate {{ $student->status !== 'ativo' ? 'removed' : '' }}">
+                            {{ $student->name }}
+                        </div>
+                    </td>
+                    @foreach ($student->encounters->sortBy('date') as $cell)
+                        <td class="attendance">
+                            <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }}">
+                                {{ $cell->pivot->attendance ?? '-' }}
+                            </div>
+                        </td>
+                    @endforeach
+                    @for ($x = 1; $x <= 34 - $student->encounters->count(); $x++)
+                        <td></td>
+                    @endfor
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>

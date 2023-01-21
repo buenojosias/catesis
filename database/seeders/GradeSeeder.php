@@ -19,6 +19,7 @@ class GradeSeeder extends Seeder
         Grade::create(['title' => 'Etapa diferenciada']);
         Grade::create(['title' => '1ª Etapa']);
         Grade::create(['title' => '2ª Etapa']);
+        Grade::create(['title' => '3ª Etapa']);
         Grade::create(['title' => '3ª Etapa (Eucaristia)']);
         Grade::create(['title' => '4ª Etapa']);
         Grade::create(['title' => '5ª Etapa']);

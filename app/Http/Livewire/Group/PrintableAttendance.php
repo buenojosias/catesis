@@ -22,6 +22,6 @@ class PrintableAttendance extends Component
 
     public function render()
     {
-        return view('livewire.group.printable-attendance');
+        return view('livewire.group.printable-attendance')->layout(false);
     }
 }

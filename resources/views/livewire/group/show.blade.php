@@ -67,7 +67,7 @@
                     </div>
                 @endcannot
                 <div class="text-center font-semibold">
-                    <a href="{{ route('groups.printableattendance', $group) }}" class="block p-2 border-t cursor-pointer">Gerar chamada</a>
+                    <a href="{{ route('groups.printableattendance', $group) }}" target="_blank" class="block p-2 border-t cursor-pointer">Emitir chamada</a>
                 </div>
             </div>
         @endif
