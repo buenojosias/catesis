@@ -15,7 +15,7 @@ class PrintableAttendance extends Component
         abort_unless(auth()->user()->hasRole('admin') or $group->community_id === auth()->user()->community_id, 403);
         $this->group = $group;
         $this->group->load(['community','grade','users']);
-        $this->encounters = $group->encounters;
+        $this->encounters = $group->encounters()->with('students')->get();
         $this->students = $group->students()->orderBy('name', 'asc')->get();
         $this->students->load('encounters')->pluck('date');
     }

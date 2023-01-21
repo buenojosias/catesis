@@ -21,7 +21,11 @@
                 </div>
                 <div class="col-span-2">
                     <h4>Catequista(s)
-                        <x-button wire:click="openCatechistsModal" flat xs icon="pencil" />
+                        @if ($group->community_id === auth()->user()->community_id || auth()->user()->hasRole('admin'))
+                            @can('group_edit')
+                                <x-button wire:click="openCatechistsModal" flat xs icon="pencil" />
+                            @endcan
+                        @endif
                     </h4>
                     <p>
                         @forelse ($catechists as $catechist)

@@ -30,7 +30,8 @@
                 @foreach ($encounters->sortBy('date') as $encounter)
                     <th>
                         <span class="date-day">{{ $encounter->date->format('d') }}</span>
-                        {{ $encounter->date->format('m') }}
+                        {{ $encounter->date->format('m') }}<br>
+                        {{ $encounter->id }}
                     </th>
                 @endforeach
                 @for ($x = 1; $x <= 34 - $encounters->count(); $x++)
@@ -47,14 +48,26 @@
                             {{ $student->name }}
                         </div>
                     </td>
-                    @foreach ($student->encounters->sortBy('date') as $cell)
+                    @foreach ($encounters->sortBy('date') as $encounter)
+                        <td class="attendance">
+                            @php
+                                $cell = $encounter->students->where('id', $student->id)->first();
+                            @endphp
+                            @if ($cell)
+                                <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }}">
+                                    {{ $cell->pivot->attendance }}
+                                </div>
+                            @endif
+                        </td>
+                    @endforeach
+                    {{-- @foreach ($student->encounters->sortBy('date') as $cell)
                         <td class="attendance">
                             <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }}">
                                 {{ $cell->pivot->attendance ?? '-' }}
                             </div>
                         </td>
-                    @endforeach
-                    @for ($x = 1; $x <= 34 - $student->encounters->count(); $x++)
+                    @endforeach --}}
+                    @for ($x = 1; $x <= 34 - $encounters->count(); $x++)
                         <td></td>
                     @endfor
                 </tr>

@@ -161,16 +161,20 @@ class Show extends Component
 
     public function syncCatechist()
     {
-        $selected = $this->avaliable_catechists->where('id', $this->selected_catechist);
-        try {
-            $this->group->users()->syncWithoutDetaching($this->selected_catechist);
-            $this->catechists->push($selected->first());
-            $this->notification()->success($description = 'Catequista adicionado com sucesso.');
-            $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
-                return $query->where('group_id', $this->group->id);
-            })->get();
-        } catch (\Throwable $th) {
-            $this->notification()->error($description = 'Erro ao adicionar catequista.');
+        if ($this->selected_catechist) {
+            $selected = $this->avaliable_catechists->where('id', $this->selected_catechist);
+            try {
+                $this->group->users()->syncWithoutDetaching($this->selected_catechist);
+                $this->catechists->push($selected->first());
+                $this->notification()->success($description = 'Catequista adicionado com sucesso.');
+                $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+                    return $query->where('group_id', $this->group->id);
+                })->get();
+            } catch (\Throwable $th) {
+                $this->notification()->error($description = 'Erro ao adicionar catequista.');
+            }
+        } else {
+            $this->notification()->error($description = 'Selecione um catequista.');
         }
     }
 
