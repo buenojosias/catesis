@@ -17,35 +17,35 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Coodenador Paroquial',
+            'name' => 'Coordenador Paroquial',
             'email' => 'admin@catesis.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ])->roles()->attach(1);
         User::create([
             'community_id' => 1,
-            'name' => 'Coodenador da Matriz',
+            'name' => 'Coordenador da Matriz',
             'email' => 'coordenador@matriz.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ])->roles()->attach(2);
         User::create([
             'community_id' => 2,
-            'name' => 'Coodenador do Beato',
+            'name' => 'Coordenador do Beato',
             'email' => 'coordenador@beato.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ])->roles()->attach(2);
         User::create([
             'community_id' => 3,
-            'name' => 'Coodenador da Misericórdia',
+            'name' => 'Coordenador da Misericórdia',
             'email' => 'coordenador@misericordia.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ])->roles()->attach(2);
         User::create([
             'community_id' => 4,
-            'name' => 'Coodenador da Perseverança',
+            'name' => 'Coordenador da Perseverança',
             'email' => 'coordenador@perseveranca.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),

@@ -8,6 +8,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KinshipController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Livewire\Group\PrintableAttendance;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/grupos/{group}/chamada', App\Http\Livewire\Group\PrintableAttendance::class)->name('groups.printableattendance');
     Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');

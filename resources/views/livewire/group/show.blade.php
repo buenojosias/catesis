@@ -67,7 +67,7 @@
                     </div>
                 @endcannot
                 <div class="text-center font-semibold">
-                    <a href="#" class="block p-2 border-t cursor-pointer">Gerar chamada</a>
+                    <a href="{{ route('groups.printableattendance', $group) }}" class="block p-2 border-t cursor-pointer">Gerar chamada</a>
                 </div>
             </div>
         @endif
@@ -98,7 +98,7 @@
                                 <td>{{ $student->age }} anos</td>
                                 <td>{{ $student->status }}</td>
                                 <td>
-                                    {{ $student->encounters->count() }}
+                                    {{-- {{ $student->encounters->count() }} --}}
                                 </td>
                                 <td class="text-right">
                                     <x-button href="{{ route('students.show', $student) }}" flat primary sm
