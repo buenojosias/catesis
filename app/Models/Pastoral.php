@@ -9,7 +9,7 @@ class Pastoral extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['community_id', 'name', 'coordinator', 'encounters'];
+    protected $fillable = ['user_id', 'community_id', 'name', 'coordinator', 'encounters'];
 
     public function community() {
         return $this->belongsTo(Community::class);
@@ -21,5 +21,8 @@ class Pastoral extends Model
 
     public function kinships() {
         return $this->morphedByMany(Kinship::class, 'pastorable');
+    }
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

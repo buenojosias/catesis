@@ -54,6 +54,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/catequizandos/{student}/editar', [StudentController::class, 'edit'])->middleware('can:student_edit')->name('students.edit');
 
     Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');
+
+    Route::get('/pastorais', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');
 });
 
 require __DIR__.'/auth.php';
