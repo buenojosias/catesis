@@ -19,6 +19,7 @@ class RelatedList extends Component
     public function mount($model) {
         $this->model = $model;
     }
+
     public function render()
     {
         return view('livewire.pastoral.related-list');

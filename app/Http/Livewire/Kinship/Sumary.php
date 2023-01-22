@@ -91,18 +91,3 @@ class Sumary extends Component
         return view('livewire.kinship.sumary');
     }
 }
-
-/*
-
-profession
-marital_status
-religion
-catechizing
-has_baptism
-has_eucharist
-has_chrism
-attends_church
-is_tither
-musical_instrument
-
-*/

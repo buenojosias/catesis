@@ -17,6 +17,8 @@
                             active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
                         <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                             active="{{ $section === 'historico' }}" label="Histórico" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'outros']) }}"
+                            active="{{ $section === 'outros' }}" label="Outros" />
                     </div>
                 </div>
             </div>
@@ -29,6 +31,7 @@
                             case 'contatos': echo 'Contatos e familiares'; break;
                             case 'familiares': echo 'Familiares'; break;
                             case 'historico': echo 'Histórico'; break;
+                            case 'outros': echo 'Outros'; break;
                             default: echo 'Resumo';
                         }
                     @endphp
@@ -50,6 +53,8 @@
                     active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
                 <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                     active="{{ $section === 'historico' }}" label="Histórico" />
+                <x-tab-link href="{{ route('students.show', [$student, 'outros']) }}"
+                    active="{{ $section === 'outros' }}" label="Outros" />
             </div>
         </nav>
     </x-slot>
@@ -67,5 +72,8 @@
     @endif
     @if ($section === 'historico')
         @livewire('student.history', ['student' => $student])
+    @endif
+    @if ($section === 'outros')
+        @livewire('student.others', ['student' => $student])
     @endif
 </x-app-layout>
