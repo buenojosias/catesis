@@ -2,37 +2,19 @@
 
 namespace App\Http\Livewire\Pastoral;
 
-use App\Models\Community;
-use App\Models\Pastoral;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $communities;
-    public $community;
-    public $community_name;
-    public $pastorals;
+    public $list;
 
-    public function selectCommunity($community)
+    public function mount($list = null)
     {
-        $this->community = $community;
-    }
-
-    public function mount()
-    {
-        $this->community = auth()->user()->community_id ?? 1;
-        $this->communities = Community::all();
+        $this->list = $list;
     }
 
     public function render()
     {
-        $this->community_name = $this->communities->where('id', $this->community)->first()->name;
-        $this->pastorals = Pastoral::query()
-            ->when($this->community, function ($query) {
-                return $query->where('community_id', $this->community);
-            })
-            ->with(['community', 'kinships', 'students.community'])
-            ->get();
         return view('livewire.pastoral.index');
     }
 }

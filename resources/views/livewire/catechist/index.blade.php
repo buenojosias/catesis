@@ -44,9 +44,6 @@
                             <td class="text-right">
                                 <x-button href="{{ route('catechists.show', $catechist) }}" flat primary sm
                                     icon="eye" />
-                                @can('catechist_edit')
-                                    <x-button flat primary sm icon="pencil" />
-                                @endcan
                             </td>
                         </tr>
                     @empty

@@ -31,7 +31,6 @@
                     <th>
                         <span class="date-day">{{ $encounter->date->format('d') }}</span>
                         {{ $encounter->date->format('m') }}<br>
-                        {{ $encounter->id }}
                     </th>
                 @endforeach
                 @for ($x = 1; $x <= 34 - $encounters->count(); $x++)

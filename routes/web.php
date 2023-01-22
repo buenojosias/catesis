@@ -55,7 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');
 
-    Route::get('/pastorais', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');
+    Route::get('/pastorais/{list?}', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');
 });
 
 require __DIR__.'/auth.php';

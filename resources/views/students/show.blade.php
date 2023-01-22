@@ -68,9 +68,4 @@
     @if ($section === 'historico')
         @livewire('student.history', ['student' => $student])
     @endif
-    <h4 class="mt-4 font-bold">Recursos</h4>
-    <ul>
-        <li>- Documentos</li>
-        <li>- Pastorais</li>
-    </ul>
 </x-app-layout>

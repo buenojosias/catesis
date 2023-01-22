@@ -1,88 +1,54 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Movimentos e Pastorais: {{ $community_name }}</h2>
-    </x-slot>
-
-    <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
-        <div class="col-span-2 mb-2">
-            <h2 class="mb-4 border-b border-gray-300 text-2xl font-semibold text-slate-900">{{ $community_name }}</h2>
-            @foreach ($pastorals as $pastoral)
-                <div x-data="{ expand: false }" class="card mb-2 text-sm">
-                    <div class="card-header">
-                        <h3 @click="expand = !expand" class="card-title block w-full cursor-pointer">{{ $pastoral->name }}
-                        </h3>
-                        @if ($pastoral->user_id === auth()->user()->id || auth()->user()->hasRole('admin'))
-                            <div class="card-tools">
-                                <x-button flat xs icon="pencil" />
-                            </div>
-                        @endif
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Movimentos e Pastorais</h2>
+        <nav class="tabs" x-data="{ showtabs: false }">
+            <div>
+                <div class="hidden sm:block">
+                    <div class="flex items-baseline space-x-2">
+                        <x-tab-link href="{{ route('pastorals.index') }}" active="{{ !$list || $list === 'past' }}"
+                            label="Por pastorais" />
+                        <x-tab-link href="{{ route('pastorals.index', 'cat') }}" active="{{ $list === 'cat' }}"
+                            label="Por catequizandos" />
                     </div>
-                    <div x-show="expand" class="card-body">
-                        @if ($pastoral->coordinator)
-                            <div class="py-2 px-4">
-                                Coordenador(a): {{ $pastoral->coordinator }}
-                            </div>
-                        @endif
-                        @if ($pastoral->encounters)
-                            <div class="py-2 px-4">
-                                Encontros: {{ $pastoral->encounters }}
-                            </div>
-                        @endif
-                        @if ($pastoral->students->count() > 0)
-                            <div class="py-2 px-4 bg-gray-100 font-semibold">
-                                CATEQUIZANDOS PARTICIPANTES
-                            </div>
-                            <table class="table">
-                                <tbody>
-                                    @foreach ($pastoral->students as $student)
-                                        <tr>
-                                            <td>{{ $student->name }}</td>
-                                            <td class="text-right">{{ $student->community->name }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-                        @if ($pastoral->kinships->count() > 0)
-                            <div class="py-2 px-4 bg-gray-100 font-semibold">
-                                FAMILIARES PARTICIPANTES
-                            </div>
-                            <table class="table">
-                                <tbody>
-                                    @foreach ($pastoral->kinships as $kinship)
-                                        <tr>
-                                            <td>{{ $kinship->name }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <div>
-
-            <x-button primary label="ADICIONAR MOVIMENTO/PASTORAL" class="mb-4 block w-full" />
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Comunidades</h3>
-                </div>
-                <div class="body table-responsive">
-                    <table class="table">
-                        <tbody>
-                            @foreach ($communities as $community)
-                                <tr>
-                                    <td wire:click="selectCommunity({{ $community->id }})" class="cursor-pointer">
-                                        {{ $community->name }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="flex sm:hidden">
+                <x-button type="button" right-icon="chevron-down" class="block w-full" aria-controls="mobile-menu"
+                    aria-expanded="false" @click="showtabs = !showtabs">
+                    @php
+                        switch ($list) {
+                            case 'past':
+                                echo 'Por pastorais';
+                                break;
+                            case 'cat':
+                                echo 'Por catequizandos';
+                                break;
+                            default:
+                                echo 'Por pastorais';
+                        }
+                    @endphp
+                    <span class="sr-only">Open menu</span>
+                </x-button>
+            </div>
+            <div class="sm:hidden" x-show="showtabs" @click.outside="showtabs=false"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-90"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95">
+                <x-tab-link href="{{ route('pastorals.index') }}" active="{{ !$list || $list === 'past' }}"
+                    label="Por pastorais" />
+                <x-tab-link href="{{ route('pastorals.index', 'cat') }}" active="{{ $list === 'cat' }}"
+                    label="Por catequizandos" />
+            </div>
+        </nav>
+    </x-slot>
+
+    @if (!$list || $list === 'past')
+        @livewire('pastoral.per-pastoral')
+    @endif
+    @if ($list === 'cat')
+        @livewire('pastoral.per-student')
+    @endif
 </div>

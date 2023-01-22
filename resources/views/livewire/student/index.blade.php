@@ -68,8 +68,6 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <x-button icon="eye" flat red sm
-                                    wire:click="openStudentModal({{ $student->id }})" />
                                 <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary
                                     sm />
                                 @can('student_edit')
@@ -88,20 +86,4 @@
             {{ $students->links() }}
         </div>
     </div>
-    @if ($simpleModal)
-        <x-modal wire:model.defer="simpleModal">
-            <x-card title="Consent Terms">
-                <p class="text-gray-600">
-                    {{ $selectedStudent ?? null }}
-                </p>
-
-                <x-slot name="footer">
-                    <div class="flex justify-end gap-x-4">
-                        <x-button flat label="Cancel" x-on:click="close" />
-                        <x-button primary label="I Agree" />
-                    </div>
-                </x-slot>
-            </x-card>
-        </x-modal>
-    @endif
 </div>

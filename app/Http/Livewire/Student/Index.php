@@ -16,7 +16,6 @@ class Index extends Component
     public $community = null;
     public $grade = null;
     public $status = 'ativo';
-    public $simpleModal;
     public $student;
 
     public function render()
@@ -61,11 +60,5 @@ class Index extends Component
             'grades' => $grades,
             'communities' => $communities ?? null,
         ]);
-    }
-
-    public function openStudentModal($studentId) {
-        $this->selectedStudent = Student::find($studentId);
-        //dd($this->selectedStudent);
-        $this->simpleModal = true;
     }
 }
