@@ -14,9 +14,7 @@
                         <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
                             active="{{ $section === 'comentarios' }}" label="Comentários" />
                         <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
-                            active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}"
-                            active="{{ $section === 'familiares' }}" label="Familiares" />
+                            active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
                         <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                             active="{{ $section === 'historico' }}" label="Histórico" />
                     </div>
@@ -28,7 +26,7 @@
                     @php
                         switch ($section) {
                             case 'comentarios': echo 'Comentários'; break;
-                            case 'contatos': echo 'Contatos e endereço'; break;
+                            case 'contatos': echo 'Contatos e familiares'; break;
                             case 'familiares': echo 'Familiares'; break;
                             case 'historico': echo 'Histórico'; break;
                             default: echo 'Resumo';
@@ -49,9 +47,7 @@
                 <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
                     active="{{ $section === 'comentarios' }}" label="Comentários" />
                 <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
-                    active="{{ $section === 'contatos' }}" label="Endereço e contatos" />
-                <x-tab-link href="{{ route('students.show', [$student, 'familiares']) }}"
-                    active="{{ $section === 'familiares' }}" label="Familiares" />
+                    active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
                 <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                     active="{{ $section === 'historico' }}" label="Histórico" />
             </div>

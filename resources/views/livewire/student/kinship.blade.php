@@ -1,30 +1,43 @@
 <div>
     <x-dialog />
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Familiares</h3>
         </div>
-        <div class="card-body table-responsive">
-            <table class="table table-hover whitespace-nowrap">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Parentesco</th>
-                        <th>Responsável</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($kinships as $kinship)
-                        <tr>
-                            <td>
-                                <a href="{{ route('kinships.show', $kinship) }}">{{ $kinship->name }}</a>
-                            </td>
-                            <td>{{ $kinship->pivot->title ?? '' }}</td>
-                            <td>{{ $kinship->pivot->is_enroller ?? '' }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="card-body">
+            <ul>
+                @forelse ($kinships as $kinship)
+                    <li class="flex space-x-2 py-2 px-4 border-b">
+                        <div class="grow">
+                            <div class="flex">
+                                <h4 class="text-sm font-medium text-gray-600 grow">{{ $kinship->name }}
+                                    ({{ $kinship->pivot->title ?? '' }})
+                                </h4>
+                                @if (@$kinship->pivot->is_enroller)
+                                    <x-badge outline sm label="Responsável" />
+                                @endif
+                            </div>
+                            <p class="font-medium text-gray-900">
+                                {{ $kinship->contact->phone ?? '' }}
+                                @if (@$kinship->contact->phone && @$kinship->contact->whatsapp)
+                                    •
+                                @endif
+                                {{ $kinship->contact->whatsapp ?? '' }}
+                            </p>
+                        </div>
+                        <div class="flex items-center">
+                            <x-dropdown>
+                                <x-dropdown.item href="{{ route('kinships.show', $kinship) }}" icon="eye"
+                                    label="Detalhes" />
+                                <x-dropdown.item icon="pencil-alt" label="Alterar vínculo" />
+                                <x-dropdown.item separator icon="user-remove" label="Desvincular" />
+                            </x-dropdown>
+                        </div>
+                    </li>
+                @empty
+                    <x-empty label="Nenhum familiar vinculado." />
+                @endforelse
+            </ul>
         </div>
         <div class="card-footer justify-end space-x-2">
             @can('student_edit')

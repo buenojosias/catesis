@@ -14,7 +14,6 @@ class Contact extends Component
     public $fulladdress, $fullcontact;
     public $address, $complement, $district, $city;
     public $phone, $whatsapp, $email, $facebook, $instagram;
-    public $kinships;
 
     public $showAddressModal;
     public $showContactModal;
@@ -36,7 +35,6 @@ class Contact extends Component
         $this->student = $student;
         $address = $student->address;
         $contact = $student->contact;
-        $this->kinships = $student->kinships()->with('contact')->get();
         if($address) {
             $this->fulladdress = $address;
             $this->address = $address->address;

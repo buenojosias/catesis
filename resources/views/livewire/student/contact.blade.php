@@ -92,34 +92,7 @@
             </div>
         </div>
         <div>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Contatos dos familiares</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        @foreach ($kinships as $kinship)
-                            <li class="flex py-2 px-4 border-b">
-                                <div class="flex-1">
-                                    <h4 class="text-sm font-medium text-gray-600">{{ $kinship->name }}
-                                        ({{ $kinship->pivot->title ?? '' }})
-                                    </h4>
-                                    <p class="font-medium text-gray-900">
-                                        {{ $kinship->contact->phone ?? '' }}
-                                        @if (@$kinship->contact->phone && @$kinship->contact->whatsapp)
-                                            •
-                                        @endif
-                                        {{ $kinship->contact->whatsapp ?? '' }}
-                                    </p>
-                                </div>
-                                <div class="flex items-center">
-                                    <x-button flat icon="pencil-alt" />
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+            @livewire('student.kinship', ['student' => $student])
         </div>
     </div>
     @can('student_edit')

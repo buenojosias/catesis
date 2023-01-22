@@ -12,7 +12,7 @@
                 <div class="card-body">
                     @foreach ($kinship->students as $student)
                         <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
-                            <div class="font-semibold">
+                            <div class="font-medium text-gray-900">
                                 <a href="{{ route('students.show', $student) }}">{{ $student->name }}</a>
                             </div>
                             <div>
@@ -22,17 +22,13 @@
                                     <x-badge outline warning label="{{ $student->status }}" />
                                 @endif
                             </div>
-                            <div class="basis-full text-sm mt-1">{{ $student->grade->title ?? 'Nenhuma etapa' }}</div>
-                            <div class="basis-full text-sm">{{ $student->community->name }}</div>
+                            <div class="basis-full text-sm font-medium text-gray-600" mt-1">{{ $student->grade->title ?? 'Nenhuma etapa' }}</div>
+                            <div class="basis-full text-sm font-medium text-gray-600">{{ $student->community->name }}</div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Pastorais</h3>
-                </div>
-            </div>
+            @livewire('pastoral.related-list', ['model' => $kinship])
         </div>
         <div>
             <div class="card">
