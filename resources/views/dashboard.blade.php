@@ -6,7 +6,7 @@
     </div>
     <div class="grid md:grid-cols-3 gap-4">
         <div class="md:col-span-2">
-            <div class="mb-4 bg-white shadow rounded">
+            <div class="bg-white shadow rounded">
                 <div class="flex flex-col md:flex-row">
                     <div class="p-4 flex-1">
                         <p class="font-semibold text-gray-700">Bem vindo(a),</p>
@@ -68,7 +68,23 @@
             </div>
             <div class="card mb-4">
                 <div class="card-header">
-                    Aniversariantes
+                    <h3 class="card-title">Aniversariantes</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        @forelse ($birthdays as $birthday)
+                            <li class="py-2 px-4 border-b">
+                                <p class="font-medium text-gray-900">
+                                    <a href="{{ route('students.show', $birthday) }}">{{ $birthday->name }}</a>
+                                </p>
+                                <h4 class="text-sm font-medium text-gray-600 grow">
+                                    {{ $birthday->birth->format('d/m') }} ({{ auth()->user()->community ? $birthday->grade->title : $birthday->community->name  }})
+                                </h4>
+                            </li>
+                        @empty
+                            <li class="py-3 px-4 text-sm">Nenhum aniversariante na semana atual.</li>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
             {{-- mais cards... --}}
