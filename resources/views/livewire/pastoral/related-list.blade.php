@@ -1,5 +1,6 @@
 <div>
     <x-notifications />
+    <x-dialog />
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Movimentos e pastorais</h3>
@@ -14,7 +15,7 @@
                                 <p class="text-sm font-medium text-gray-600">{{ $pastoral->community->name }}</p>
                             </div>
                             <div class="flex items-center">
-                                <x-button xs flat icon="trash" />
+                                <x-button wire:click="detach({{ $pastoral }})" xs flat icon="trash" />
                             </div>
                         </li>
                     @empty
@@ -30,7 +31,7 @@
         @if ($pastorals)
             @can('student_edit')
                 <div class="card-footer">
-                    <x-button sm outline wire:click="openFormModal" label="Adicionar movimento/pastoral" />
+                    <x-button sm outline wire:click="openFormModal" label="Vincular movimento/pastoral" />
                 </div>
             @endcan
         @endif

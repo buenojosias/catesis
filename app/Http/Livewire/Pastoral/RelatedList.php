@@ -58,9 +58,32 @@ class RelatedList extends Component
             $this->pastorals->push($this->community_pastorals->where('id', $this->pastoral_id)->first());
             $this->community_id = $this->pastoral_id = null;
             $this->closeFormModal();
-            $this->notification()->success($description = 'Movimento/pastoral adicionado com sucesso.');
+            $this->notification()->success($description = 'Movimento/pastoral vinculado com sucesso.');
         } catch (\Throwable $th) {
-            $this->notification()->error($description = 'Ocorreu um erro ao adicionar movimento ou pastoral.');
+            $this->notification()->error($description = 'Ocorreu um erro ao vincular movimento ou pastoral.');
+            dd($th);
+        }
+    }
+
+    public function detach($pastoral): void
+    {
+        $this->dialog()->confirm([
+            'title' => 'Desvincular movimento ou pastoral',
+            'description' => 'Tem certeza que deseja desvincular o '.$pastoral['name'].'?',
+            'method' => 'doDetach',
+            'params' => ['pastoral' => $pastoral['id']],
+            'acceptLabel' => 'Confirmar',
+            'rejectLabel' => 'Cancelar',
+        ]);
+    }
+
+    public function doDetach($pastoral) {
+        try {
+            $this->model->pastorals()->detach($pastoral);
+            $this->pastorals = $this->model->pastorals()->with('community')->get();
+            $this->notification()->success($description = 'Movimento/pastoral removido com sucesso.');
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao remover movimento/pastoral.');
             dd($th);
         }
     }

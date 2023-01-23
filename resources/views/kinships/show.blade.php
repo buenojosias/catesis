@@ -22,8 +22,8 @@
                                     <x-badge outline warning label="{{ $student->status }}" />
                                 @endif
                             </div>
-                            <div class="basis-full text-sm font-medium text-gray-600" mt-1">{{ $student->grade->title ?? 'Nenhuma etapa' }}</div>
                             <div class="basis-full text-sm font-medium text-gray-600">{{ $student->community->name }}</div>
+                            <div class="basis-full text-sm font-medium text-gray-600" mt-1>{{ $student->grade->title ?? 'Nenhuma etapa' }}</div>
                         </div>
                     @endforeach
                 </div>
