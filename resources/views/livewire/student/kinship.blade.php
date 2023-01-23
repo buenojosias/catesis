@@ -1,5 +1,6 @@
 <div>
     <x-dialog />
+    <x-notifications />
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Familiares</h3>
@@ -29,8 +30,12 @@
                             <x-dropdown>
                                 <x-dropdown.item href="{{ route('kinships.show', $kinship) }}" icon="eye"
                                     label="Detalhes" />
-                                <x-dropdown.item icon="pencil-alt" label="Alterar vínculo" />
-                                <x-dropdown.item separator icon="user-remove" label="Desvincular" />
+                                @can('student_edit')
+                                    <x-dropdown.item wire:click="openEditModal({{ $kinship }})" icon="pencil-alt"
+                                        label="Alterar vínculo" />
+                                    <x-dropdown.item wire:click="detachKinship({{ $kinship }})" separator
+                                        icon="user-remove" label="Desvincular" />
+                                @endcan
                             </x-dropdown>
                         </div>
                     </li>
@@ -118,6 +123,52 @@
                             @if ($option)
                                 <x-button sm type="submit" primary label="Salvar" />
                             @endif
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </x-modal>
+
+        <x-modal wire:model.defer="kinshipEditModal" max-width="sm">
+            <form wire:submit.prevent="submitEdit" class="w-full">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Alterar vínculo de familiar</h3>
+                    </div>
+                    <div class="card-body display flex flex-col space-y-4">
+                        <x-errors class="mb-4 shadow" />
+                        <div>
+                            <x-input label="Nome do familiar" value="{{ $kinshipName }}" readonly />
+                        </div>
+                        <div>
+                            <x-native-select label="Grau de parentesco *" wire:model.defer="kinshipForm.pivot.title"
+                                required>
+                                @foreach ($titles as $title)
+                                    <option>{{ $title }}</option>
+                                @endforeach
+                            </x-native-select>
+                        </div>
+                        <div class="flex">
+                            <div class="grow">
+                                <x-label label="Mora junto" />
+                            </div>
+                            <div>
+                                <x-toggle md wire:model="kinshipForm.pivot.live_together" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="grow">
+                                <x-label label="É responsável" />
+                            </div>
+                            <div>
+                                <x-toggle md wire:model="kinshipForm.pivot.is_enroller" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="flex justify-between gap-x-4">
+                            <x-button flat label="Cancelar" x-on:click="close" />
+                            <x-button type="submit" primary label="Salvar" />
                         </div>
                     </div>
                 </div>

@@ -82,7 +82,7 @@
         </div>
     </div>
     @if ($showFormModal)
-        <x-modal wire:model.defer="showFormModal" max-width="sm">
+        <x-modal wire:model.defer="showFormModal" max-width="md">
             <form wire:submit.prevent="submit" class="w-full">
                 <div class="card">
                     <div class="card-header">

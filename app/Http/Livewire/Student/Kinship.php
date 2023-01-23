@@ -17,6 +17,7 @@ class Kinship extends Component
     public $kinships;
     public $student;
     public $kinshipCreateModal;
+    public $kinshipEditModal;
 
     public $titles;
     public $ks_id;
@@ -26,6 +27,9 @@ class Kinship extends Component
     public $ks_is_enroller = false;
     public $ks_live_together = false;
 
+    public $kinshipForm;
+    public $kinshipName;
+
     protected $validationAttributes = [
         'ks_id' => 'Familiar cadastrado',
         'ks_name' => 'Nome',
@@ -33,6 +37,9 @@ class Kinship extends Component
         'ks_title' => 'Grau de parentesco',
         'ks_is_enroller' => 'É responsável',
         'ks_live_together' => 'Mora junto',
+        'kinshipForm.pivot.title' => 'Grau de parentesco',
+        'kinshipForm.pivot.is_enroller' => 'É responsável',
+        'kinshipForm.pivot.live_together' => 'Mora junto',
     ];
 
     public function kinshipSubmit() {
@@ -52,7 +59,7 @@ class Kinship extends Component
                     'name' => $this->ks_name,
                     'birth' => $this->ks_birth,
                 ]);
-                $kinship->profile()->create(['profession'=>null]);
+                $kinship->profile()->create(['profession' => null]);
             } else if($this->option === 'sync') {
                 $kinship = KinshipModel::find($this->ks_id);
             }
@@ -78,9 +85,57 @@ class Kinship extends Component
         }
     }
 
+    public function openEditModal($kinship)
+    {
+        $this->kinshipForm = $kinship;
+        $this->kinshipName = $kinship['name'];
+        $this->kinshipEditModal = true;
+    }
+
+    public function submitEdit()
+    {
+        $validateKinship = $this->validate([
+            'kinshipForm.pivot.title' => 'required|string|in:' . implode(',', $this->titles->toArray()),
+            'kinshipForm.pivot.live_together' => 'required|boolean',
+            'kinshipForm.pivot.is_enroller' => 'required|boolean',
+        ]);
+        try {
+            $this->student->kinships()->updateExistingPivot($this->kinshipForm['id'], $this->kinshipForm['pivot']);
+            $this->notification()->success($description = 'Vínculo familiar alterado com sucesso.');
+            $this->kinships = $this->student->kinships;
+            $this->kinshipEditModal = false;
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao alterar vínculo familiar.');
+        }
+    }
+
+    public function detachKinship($kinship): void
+    {
+        $this->dialog()->confirm([
+            'title' => 'Desvincular membro da família',
+            'description' => 'Tem certeza que deseja desvincular '.$kinship['name'].' da lista de familiares de '.$this->student->name.'?',
+            'method' => 'doDetachKinship',
+            'params' => ['kinship' => $kinship['id']],
+            'acceptLabel' => 'Confirmar',
+            'rejectLabel' => 'Cancelar',
+        ]);
+    }
+
+    public function doDetachKinship($kinship) {
+        try {
+            $this->student->kinships()->detach($kinship);
+            $this->kinships = $this->student->kinships()->get();
+            $this->notification()->success($description = 'Familiar desvinculado com sucesso.');
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao desvincular membro familiar.');
+            dd($th);
+        }
+    }
+
     public function mount(Student $student)
     {
-        $this->kinships = $student->kinships;
+        $this->student = $student;
+        $this->kinships = $this->student->kinships;
         $this->titles = KinshipTitle::all()->pluck('title');
     }
 

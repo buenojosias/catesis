@@ -63,6 +63,7 @@ class Rematriculation extends Component
             ]);
             $update_student = $this->student->update([
                 'grade_id' => $group->grade_id,
+                'status' => 'ativo',
             ]);
             if($this->comment) {
                 $this->student->comments()->create([
