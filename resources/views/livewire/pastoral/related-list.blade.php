@@ -1,4 +1,4 @@
-<div>
+<div class="mb-4">
     <x-notifications />
     <x-dialog />
     <div class="card">
@@ -31,7 +31,7 @@
         @if ($pastorals)
             @can('student_edit')
                 <div class="card-footer">
-                    <x-button sm outline wire:click="openFormModal" label="Vincular movimento/pastoral" />
+                    <x-button sm flat black wire:click="openFormModal" label="Vincular movimento/pastoral" />
                 </div>
             @endcan
         @endif

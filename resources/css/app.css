@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.alert {
+    @apply mb-4 py-3 px-4 border rounded;
+}
+
+.alert.warning {
+    @apply bg-amber-400 border-amber-500;
+}
+
 .card {
     @apply bg-white rounded shadow;
 }

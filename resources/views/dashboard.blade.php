@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
                     <ul>
-                        @forelse ($events->slice(1, 3) as $event)
+                        @forelse ($events->slice(0, 3) as $event)
                             <li class="py-2 px-4 border-b">
                                 <h4 class="text-sm font-medium text-gray-600 grow">
                                     {{ $event->date }} {{ $event->endsAt ? ' a '.$event->endsAt->format('d/m') : '' }}

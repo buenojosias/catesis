@@ -1,5 +1,10 @@
 <div>
     <x-notifications />
+    @if ($student->status != 'ativo')
+        <div class="alert warning">
+            O status atual do catequizando é <span class="font-semibold">{{ $student->status }}</span>.
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Informações pessoais</h3>
@@ -70,6 +75,10 @@
                         <p>{{ $community->name }}</p>
                     </div>
                 @endhasrole
+                <div>
+                    <h4>Status</h4>
+                    <p>{{ ucfirst($student->status) }}</p>
+                </div>
                 <div>
                     <h4>Etapa atual</h4>
                     <p>{{ $grade->title ?? 'Nenhuma' }}</p>
