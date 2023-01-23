@@ -57,8 +57,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+    public function pastorals() {
+        return $this->hasMany(Pastoral::class);
+    }
+
     public function profile() {
         return $this->hasOne(UserProfile::class);
     }
-
 }
