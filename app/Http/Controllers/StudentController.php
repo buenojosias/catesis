@@ -16,25 +16,15 @@ class StudentController extends Controller
     public function show(Student $student, $section = null)
     {
         abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
-        // $groups = $student->groups()->with('grade')->get();
         return view('students.show', [
             'section' => $section,
             'student' => $student,
-            // 'groups' => $groups,
         ]);
     }
 
     public function create()
     {
         return view('students.create');
-    }
-
-    public function edit(Student $student)
-    {
-        abort_unless(Auth::user()->hasRole('admin') or $student->community_id === Auth::user()->community_id, 403);
-        return view('students.edit', [
-            'student' => $student
-        ]);
     }
 
     public function delete()
