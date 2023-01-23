@@ -44,8 +44,27 @@
         <div>
             <div class="card mb-4">
                 <div class="card-header">
-                    Próximos eventos
+                    <h3 class="card-title">Próximos eventos</h3>
                 </div>
+                <div class="card-body">
+                    <ul>
+                        @forelse ($events->slice(1, 3) as $event)
+                            <li class="py-2 px-4 border-b">
+                                <h4 class="text-sm font-medium text-gray-600 grow">
+                                    {{ $event->date }} {{ $event->endsAt ? ' a '.$event->endsAt->format('d/m') : '' }}
+                                </h4>
+                                <p class="font-medium text-gray-900">{{ $event->title }}</p>
+                            </li>
+                        @empty
+                            <li class="py-3 px-4 text-sm">Nenhum evento programado.</li>
+                        @endforelse
+                    </ul>
+                </div>
+                @if ($events->count() > 3)
+                    <div class="card-footer justify-center">
+                        <a href="#" class="text-sm font-semibold">Ver todos</a>
+                    </div>
+                @endif
             </div>
             <div class="card mb-4">
                 <div class="card-header">

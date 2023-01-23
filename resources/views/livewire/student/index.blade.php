@@ -70,10 +70,10 @@
                             <td class="text-right">
                                 <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary
                                     sm />
-                                @can('student_edit')
+                                {{-- @can('student_edit')
                                     <x-button href="{{ route('students.edit', $student) }}" flat primary sm
                                         icon="pencil" />
-                                @endcan
+                                @endcan --}}
                             </td>
                         </tr>
                     @empty

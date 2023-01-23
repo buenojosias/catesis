@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -45,6 +47,21 @@ class DashboardController extends Controller
             ->where('finished', false)
             ->count();
 
+        $events = Event::query()
+            ->whereDate('startsAt', '>=', date('Y-m-d'))
+            ->orderBy('startsAt')
+            ->get();
+
+        foreach($events as $event) {
+            if($event->startsAt->format('Y-m-d') == Carbon::parse(now())->format('Y-m-d')) {
+                $event['date'] = 'Hoje';
+            } else if($event->startsAt->format('Y-m-d') == Carbon::parse(now()->addDay())->format('Y-m-d')) {
+                $event['date'] = 'Amanhã';
+            } else {
+                $event['date'] = Carbon::parse($event->startsAt)->format('d/m');
+            }
+        }
+
         return view('dashboard', [
             'user' => $user,
             'name' => strstr($user->name, ' ', true),
@@ -52,6 +69,7 @@ class DashboardController extends Controller
             'students_count' => $students_count,
             'catechists_count' => $catechists_count,
             'groups_count' => $groups_count,
+            'events' => $events,
         ]);
     }
 }

@@ -11,6 +11,8 @@ class Event extends Model
 
     protected $fillable = ['user_id','title','description','startsAt','endsAt'];
 
+    protected $dates = ['startsAt', 'endsAt'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
