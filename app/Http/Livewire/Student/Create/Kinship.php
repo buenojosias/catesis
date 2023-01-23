@@ -73,7 +73,7 @@ class Kinship extends Component
                 }
             }
         } catch (\Throwable $th) {
-            $this->notification()->success($description = 'Ocorreu um erro ao cadastrar/vincular familiar.');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar/vincular familiar.');
             dd($th);
         }
         if($kinship && $contact) {
@@ -92,7 +92,7 @@ class Kinship extends Component
             $this->dispatchBrowserEvent('close', ['form' => false]);
         } else {
             DB::rollback();
-            $this->notification()->success($description = 'Ocorreu um erro ao cadastrar/vincular familiar.');
+            $this->notification()->error($description = 'Ocorreu um erro ao cadastrar/vincular familiar.');
         }
     }
 

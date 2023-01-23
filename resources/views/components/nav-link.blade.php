@@ -8,7 +8,7 @@ $classes = ($active ?? false)
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    <i class="fa fa-{{$icon}} w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
+    <i class="fa fa-{{$icon}} text-sm w-5 h-5 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"></i>
     <span class="ml-2">{{ $slot }}</span>
 </a>
 
