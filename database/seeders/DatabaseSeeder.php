@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             ThemeSeeder::class,
             EncounterSeeder::class,
             CommentSeeder::class,
+            PastoralSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }
