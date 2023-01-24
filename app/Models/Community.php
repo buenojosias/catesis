@@ -31,8 +31,7 @@ class Community extends Model
 
     public function active_students() {
         return $this->hasMany(Student::class)->where(function($q) {
-            $q->where('status', 'ativo')->get();
+            $q->where('status', 'Ativo')->get();
         });
     }
-
 }

@@ -10,10 +10,6 @@ use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
-    public function __construct() {
-        $grade;
-    }
-
     public function index()
     {
         return view('grades.index');
@@ -24,7 +20,7 @@ class GradeController extends Controller
         if(auth()->user()->hasRole('admin')) {
             $this->grade = $grade;
             $communities = Community::query()->get();
-            $communities->loadCount(['active_students' => function($query) {
+            $communities->loadCount(['active_students' => function($query) use ($grade) {
                 $query->where('grade_id', $this->grade->id);
             }]);
         }
