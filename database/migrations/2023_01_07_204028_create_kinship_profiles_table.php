@@ -16,16 +16,16 @@ return new class extends Migration
         Schema::create('kinship_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kinship_id')->constrained()->onDelete('cascade');
-            $table->string('profession')->nullable();
-            $table->string('marital_status')->nullable();
-            $table->string('religion')->nullable();
+            $table->string('profession', 64)->nullable();
+            $table->string('marital_status', 32)->nullable();
+            $table->string('religion', 64)->nullable();
             $table->boolean('catechizing')->nullable();
             $table->boolean('has_baptism')->nullable();
             $table->boolean('has_eucharist')->nullable();
             $table->boolean('has_chrism')->nullable();
             $table->boolean('attends_church')->nullable();
             $table->boolean('is_tither')->nullable(); // dizimista
-            $table->string('musical_instrument')->nullable();
+            $table->string('musical_instrument', 64)->nullable();
             $table->timestamps();
         });
     }

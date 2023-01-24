@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('kinships', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 128);
             $table->date('birthday')->nullable();
             $table->timestamps();
         });

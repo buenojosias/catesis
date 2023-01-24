@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('student_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->string('address');
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->string('address', 128);
             $table->string('complement')->nullable();
-            $table->string('district');
-            $table->string('city')->default('Curitiba');
+            $table->string('district', 64);
+            $table->string('city', 64)->default('Curitiba');
             $table->timestamps();
         });
     }

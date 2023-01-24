@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('kinship_titles', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 64);
+            $table->string('title', 32);
         });
     }
 

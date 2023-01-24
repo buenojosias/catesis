@@ -17,11 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('community_id')->constrained();
             $table->foreignId('grade_id')->nullable()->constrained();
-            $table->string('name');
+            $table->string('name', 128);
             $table->date('birthday');
             $table->enum('status', ['Ativo','Desistente','Crismado','Transferido'])->default('Ativo');
             $table->timestamps();
-            // ativo | crismado | cancelado | desistente | transferido
         });
     }
 

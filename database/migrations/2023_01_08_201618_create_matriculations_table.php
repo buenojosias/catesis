@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('community_id')->constrained();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('kinship_id')->constrained();
             $table->year('year');
             $table->timestamps();

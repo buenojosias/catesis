@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->enum('gender', ['Masculino','Feminino','Outro']);
-            $table->string('naturalness')->nullable();
+            $table->string('naturalness', 64)->nullable();
             $table->boolean('has_baptism')->default(0);
             $table->date('baptism_date')->nullable();
             $table->string('baptism_church')->nullable();
             $table->boolean('married_parents')->default(0);
-            $table->string('health_problems')->nullable();
-            $table->string('school')->nullable();
+            $table->string('health_problems', 128)->nullable();
+            $table->string('school', 128)->nullable();
             $table->timestamps();
         });
     }

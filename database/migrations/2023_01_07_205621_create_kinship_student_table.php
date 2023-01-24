@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kinship_student', function (Blueprint $table) {
-            $table->foreignId('kinship_id')->constrained()->onDelete('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->string('title');
+            $table->foreignId('kinship_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->string('title', 32);
             $table->boolean('is_enroller')->default(false);
             $table->boolean('lives_together')->default(false);
             $table->timestamps();

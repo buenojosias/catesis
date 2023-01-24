@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('community_id')->constrained();
-            $table->string('name');
-            $table->string('coordinator')->nullable();
-            $table->string('encounters')->nullable();
+            $table->string('name', 128);
+            $table->string('coordinator', 128)->nullable();
+            $table->string('encounters', 128)->nullable();
             $table->timestamps();
         });
     }
