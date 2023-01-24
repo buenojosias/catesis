@@ -9,21 +9,29 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    public $weekdays = [
+        'Domingo',
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+        'Sábado'
+    ];
+
     public function index()
     {
         return view('groups.index');
     }
 
-    public function show(Group $group)
+    public function show(Group $group, $section = null)
     {
         abort_unless(auth()->user()->hasAnyRole(['admin','coordinator']) or $group->community_id === auth()->user()->community_id, 403);
-        if(auth()->user()->hasRole('admin')) {
-            $group->load('community');
-        }
-
         $group->load('grade');
         return view('groups.show', [
             'group' => $group,
+            'section' => $section,
+            'weekdays' => $this->weekdays,
         ]);
     }
 

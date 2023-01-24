@@ -9,6 +9,9 @@
 .alert.warning {
     @apply bg-amber-400 border-amber-500;
 }
+.alert.info {
+    @apply bg-sky-700 border-sky-800 text-white;
+}
 
 .card {
     @apply bg-white rounded shadow;

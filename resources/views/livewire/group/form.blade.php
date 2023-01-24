@@ -16,26 +16,25 @@
                         </x-native-select>
                     </div>
                     @if (!$group)
-                    <div>
-                        <x-native-select wire:model.defer="grade_id" label="Etapa" readonly>
-                            <option value="">Selecione</option>
-                            @foreach ($grades as $grade)
-                                <option value="{{ $grade->id }}">{{ $grade->title }}</option>
-                            @endforeach
-                        </x-native-select>
-                    </div>
+                        <div>
+                            <x-native-select wire:model.defer="grade_id" label="Etapa" readonly>
+                                <option value="">Selecione</option>
+                                @foreach ($grades as $grade)
+                                    <option value="{{ $grade->id }}">{{ $grade->title }}</option>
+                                @endforeach
+                            </x-native-select>
+                        </div>
                     @else
-                        <x-input value="{{ $grades->where('id', $grade_id)->first()->title }}" label="Etapa" readonly />
+                        <x-input value="{{ $grades->where('id', $grade_id)->first()->title }}" label="Etapa"
+                            readonly />
                     @endif
                     <x-native-select wire:model.defer="weekday" label="Dia dos encontros">
-                        <option value="">Selecione</option>
-                        <option value="1">Domingo</option>
-                        <option value="2">Segunda-feira</option>
-                        <option value="3">Terça-feira</option>
-                        <option value="4">Quarta-feira</option>
-                        <option value="5">Quinta-feira</option>
-                        <option value="6">Sexta-feira</option>
-                        <option value="7">Sábado</option>
+                        @if (!$group)
+                            <option value="">Selecione</option>
+                        @endif
+                        @foreach ($weekdays as $key => $weekday)
+                            <option value="{{ $key }}">{{ $weekday }}</option>
+                        @endforeach
                     </x-native-select>
                     <div>
                         <x-time-picker wire:model.defer="time" label="Horário dos encontros" placeholder="Selecione"

@@ -71,29 +71,31 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <h3 class="card-title">Grupos</h3>
-            </div>
-            <div class="card-body table-responsive">
-                <table class="table table-hover whitespace-nowrap">
-                    <thead>
-                        <th>Nome</th>
-                        <th>Catequizandos</th>
-                    </thead>
-                    <tbody>
-                        @forelse ($groups as $group)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
-                                </td>
-                                <td>{{ $group->students_count }}</td>
-                            </tr>
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title">Grupos</h3>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover whitespace-nowrap">
+                        <thead>
+                            <th>Nome</th>
+                            <th>Catequizandos</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($groups as $group)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
+                                    </td>
+                                    <td>{{ $group->students_count }}</td>
+                                </tr>
                             @empty
                                 <x-empty span="2" />
                             @endforelse
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

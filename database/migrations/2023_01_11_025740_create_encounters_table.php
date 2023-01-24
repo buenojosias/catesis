@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained();
             $table->foreignId('theme_id')->nullable()->constrained()->nullOnDelete();
             $table->date('date');
-            $table->enum('method', ['presencial','familiar']);
+            $table->enum('method', ['Presencial','Familiar']);
             $table->timestamps();
         });
     }

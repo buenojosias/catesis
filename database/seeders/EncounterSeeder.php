@@ -25,7 +25,7 @@ class EncounterSeeder extends Seeder
             foreach($dates as $date) {
                 $group->encounters()->create([
                     'date' => $date,
-                    'method' => Arr::random(['presencial','familiar']),
+                    'method' => Arr::random(['Presencial','Familiar']),
                     'theme_id' => $themes->random(),
                 ]);
             }

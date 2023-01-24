@@ -15,6 +15,7 @@ class Form extends Component
     public $grade_id;
     public $year;
     public $weekday;
+    public $weekdays;
     public $time;
     public $start_date;
     public $end_date;
@@ -86,9 +87,10 @@ class Form extends Component
         $this->end_date = $group->end_date;
     }
 
-    public function mount($group = null)
+    public function mount($group = null, $weekdays)
     {
         $this->group = $group;
+        $this->weekdays = $weekdays;
         $this->year = date('Y');
         $this->cardTitle = $group ? 'Editar grupo' : 'Novo grupo';
         $this->grades = Grade::all();

@@ -42,11 +42,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/etapas/{grade}', [GradeController::class, 'show'])->name('grades.show');
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
-    Route::get('/grupos/{group}', [GroupController::class, 'show'])->name('groups.show');
     Route::get('/grupos/{group}/chamada', function ($group) {
         return view('groups.printable-attendance', ['group' => $group]);
     })->name('groups.printableattendance');
     Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
+    Route::get('/grupos/{group}/{section?}', [GroupController::class, 'show'])->name('groups.show');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');

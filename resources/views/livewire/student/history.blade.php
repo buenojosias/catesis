@@ -10,7 +10,7 @@
                         <th>Ano</th>
                         <th>Etapa</th>
                         <th>Matrícula</th>
-                        <th>Aprovado</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
