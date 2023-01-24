@@ -53,17 +53,17 @@ class DashboardController extends Controller
             ->count();
 
         $events = Event::query()
-            ->whereDate('startsAt', '>=', date('Y-m-d'))
-            ->orderBy('startsAt')
+            ->whereDate('starts_at', '>=', date('Y-m-d'))
+            ->orderBy('starts_at')
             ->get();
 
         foreach ($events as $event) {
-            if ($event->startsAt->format('Y-m-d') == Carbon::parse(now())->format('Y-m-d')) {
+            if ($event->starts_at->format('Y-m-d') == Carbon::parse(now())->format('Y-m-d')) {
                 $event['date'] = 'Hoje';
-            } else if ($event->startsAt->format('Y-m-d') == Carbon::parse(now()->addDay())->format('Y-m-d')) {
+            } else if ($event->starts_at->format('Y-m-d') == Carbon::parse(now()->addDay())->format('Y-m-d')) {
                 $event['date'] = 'Amanhã';
             } else {
-                $event['date'] = Carbon::parse($event->startsAt)->format('d/m');
+                $event['date'] = Carbon::parse($event->starts_at)->format('d/m');
             }
         }
 
@@ -74,9 +74,9 @@ class DashboardController extends Controller
             ->when(!auth()->user()->community, function ($query) {
                 $query->with('community');
             })
-            ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(birth) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(birth)')
-            ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(birth) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(birth)')
-            ->orderByRaw('DAYOFYEAR(birth)')
+            ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(birthday)')
+            ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(birthday)')
+            ->orderByRaw('DAYOFYEAR(birthday)')
             ->get();
 
         return view('dashboard', [

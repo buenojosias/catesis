@@ -11,7 +11,7 @@ class Student extends Model
 
     protected $fillable = ['community_id','grade_id','name','birthday','status'];
 
-    protected $dates = ['birth'];
+    protected $dates = ['birthday'];
 
     public function address() {
         return $this->hasOne(StudentAddress::class);

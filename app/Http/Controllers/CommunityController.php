@@ -16,7 +16,7 @@ class CommunityController extends Controller
     public function show(Community $community)
     {
         $catechists = $community->users()->orderBy('name', 'asc')->get();
-        $students = $community->students()->where('status', 'ativo')->count();
+        $students = $community->students()->where('status', 'Ativo')->count();
         $coordinators = $community->coordinators;
         $groups = $community->groups()->where('finished', false)->with('grade')->withCount('students')->get();
         return view('communities.show', [

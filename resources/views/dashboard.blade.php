@@ -51,7 +51,7 @@
                         @forelse ($events->slice(0, 3) as $event)
                             <li class="py-2 px-4 border-b">
                                 <h4 class="text-sm font-medium text-gray-600 grow">
-                                    {{ $event->date }} {{ $event->endsAt ? ' a '.$event->endsAt->format('d/m') : '' }}
+                                    {{ $event->date }} {{ $event->ends_at ? ' a '.$event->ends_at->format('d/m') : '' }}
                                 </h4>
                                 <p class="font-medium text-gray-900">{{ $event->title }}</p>
                             </li>
@@ -78,7 +78,7 @@
                                     <a href="{{ route('students.show', $birthday) }}">{{ $birthday->name }}</a>
                                 </p>
                                 <h4 class="text-sm font-medium text-gray-600 grow">
-                                    {{ $birthday->birth->format('d/m') }} ({{ auth()->user()->community ? $birthday->grade->title : $birthday->community->name  }})
+                                    {{ $birthday->birthday->format('d/m') }} ({{ auth()->user()->community ? $birthday->grade->title : $birthday->community->name  }})
                                 </h4>
                             </li>
                         @empty
