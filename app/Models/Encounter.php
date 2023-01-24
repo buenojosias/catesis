@@ -20,6 +20,10 @@ class Encounter extends Model
         return $this->belongsToMany(Student::class)->withPivot(['attendance']);
     }
 
+    public function absences() {
+        return $this->belongsToMany(Student::class)->wherePivot('attendance', 'F');
+    }
+
     public function theme() {
         return $this->belongsTo(Theme::class);
     }

@@ -15,7 +15,7 @@ class Students extends Component
             return $query->where('group_id', $group->id)->wherePivot('attendance', 'F');
         })->orderBy('name', 'asc')->get();
         foreach ($this->students as $student) {
-            $student->age = Carbon::parse($student->birth)->age;
+            $student->age = Carbon::parse($student->birthday)->age;
         }
     }
 

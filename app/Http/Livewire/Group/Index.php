@@ -36,8 +36,8 @@ class Index extends Component
         }
 
         $groups = Group::query()
-            ->with(['grade','users'])
-            ->withCount('students')
+            ->with(['grade', 'users'])
+            ->withCount('active_students')
             ->where('year', $this->year)
             ->when(auth()->user()->hasRole('admin'), function($query) {
                 return $query->with('community');

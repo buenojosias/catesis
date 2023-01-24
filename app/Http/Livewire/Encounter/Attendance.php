@@ -50,7 +50,7 @@ class Attendance extends Component
     public function render()
     {
         if($this->canRegisterAttendance == true) {
-            $this->studentsWithoutAttendence = $this->group->students()->whereDoesntHave('encounters', function ($query) {
+            $this->studentsWithoutAttendence = $this->group->active_students()->whereDoesntHave('encounters', function ($query) {
                 return $query->where('encounter_id', $this->encounter->id);
             })->orderBy('name', 'asc')->get();
         }

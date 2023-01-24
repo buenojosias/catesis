@@ -58,7 +58,7 @@
                             @hasrole('admin')
                                 <td>{{ $group->community->name }}</td>
                             @endrole
-                            <td>{{ $group->students_count }}</td>
+                            <td>{{ $group->active_students_count }}</td>
                             <td>
                                 <ul>
                                     @foreach ($group->users as $catechist)

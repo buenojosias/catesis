@@ -1,12 +1,12 @@
 <div class="header">
-    <div class="">
+    <div>
         <p>
             {!! $group->community_id > 1 ? 'PARÓQUIA SÃO MARCOS<br>' : '' !!}
             {{ strtoupper($group->community->name) }}<br>
             PASTORAL DE ANIMAÇÃO BÍBLICO CATEQUÉTICA
         </p>
     </div>
-    <div class="">
+    <div>
         <p>
             ETAPA: {{ strtoupper($group->grade->title) }} - {{ $group->year }}<br>
             CATEQUISTA(S):
@@ -43,7 +43,7 @@
             @foreach ($students as $student)
                 <tr>
                     <td class="column-name">
-                        <div class="truncate {{ $student->status !== 'ativo' ? 'removed' : '' }}">
+                        <div class="truncate {{ $student->pivot->status !== 'Ativo' ? 'removed' : '' }}">
                             {{ $student->name }}
                         </div>
                     </td>
@@ -53,7 +53,7 @@
                                 $cell = $encounter->students->where('id', $student->id)->first();
                             @endphp
                             @if ($cell)
-                                <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }} {{ $student->status !== 'ativo' ? 'removed' : '' }}">
+                                <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }} {{ $student->pivot->status !== 'Ativo' ? 'removed' : '' }}">
                                     {{ $cell->pivot->attendance }}
                                 </div>
                             @endif

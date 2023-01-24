@@ -88,7 +88,7 @@
                                     <td>
                                         <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
                                     </td>
-                                    <td>{{ $group->students_count }}</td>
+                                    <td>{{ $group->active_students_count }}</td>
                                 </tr>
                             @empty
                                 <x-empty span="2" />

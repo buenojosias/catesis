@@ -33,6 +33,10 @@ class Student extends Model
         return $this->belongsToMany(Encounter::class)->withPivot(['attendance']);
     }
 
+    public function absences() {
+        return $this->belongsToMany(Encounter::class)->wherePivot('attendance', 'F');
+    }
+
     // public function documents() {
     //     return $this->hasMany(Document::class);
     // }

@@ -1,6 +1,6 @@
 <div>
     @if ($canRegisterAttendance)
-        @if ($studentsWithoutAttendence->where('status', 'ativo')->count() > 0)
+        @if ($studentsWithoutAttendence->where('status', 'Ativo')->count() > 0)
             <div class="card mb-4">
                 <form wire:submit.prevent="submitAttendance">
                     <div class="card-header">
@@ -9,7 +9,7 @@
                     <div class="card-body table-responsive">
                         <table class="table table-hover">
                             <tbody>
-                                @foreach ($studentsWithoutAttendence->where('status', 'ativo') as $key => $student)
+                                @foreach ($studentsWithoutAttendence->where('status', 'Ativo') as $key => $student)
                                     <tr>
                                         <td>{{ $student->name }}</td>
                                         <td class="w-4 px-0">
@@ -40,7 +40,7 @@
         <div class="card-body table-responsive">
             <table class="table table-hover">
                 <tbody>
-                    @forelse ($studentsWithAttendence->where('status', 'ativo') as $key => $student)
+                    @forelse ($studentsWithAttendence->where('status', 'Ativo') as $key => $student)
                         <tr>
                             <td>{{ $student->name }}</td>
                             <td

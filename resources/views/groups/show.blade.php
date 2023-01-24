@@ -70,11 +70,4 @@
     @if ($section === 'temas')
         @livewire('group.themes', ['group' => $group])
     @endif
-
-   {{--  @if ($group->finished)
-        <div class="mb-4 py-3 px-4 bg-sky-800 rounded shadow text-white font-medium">
-            Este grupo finalizou em {{ $group->end_date->format('d/m/Y') }}
-        </div>
-    @endif
-    @livewire('group.show', ['group' => $group]) --}}
 </x-app-layout>

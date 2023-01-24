@@ -77,7 +77,7 @@ class About extends Component
     {
         $this->group = $group;
         $this->catechists = $this->group->users;
-        $this->students_count = $group->students()->count();
+        $this->students_count = $group->active_students()->count();
         if(auth()->user()->hasRole('admin')) {
             $this->community = $group->community;
         }

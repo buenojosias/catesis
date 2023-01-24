@@ -29,6 +29,10 @@ class Group extends Model
         return $this->belongsToMany(Student::class)->withPivot(['matriculation_id','status']);
     }
 
+    public function active_students() {
+        return $this->belongsToMany(Student::class)->wherePivot('status', 'Ativo');
+    }
+
     public function encounters() {
         return $this->hasMany(Encounter::class);
     }

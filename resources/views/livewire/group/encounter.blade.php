@@ -38,7 +38,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-span-3">
             @if ($encounter->date->format('Y-m-d') > date('Y-m-d'))
                 <div class="card">
