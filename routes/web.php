@@ -28,11 +28,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/perfil', [UserProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [UserProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware('can:community_show')->group(function() {
+    Route::middleware('can:community_show')->group(function () {
         Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
         Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
         Route::get('/comunidades/{community}/editar', [CommunityController::class, 'edit'])->name('communities.edit');
-    });
+    }
+    );
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
     Route::get('/catequistas/cadastro', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
@@ -44,7 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
     Route::get('/grupos/{group}/chamada', function ($group) {
         return view('groups.printable-attendance', ['group' => $group]);
-    })->name('groups.printableattendance');
+    }
+    )->name('groups.printableattendance');
     Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
     Route::get('/grupos/{group}/{section?}', [GroupController::class, 'show'])->name('groups.show');
 
@@ -57,4 +59,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pastorais/{list?}', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

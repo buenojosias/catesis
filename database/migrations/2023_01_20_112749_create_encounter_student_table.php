@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('encounter_student', function (Blueprint $table) {
-            $table->foreignId('encounter_id')->constrained()->onDelete('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('encounter_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->enum('attendance', ['C','F','J','R'])->nullable();
             $table->timestamps();
         });

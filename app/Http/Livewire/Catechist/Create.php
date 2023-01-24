@@ -61,7 +61,7 @@ class Create extends Component
         ]);
         $validateProfile = $this->validate([
             'birthday' => 'required|date|before:now',
-            'marital_status' => 'required|string',
+            'marital_status' => 'nullable|string|max:32',
         ]);
 
         DB::beginTransaction();
