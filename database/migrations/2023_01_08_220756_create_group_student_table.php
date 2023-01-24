@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('group_student', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained()->onDelete('cascade');
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->integer('matriculation_id');
-            $table->enum('status', ['waiting','in_progress','approved','reproved','removed','transferred']);
+            $table->enum('status', ['Aguardando','Ativo','Aprovado','Reprovado','Removido','Transferido']);
             $table->timestamps();
         });
     }

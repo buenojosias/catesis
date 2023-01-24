@@ -9,7 +9,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['community_id','grade_id','name','birth','status'];
+    protected $fillable = ['community_id','grade_id','name','birthday','status'];
 
     protected $dates = ['birth'];
 
@@ -46,7 +46,7 @@ class Student extends Model
     }
 
     public function kinships() {
-        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','live_together','title']);
+        return $this->belongsToMany(Kinship::class)->withPivot(['is_enroller','lives_together','title']);
     }
 
     public function matriculations() {

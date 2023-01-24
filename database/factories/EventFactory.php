@@ -22,14 +22,14 @@ class EventFactory extends Factory
 
     public function definition()
     {
-        $startsAt = $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+10 days', $timezone = null);
-        $endsAt = \Carbon\Carbon::parse($startsAt)->addDays(1);
+        $starts_at = $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+10 days', $timezone = null);
+        $ends_at = \Carbon\Carbon::parse($starts_at)->addDays(1);
         return [
             'user_id' => rand(1, 5),
             'title' => $this->faker->sentence($nbWords = 3, $variableNbWords = true),
             'description' => $this->faker->text($maxNbChars = 160),
-            'startsAt' => $startsAt,
-            'endsAt' => $this->faker->randomElement([null,null,$endsAt]),
+            'starts_at' => $starts_at,
+            'ends_at' => $this->faker->randomElement([null,null,$ends_at]),
         ];
     }
 }

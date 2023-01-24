@@ -19,7 +19,7 @@ class PastoralSeeder extends Seeder
      */
     public function run()
     {
-        Pastoral::query()->truncate(); DB::table('pastorables')->truncate(); // return;
+        // Pastoral::query()->truncate(); DB::table('pastorables')->truncate(); // return;
 
         $students = Student::all();
         $psmStudents = $students->where('community_id', 1)->pluck('id')->toArray();

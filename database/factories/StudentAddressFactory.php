@@ -24,7 +24,7 @@ class StudentAddressFactory extends Factory
     {
         return [
             'address' => $this->faker->streetAddress(),
-            'complement' => $this->faker->randomElement(null,null,'Apto '. rand(10,100)),
+            'complement' => $this->faker->randomElement(null,null,'Apto. '. rand(10,100),'Casa '. rand(1,4)),
             'district' => $this->faker->randomElement($array = array ('Pilarzinho','Pilarzinho','Pilarzinho','Pilarzinho','Pilarzinho','Abranches','Taboão','Vista Alegre'))
         ];
     }

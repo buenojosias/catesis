@@ -17,7 +17,7 @@ class UserProfileFactory extends Factory
     public function definition()
     {
         return [
-            'birth' => $this->faker->dateTimeBetween('-50 years', '-16 years'),
+            'birthday' => $this->faker->dateTimeBetween('-50 years', '-16 years'),
             'marital_status' => $this->faker->randomElement([null,'Solteiro(a)','Casado(a)','Solteiro(a)','Casado(a)','Solteiro(a)','Casado(a)','Solteiro(a)','Casado(a)','Viuvo(a)','Divorciado(a)']),
         ];
     }

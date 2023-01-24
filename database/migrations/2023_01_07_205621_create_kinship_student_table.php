@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->boolean('is_enroller')->default(false);
-            $table->boolean('live_together')->default(false);
+            $table->boolean('lives_together')->default(false);
             $table->timestamps();
         });
     }

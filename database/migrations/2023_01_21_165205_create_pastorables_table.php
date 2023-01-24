@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pastorables', function (Blueprint $table) {
-            $table->integer("pastoral_id");
-            $table->integer("pastorable_id");
+            $table->integer("pastoral_id")->constrained()->cascadeOnDelete();
+            $table->integer("pastorable_id")->constrained()->cascadeOnDelete();
             $table->string("pastorable_type");
         });
     }

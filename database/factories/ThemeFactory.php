@@ -23,7 +23,7 @@ class ThemeFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence($nbWords = 3, $variableNbWords = true),
+            'title' => $this->faker->realText($maxNbChars = 32, $indexSize = 1),
             'description' => $this->faker->realText($maxNbChars = 500, $indexSize = 2),
             'sequence' => rand(1,8),
         ];

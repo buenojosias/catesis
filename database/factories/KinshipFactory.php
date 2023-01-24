@@ -23,7 +23,7 @@ class KinshipFactory extends Factory
     {
         return [
             'name' => $this->faker->firstName() . ' ' . $this->faker->lastName(),
-            'birth' => $this->faker->dateTimeBetween('-40 years', '-10 years'),
+            'birthday' => $this->faker->dateTimeBetween('-40 years', '-10 years'),
         ];
     }
 }

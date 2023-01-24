@@ -15,42 +15,47 @@ class MatriculationSeeder extends Seeder
 {
     public function run()
     {
-        // Matriculation::query()->truncate(); DB::table('group_student')->truncate(); return;
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;'); Matriculation::query()->truncate(); DB::table('group_student')->truncate(); //return;
 
         $students = Student::whereHas('kinships')->get();
+        $all_groups = Group::all();
+        $all_users = User::whereBetween('id', [2, 9])->get();
         $year = 2023;
+
         foreach($students as $student) {
-            $group = $student->community->groups()->where('grade_id', $student->grade_id)->where('year', $year)->orderByRaw('RAND()')->first();
-            $user = $student->community->users()->orderByRaw('RAND()')->first();
-            $kinship = $student->kinships()->orderByRaw('RAND()')->first();
+            $groups = $all_groups->where('community_id', $student->community_id)->where('grade_id', $student->grade_id)->where('year', $year)->toArray();
+            $users = $all_users->where('community_id', $student->community_id)->toArray();//->orderByRaw('RAND()')->first();
+            $group = Arr::random($groups);//->orderByRaw('RAND()')->first();
+            $user = Arr::random($users);//->orderByRaw('RAND()')->first();
+            $kinship = $student->kinships->first();
             if($group) {
                 if($student->grade_id > 1) {
-                    $retroactive_group = $student->community->groups()->where('grade_id', $student->grade_id-1)->where('year', $year-1)->orderByRaw('RAND()')->first();
+                    $retroactive_groups = $all_groups->where('community_id', $student->community_id)->where('grade_id', $student->grade_id-1)->where('year', $year-1)->toArray();
+                    $retroactive_group = Arr::random($retroactive_groups);
                     $retroactive_matriculation = Matriculation::create([
-                        'user_id' => $user->id,
+                        'user_id' => $user['id'],
                         'community_id' => $student->community_id,
-                        'student_id' => $student->id,
-                        'kinship_id' => $kinship->id,
+                        'student_id' => $student['id'],
+                        'kinship_id' => $kinship['id'],
                         'year' => $year-1
                     ]);
-                    $student->groups()->attach($retroactive_group->id, [
+                    $student->groups()->attach($retroactive_group['id'], [
                         'matriculation_id' => $retroactive_matriculation->id,
-                        'status' => Arr::random(['approved','approved','approved','approved','approved','transferred','reproved','removed']),
+                        'status' => Arr::random(['Aprovado','Aprovado','Aprovado','Aprovado','Aprovado','Transferido','Reprovado','Removido']),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
                 }
-
-                $matriculation = Matriculation::create([
-                    'user_id' => $user->id,
+                $current_matriculation = Matriculation::create([
+                    'user_id' => $user['id'],
                     'community_id' => $student->community_id,
-                    'student_id' => $student->id,
-                    'kinship_id' => $kinship->id,
+                    'student_id' => $student['id'],
+                    'kinship_id' => $kinship['id'],
                     'year' => $year
                 ]);
-                $student->groups()->attach($group->id, [
-                    'matriculation_id' => $matriculation->id,
-                    'status' => Arr::random(['in_progress','in_progress','in_progress','in_progress','in_progress','transferred','removed']),
+                $student->groups()->attach($group['id'], [
+                    'matriculation_id' => $current_matriculation->id,
+                    'status' => Arr::random(['Ativo','Ativo','Ativo','Ativo','Ativo','Transferido','Removido']),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

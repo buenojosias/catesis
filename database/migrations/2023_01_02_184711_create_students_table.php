@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('community_id')->constrained();
             $table->foreignId('grade_id')->nullable()->constrained();
             $table->string('name');
-            $table->date('birth');
-            $table->string('status')->default('ativo');
+            $table->date('birthday');
+            $table->enum('status', ['Ativo','Desistente','Crismado','Transferido'])->default('Ativo');
             $table->timestamps();
             // ativo | crismado | cancelado | desistente | transferido
         });

@@ -21,7 +21,7 @@ class Grade extends Model
 
     public function active_students() {
         return $this->hasMany(Student::class)->where(function($q) {
-            $q->where('status', 'ativo')
+            $q->where('status', 'Ativo')
             ->when(auth()->user()->community_id, function($query) {
                 return $query->where('community_id', auth()->user()->community_id);
             })

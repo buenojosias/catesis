@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('student_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->enum('gender', ['male','female','other']);
+            $table->enum('gender', ['Masculino','Feminino','Outro']);
             $table->string('naturalness')->nullable();
             $table->boolean('has_baptism')->default(0);
             $table->date('baptism_date')->nullable();

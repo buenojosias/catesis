@@ -6,6 +6,8 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class GroupSeeder extends Seeder
 {
@@ -16,45 +18,39 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        // Group::query()->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); DB::table('group_user')->truncate(); Group::query()->truncate();
 
         $year = 2023;
+        $users = User::all();
         foreach ([1, 2, 3, 4] as $community_id) {
-            foreach ([1, 2, 3, 4, 5, 6, 7] as $grade_id) {
-                if($grade_id > 1) {
+            $catechists = $users->where('community_id', $community_id)->pluck('id')->toArray();
+            foreach ([1, 2, 3, 4, 5, 6, 7, 8, 9] as $grade_id) {
+                // if($grade_id > 1) {
                     $retroactive_group = Group::create([
                         'community_id' => $community_id,
-                        'grade_id' => $grade_id-1,
+                        'grade_id' => $grade_id,
                         'year' => $year-1,
-                        'weekday' => 6,
-                        'time' => '15:00:00',
+                        'weekday' => rand(0, 6),
+                        'time' => rand(8, 20).':'.Arr::random(['00','30']).':00',
                         'start_date' => $year-1 . '-03-04',
                         'end_date' => $year-1 . '-12-03',
                         'finished' => true,
                     ]);
-                    $user = User::where('community_id', $retroactive_group->community_id)->orderByRaw('RAND()')->first();
-                    $retroactive_group->users()->attach($user->id);
-                }
+                    $retroactive_group->users()->sync(Arr::random($catechists, rand(1,2)));
+                // }
 
                 $group = Group::create([
                     'community_id' => $community_id,
                     'grade_id' => $grade_id,
                     'year' => $year,
-                    'weekday' => 6,
-                    'time' => '15:00:00',
-                    'start_date' => $year . '-03-04',
+                    'weekday' => rand(0, 6),
+                    'time' => rand(8, 20).':'.Arr::random(['00','30']).':00',
+                    'start_date' => $year . '-01-14',
                     'end_date' => $year . '-12-03',
                     'finished' => false,
                 ]);
-                $user = User::where('community_id', $group->community_id)->orderByRaw('RAND()')->first();
-                $group->users()->attach($user->id);
+                $group->users()->sync(Arr::random($catechists, rand(1,2)));
             }
-        }
-
-        # Duplicar catequistas no grupos
-        foreach(Group::where('year', 2023)->get() as $group) {
-            $user = User::where('community_id', $group->community_id)->orderByRaw('RAND()')->first();
-            $group->users()->attach($user->id);
         }
     }
 }

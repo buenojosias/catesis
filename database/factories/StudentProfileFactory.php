@@ -31,7 +31,7 @@ class StudentProfileFactory extends Factory
             $baptism_church = null;
         }
         return [
-            'gender' => $this->faker->randomElement($array = array ('male','female')),
+            'gender' => $this->faker->randomElement($array = array ('Masculino','Feminino')),
             'naturalness' => $this->faker->randomElement(['Curitiba/PR','Curitiba/PR','Curitiba/PR','Curitiba/PR','Almirante Tamandaré/PR','São José dos Pinhais/PR',$this->faker->city().'/'.$this->faker->stateAbbr()]),
             'has_baptism' => $has_baptism,
             'married_parents' => $this->faker->boolean(),

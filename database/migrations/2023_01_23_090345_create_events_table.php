@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->dateTime('startsAt');
-            $table->dateTime('endsAt')->nullable();
+            $table->dateTime('starts_at');
+            $table->dateTime('ends_at')->nullable();
             $table->timestamps();
         });
     }
