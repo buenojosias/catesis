@@ -21,10 +21,10 @@
                         </div>
                         <div class="grow mr-2">
                             <x-native-select wire:model.defer="status">
-                                <option value="ativo">Ativo</option>
-                                <option value="crismado">Crismado</option>
-                                <option value="desistente">Desistente</option>
-                                <option value="transferido">Transferido</option>
+                                <option value="Ativo">Ativo</option>
+                                <option value="Crismado">Crismado</option>
+                                <option value="Desistente">Desistente</option>
+                                <option value="Transferido">Transferido</option>
                             </x-native-select>
                         </div>
                         <div class="flex items-center space-x-2">

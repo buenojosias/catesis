@@ -1,6 +1,6 @@
 <div>
     <x-notifications />
-    @if ($student->status != 'ativo')
+    @if ($student->status != 'Ativo')
         <div class="alert warning">
             O status atual do catequizando é <span class="font-semibold">{{ $student->status }}</span>.
         </div>
@@ -17,11 +17,11 @@
                 </div>
                 <div>
                     <h4>Data de nascimento</h4>
-                    <p>{{ Carbon\Carbon::parse($birth)->format('d/m/Y') }}</p>
+                    <p>{{ Carbon\Carbon::parse($birthday)->format('d/m/Y') }}</p>
                 </div>
                 <div>
                     <h4>Idade</h4>
-                    <p>{{ Carbon\Carbon::parse($birth)->age }} anos</p>
+                    <p>{{ Carbon\Carbon::parse($birthday)->age }} anos</p>
                 </div>
             </div>
         </div>

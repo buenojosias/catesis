@@ -45,8 +45,7 @@ class Rematriculation extends Component
             'kinship' => 'required|in:' . implode(',', $validKinships),
             'comment' => 'nullable|string',
         ]);
-
-        $group = $this->groups -> where('id', $this->group)->first();
+        $group = $this->groups->where('id', $this->group)->first();
 
         DB::beginTransaction();
         try {
@@ -63,7 +62,7 @@ class Rematriculation extends Component
             ]);
             $update_student = $this->student->update([
                 'grade_id' => $group->grade_id,
-                'status' => 'ativo',
+                'status' => 'Ativo',
             ]);
             if($this->comment) {
                 $this->student->comments()->create([

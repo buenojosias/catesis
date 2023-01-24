@@ -15,7 +15,7 @@ class Index extends Component
     public $search = null;
     public $community = null;
     public $grade = null;
-    public $status = 'ativo';
+    public $status = 'Ativo';
     public $student;
 
     public function render()
@@ -37,7 +37,6 @@ class Index extends Component
                     $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
                     return $query->whereIn('group_id', $groups);
                 });
-                # DEPOIS VERIFICAR SE ESTÁ SEMPRE BUSCANDO OS CATEQUIZANDOS O CATEQUISTA LOGADO
             })
             ->when($this->community, function($query) {
                 return $query->where('community_id', $this->community);

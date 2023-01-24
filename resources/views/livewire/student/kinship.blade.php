@@ -108,7 +108,7 @@
                                     <div class="sm:col-span-2"></div>
                                 @endif
                                 <div class="sm:col-span-2">
-                                    <x-toggle md left-label="Mora junto" wire:model.defer="ks_live_together" />
+                                    <x-toggle md left-label="Mora junto" wire:model.defer="ks_lives_together" />
                                 </div>
                                 <div class="sm:col-span-2">
                                     <x-toggle md left-label="É responsável pelo(a) catequizando(a)"
@@ -153,7 +153,7 @@
                                 <x-label label="Mora junto" />
                             </div>
                             <div>
-                                <x-toggle md wire:model="kinshipForm.pivot.live_together" />
+                                <x-toggle md wire:model="kinshipForm.pivot.lives_together" />
                             </div>
                         </div>
                         <div class="flex">

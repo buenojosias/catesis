@@ -12,9 +12,10 @@
                 <div>
                     <x-native-select label="Status" wire:model="status">
                         <option value="">Todos</option>
-                        <option value="ativo">Ativos</option>
-                        <option value="crismado">Crismados</option>
-                        <option value="desistente">Desistentes</option>
+                        <option value="Ativo">Ativos</option>
+                        <option value="Crismado">Crismados</option>
+                        <option value="Transferido">Transferidos</option>
+                        <option value="Desistente">Desistentes</option>
                     </x-native-select>
                 </div>
                 @hasanyrole(['admin', 'coordinator', 'secretary'])
@@ -61,7 +62,7 @@
                             @endrole
                             <td>{{ $student->grade->title ?? 'Nenhuma' }}</td>
                             <td>
-                                @if ($student->status === 'ativo')
+                                @if ($student->status === 'Ativo')
                                     <x-badge outline positive label="{{ $student->status }}" />
                                 @else
                                     <x-badge outline warning label="{{ $student->status }}" />

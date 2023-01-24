@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Sumary extends Component
+class About extends Component
 {
     use Actions;
 
@@ -16,7 +16,7 @@ class Sumary extends Component
     public $group;
     public $catechists;
     public $grade;
-    public $name, $birth;
+    public $name, $birthday;
     public $gender, $naturalness, $has_baptism, $baptism_date, $baptism_church, $married_parents, $health_problems, $school;
 
     public $showEditProfileModal;
@@ -24,7 +24,7 @@ class Sumary extends Component
 
     protected $validationAttributes = [
         'name' => 'Nome',
-        'birth' => 'Data de nascimento',
+        'birthday' => 'Data de nascimento',
         'gender' => 'Sexo',
         'naturalness' => 'Naturalidade',
         'has_baptism' => 'É batizado(a)',
@@ -37,10 +37,10 @@ class Sumary extends Component
 
     public function mount(Student $student) {
         $this->student = $student;
-        // $this->age = Carbon::parse($student->birth)->age;
+        // $this->age = Carbon::parse($student->birthday)->age;
         $this->profile = $student->profile;
         $this->name = $this->student->name;
-        $this->birth = $this->student->birth;
+        $this->birthday = $this->student->birthday;
         $this->gender = $this->profile->gender;
         $this->naturalness = $this->profile->naturalness;
         $this->has_baptism = $this->profile->has_baptism;
@@ -59,13 +59,13 @@ class Sumary extends Component
     {
         $validateStudent = $this->validate([
             'name' => 'required|string|min:6|max:255',
-            'birth' => 'required|date|before:now',
+            'birthday' => 'required|date|before:now',
         ]);
         $validateProfile = $this->validate([
             'gender' => 'required|string',
             'naturalness' => 'nullable|string|max:100',
             'has_baptism' => 'required|boolean',
-            'baptism_date' => 'nullable|date|after:birth|before:now',
+            'baptism_date' => 'nullable|date|after:birthday|before:now',
             'baptism_church' => 'nullable|string|min:10|max:160',
             'married_parents' => 'required|boolean',
             'health_problems' => 'nullable|string|max:255',
@@ -91,6 +91,6 @@ class Sumary extends Component
 
     public function render()
     {
-        return view('livewire.student.sumary');
+        return view('livewire.student.about');
     }
 }

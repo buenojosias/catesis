@@ -22,10 +22,10 @@ class Kinship extends Component
     public $titles;
     public $ks_id;
     public $ks_name;
-    public $ks_birth;
+    public $ks_birthday;
     public $ks_title;
     public $ks_is_enroller = false;
-    public $ks_live_together = false;
+    public $ks_lives_together = false;
 
     public $kinshipForm;
     public $kinshipName;
@@ -33,23 +33,23 @@ class Kinship extends Component
     protected $validationAttributes = [
         'ks_id' => 'Familiar cadastrado',
         'ks_name' => 'Nome',
-        'ks_birth' => 'Data de nascimento',
+        'ks_birthday' => 'Data de nascimento',
         'ks_title' => 'Grau de parentesco',
         'ks_is_enroller' => 'É responsável',
-        'ks_live_together' => 'Mora junto',
+        'ks_lives_together' => 'Mora junto',
         'kinshipForm.pivot.title' => 'Grau de parentesco',
         'kinshipForm.pivot.is_enroller' => 'É responsável',
-        'kinshipForm.pivot.live_together' => 'Mora junto',
+        'kinshipForm.pivot.lives_together' => 'Mora junto',
     ];
 
     public function kinshipSubmit() {
         $validateKinship = $this->validate([
             'ks_id' => 'nullable|required_if:option,sync|integer',
             'ks_name' => 'nullable|required_if:option,create|string|min:6|max:166',
-            'ks_birth' => 'nullable|required_if:option,create|date|before:now',
+            'ks_birthday' => 'nullable|required_if:option,create|date|before:now',
             'ks_title' => 'required|string|in:' . implode(',', $this->titles->toArray()),
             'ks_is_enroller' => 'required|boolean',
-            'ks_live_together' => 'required|boolean',
+            'ks_lives_together' => 'required|boolean',
         ]);
 
         DB::beginTransaction();
@@ -57,7 +57,7 @@ class Kinship extends Component
             if($this->option === 'create') {
                 $kinship = KinshipModel::create([
                     'name' => $this->ks_name,
-                    'birth' => $this->ks_birth,
+                    'birthday' => $this->ks_birthday,
                 ]);
                 $kinship->profile()->create(['profession' => null]);
             } else if($this->option === 'sync') {
@@ -66,7 +66,7 @@ class Kinship extends Component
             $kinship->students()->attach($this->student, [
                 'title' => $this->ks_title,
                 'is_enroller' => $this->ks_is_enroller,
-                'live_together' => $this->ks_live_together,
+                'lives_together' => $this->ks_lives_together,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -96,7 +96,7 @@ class Kinship extends Component
     {
         $validateKinship = $this->validate([
             'kinshipForm.pivot.title' => 'required|string|in:' . implode(',', $this->titles->toArray()),
-            'kinshipForm.pivot.live_together' => 'required|boolean',
+            'kinshipForm.pivot.lives_together' => 'required|boolean',
             'kinshipForm.pivot.is_enroller' => 'required|boolean',
         ]);
         try {

@@ -10,11 +10,11 @@
                 <div class="hidden sm:block">
                     <div class="flex items-baseline space-x-2">
                         <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}"
-                            label="Resumo" />
-                        <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
-                            active="{{ $section === 'comentarios' }}" label="Comentários" />
+                            label="Sobre" />
                         <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
                             active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
+                        <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
+                            active="{{ $section === 'comentarios' }}" label="Comentários" />
                         <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                             active="{{ $section === 'historico' }}" label="Histórico" />
                         <x-tab-link href="{{ route('students.show', [$student, 'outros']) }}"
@@ -27,12 +27,20 @@
                     aria-expanded="false" @click="showtabs = !showtabs">
                     @php
                         switch ($section) {
-                            case 'comentarios': echo 'Comentários'; break;
-                            case 'contatos': echo 'Contatos e familiares'; break;
-                            case 'familiares': echo 'Familiares'; break;
-                            case 'historico': echo 'Histórico'; break;
-                            case 'outros': echo 'Outros'; break;
-                            default: echo 'Resumo';
+                            case 'contatos':
+                                echo 'Contatos e familiares';
+                                break;
+                            case 'comentarios':
+                                echo 'Comentários';
+                                break;
+                            case 'historico':
+                                echo 'Histórico';
+                                break;
+                            case 'outros':
+                                echo 'Outros';
+                                break;
+                            default:
+                                echo 'Sobre';
                         }
                     @endphp
                     <span class="sr-only">Open menu</span>
@@ -46,11 +54,11 @@
                 x-transition:leave-start="transform opacity-100 scale-100"
                 x-transition:leave-end="transform opacity-0 scale-95">
                 <x-tab-link href="{{ route('students.show', $student) }}" active="{{ !$section }}"
-                    label="Resumo" />
-                <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
-                    active="{{ $section === 'comentarios' }}" label="Comentários" />
+                    label="Sobre" />
                 <x-tab-link href="{{ route('students.show', [$student, 'contatos']) }}"
                     active="{{ $section === 'contatos' }}" label="Contatos e familiares" />
+                <x-tab-link href="{{ route('students.show', [$student, 'comentarios']) }}"
+                    active="{{ $section === 'comentarios' }}" label="Comentários" />
                 <x-tab-link href="{{ route('students.show', [$student, 'historico']) }}"
                     active="{{ $section === 'historico' }}" label="Histórico" />
                 <x-tab-link href="{{ route('students.show', [$student, 'outros']) }}"
@@ -59,7 +67,7 @@
         </nav>
     </x-slot>
     @if (!$section)
-        @livewire('student.sumary', ['student' => $student])
+        @livewire('student.about', ['student' => $student])
     @endif
     @if ($section === 'contatos')
         @livewire('student.contact', ['student' => $student])

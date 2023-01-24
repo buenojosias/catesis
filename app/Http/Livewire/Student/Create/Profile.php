@@ -15,9 +15,9 @@ class Profile extends Component
     public $student;
     public $community_id;
     public $name;
-    public $birth;
+    public $birthday;
     public $gender;
-    public $genders = ['male','female','other'];
+    public $genders = ['Masculino','Feminino','Outro'];
     public $naturalness;
     public $has_baptism = false;
     public $baptism_date;
@@ -28,7 +28,7 @@ class Profile extends Component
 
     protected $validationAttributes = [
         'name' => 'Nome',
-        'birth' => 'Data de nascimento',
+        'birthday' => 'Data de nascimento',
         'gender' => 'Sexo',
         'naturalness' => 'Naturalidade',
         'has_baptism' => 'É batizado(a)',
@@ -49,7 +49,7 @@ class Profile extends Component
         $validateStudent = $this->validate([
             'community_id' => 'required',
             'name' => 'required|string|min:6|max:255',
-            'birth' => 'required|date|before:now',
+            'birthday' => 'required|date|before:now',
         ]);
         $validateProfile = $this->validate([
             'gender' => 'required|string',

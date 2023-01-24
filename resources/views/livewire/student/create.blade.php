@@ -11,7 +11,7 @@
             <div class="flex card mb-2 p-4 opacity-60 cursor-not-allowed">
                 <div class="flex-1">
                     <span class="mr-2 font-semibold">Grupo/Matrícula</span>
-                    <span class="text-sm">Vincule a um familiar responsável primeiro.</span>
+                    <span class="text-sm">É necessário vincular um membro de família.</span>
                 </div>
                 <div>
                     <x-icon name="ban" class="w-6 h-6 text-gray-800" />

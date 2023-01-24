@@ -14,15 +14,15 @@
                         </div>
                         <div class="sm:col-span-2">
                             <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
-                                wire:model.defer="birth" required without-tips without-time without-timezone :min="now()->subYears(18)"
+                                wire:model.defer="birthday" required without-tips without-time without-timezone :min="now()->subYears(18)"
                                 :max="now()->subYears(5)" />
                         </div>
                         <div class="sm:col-span-2">
                             <x-native-select label="Sexo *" wire:model.defer="gender" required>
                                 <option value="">Selecione</option>
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
-                                <option value="other">Outro</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outro">Outro</option>
                             </x-native-select>
                         </div>
                         <div class="sm:col-span-4">
@@ -71,11 +71,11 @@
                     </div>
                     <div>
                         <h4>Data de nascimento</h4>
-                        <p>{{ Carbon\Carbon::parse($student->birth)->format('d/m/Y') }}</p>
+                        <p>{{ Carbon\Carbon::parse($student->birthday)->format('d/m/Y') }}</p>
                     </div>
                     <div>
                         <h4>Idade</h4>
-                        <p>{{ Carbon\Carbon::parse($student->birth)->age }} anos</p>
+                        <p>{{ Carbon\Carbon::parse($student->birthday)->age }} anos</p>
                     </div>
                 </div>
             </div>

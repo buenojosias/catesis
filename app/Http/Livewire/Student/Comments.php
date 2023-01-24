@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Student;
 
-use App\Models\Comment;
 use App\Models\Student;
 use Livewire\Component;
 use WireUi\Traits\Actions;

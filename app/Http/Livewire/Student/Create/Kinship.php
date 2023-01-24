@@ -17,16 +17,16 @@ class Kinship extends Component
     public $option;
     public $student;
     public $kinship;
-    public $ksid, $name, $birth, $title, $is_enroller = false, $live_together = false;
+    public $ksid, $name, $birth, $title, $is_enroller = false, $lives_together = false;
     public $phone, $whatsapp, $email, $facebook, $instagram;
 
     protected $validationAttributes = [
         'ksid' => 'Familiar cadastrado',
         'name' => 'Nome do responsável',
-        'birth' => 'Data de nascimento',
+        'birthday' => 'Data de nascimento',
         'title' => 'Grau de parentesco',
         'is_enroller' => 'É responsável',
-        'live_together' => 'Mora junto',
+        'lives_together' => 'Mora junto',
         'phone' => 'Telefone',
         'whatsapp' => 'WhatsApp',
         'email' => 'E-mail',
@@ -38,10 +38,10 @@ class Kinship extends Component
         $validateKinship = $this->validate([
             'ksid' => 'nullable|required_if:option,sync|integer',
             'name' => 'nullable|required_if:option,create|string|min:6|max:166',
-            'birth' => 'nullable|required_if:option,create|date|before:now',
+            'birthday' => 'nullable|required_if:option,create|date|before:now',
             'title' => 'required|string|in:' . implode(',', $this->titles->toArray()),
             'is_enroller' => 'required|boolean',
-            'live_together' => 'required|boolean',
+            'lives_together' => 'required|boolean',
         ]);
         if($this->option == 'create') {
             $validateContact = $this->validate([
@@ -58,7 +58,7 @@ class Kinship extends Component
             if($this->option === 'create') {
                 $kinship = KinshipModel::create([
                     'name' => $this->name,
-                    'birth' => $this->birth,
+                    'birthday' => $this->birthday,
                 ]);
                 $kinship->profile()->create(['profession'=>null]);
                 $contact = $kinship->contact()->create($validateContact);
@@ -81,7 +81,7 @@ class Kinship extends Component
             $kinship->students()->attach($this->student, [
                 'title' => $this->title,
                 'is_enroller' => $this->is_enroller,
-                'live_together' => $this->live_together,
+                'lives_together' => $this->lives_together,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

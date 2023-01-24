@@ -44,10 +44,11 @@ class Others extends Component
     }
 
     public function changeGroupStatus($newStatus) {
-        $currentGroup = $this->student->groups()->where('finished', false)->where('year', date('Y'))->first();
+        $currentGroup = $this->student->groups()->where('finished', false)->where('year', date('Y'))->orderBy('id', 'desc')->first();
+        dd($currentGroup);
         if (!$currentGroup)
             return;
-        $newStatusArray = ['ativo' => 'in_progress', 'desistente' => 'removed', 'transferido' => 'transferred', 'crismado' => 'approved'];
+        $newStatusArray = ['Ativo' => 'Ativo', 'Desistente' => 'Removido', 'Transferido' => 'Transferido', 'Crismado' => 'Aprovado'];
         try {
             $this->student->groups()->updateExistingPivot($currentGroup->id, ['status' => $newStatusArray[$newStatus]]);
         } catch (\Throwable $th) {
