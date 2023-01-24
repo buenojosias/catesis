@@ -12,14 +12,14 @@ class Sumary extends Component
 
     public $kinship;
     public $profile;
-    public $name, $birth;
+    public $name, $birthday;
     public $profession, $marital_status, $religion, $catechizing, $has_baptism, $has_eucharist, $has_chrism, $attends_church, $is_tither, $musical_instrument;
 
     public $showEditProfileModal;
 
     protected $validationAttributes = [
         'name' => 'Nome',
-        'birth' => 'Data de nascimento',
+        'birthday' => 'Data de nascimento',
         'profession' => 'Profissão',
         'marital_status' => 'Estado civil',
         'religion' => 'Religião',
@@ -37,7 +37,7 @@ class Sumary extends Component
         $this->kinship = $kinship;
         $this->profile = $kinship->profile;
         $this->name = $kinship->name;
-        $this->birth = $kinship->birth;
+        $this->birthday = $kinship->birthday;
         $this->profession = $this->profile->profession;
         $this->marital_status = $this->profile->marital_status;
         $this->religion = $this->profile->religion;
@@ -54,7 +54,7 @@ class Sumary extends Component
     {
         $validateKinship = $this->validate([
             'name' => 'required|string|min:6|max:255',
-            'birth' => 'required|date|before:now',
+            'birthday' => 'required|date|before:now',
         ]);
         $validateProfile = $this->validate([
             'profession' => 'nullable|string|max:50',

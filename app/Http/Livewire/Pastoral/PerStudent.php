@@ -45,7 +45,7 @@ class PerStudent extends Component
             ->when(!$this->has_pastoral, function ($query) {
                 return $query->whereDoesntHave('pastorals');
             })
-            ->where('status', 'ativo')
+            ->where('status', 'Ativo')
             ->with(['pastorals.community'])
             ->orderBy('name', 'asc')
             ->paginate();

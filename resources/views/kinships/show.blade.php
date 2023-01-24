@@ -10,13 +10,13 @@
                     <h3 class="card-title">Catequizandos relacionados</h3>
                 </div>
                 <div class="card-body">
-                    @foreach ($kinship->students as $student)
+                    @foreach ($students as $student)
                         <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
                             <div class="font-medium text-gray-900">
                                 <a href="{{ route('students.show', $student) }}">{{ $student->name }}</a>
                             </div>
                             <div>
-                                @if ($student->status === 'ativo')
+                                @if ($student->status === 'Ativo')
                                     <x-badge outline positive label="{{ $student->status }}" />
                                 @else
                                     <x-badge outline warning label="{{ $student->status }}" />

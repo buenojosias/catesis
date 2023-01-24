@@ -9,10 +9,11 @@ class KinshipController extends Controller
 {
     public function show(Kinship $kinship)
     {
-        $students = $kinship->students()->with(['community','grade']);
+        $students = $kinship->students()->with(['community','grade'])->get();
 
         return view('kinships.show', [
             'kinship' => $kinship,
+            'students' => $students,
         ]);
     }
 }

@@ -12,7 +12,7 @@
                 </div>
                 <div>
                     <h4>Data de nascimento</h4>
-                    <p>{{ Carbon\Carbon::parse($birth)->format('d/m/Y') }}</p>
+                    <p>{{ Carbon\Carbon::parse($birthday)->format('d/m/Y') }}</p>
                 </div>
                 <div>
                     <h4>Profissão</h4>
@@ -79,7 +79,7 @@
                             </div>
                             <div>
                                 <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
-                                    wire:model.defer="birth" without-tips without-time without-timezone :min="now()->subYears(90)"
+                                    wire:model.defer="birthday" without-tips without-time without-timezone :min="now()->subYears(90)"
                                     :max="now()->subYears(2)" required />
                             </div>
                             <div>
