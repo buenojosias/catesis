@@ -37,8 +37,8 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <x-button href="{{ route('students.show', $student) }}" label="Pular" />
-                    <x-button type="submit" primary label="Concluir" />
+                    <x-button href="{{ route('students.show', $student) }}" sm flat label="Pular" />
+                    <x-button type="submit" sm primary label="Concluir" />
                 </div>
             </form>
         @else

@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <x-button type="submit" primary label="Continuar" />
+                    <x-button type="submit" sm primary label="Continuar" />
                 </div>
             </form>
         @else

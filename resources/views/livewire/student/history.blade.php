@@ -1,5 +1,8 @@
 <div>
-    <div class="card mb-4">
+    @can('student_edit')
+        <x-button wire:click="openRematriculationModal()" primary label="Fazer rematrícula" />
+    @endcan
+    <div class="card mt-2">
         <div class="card-header">
             <h3 class="card-title">Histórico de etapas</h3>
         </div>
@@ -31,9 +34,6 @@
             </table>
         </div>
     </div>
-    @can('student_edit')
-        <x-button wire:click="openRematriculationModal()" primary label="Fazer rematrícula" />
-    @endcan
 
     {{-- @if ($rematriculationModal) --}}
     @can('student_edit')

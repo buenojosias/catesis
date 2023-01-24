@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <x-button type="submit" primary label="Concluir" />
+                    <x-button sm type="submit" primary label="Concluir" />
                 </div>
             </form>
         @else

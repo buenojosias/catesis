@@ -1,13 +1,11 @@
 <div>
     @can('group_create')
-        <div class="flex justify-end mb-4">
-            <x-button wire:click="openFormModal()" primary label="Novo grupo" />
-        </div>
+        <x-button wire:click="openFormModal()" primary label="Novo grupo" class="mb-2" />
     @endcan
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
             <div class="card-search"></div>
-            <div class="card-tools">
+            <div class="card-tools py-1">
                 <x-button flat icon="filter" @click="filters = !filters" />
             </div>
             <div x-show="filters" @click.outside="filters = false" class="filters">
@@ -67,8 +65,9 @@
                                 </ul>
                             </td>
                             <td class="text-right">
-                                <x-button href="{{ route('groups.show', $group) }}" flat primary sm icon="eye" />
-                                <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" flat sm icon="table" />
+                                <x-button href="{{ route('groups.show', $group) }}" flat sm icon="eye" />
+                                <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" flat
+                                    sm icon="table" />
                             </td>
                         </tr>
                     @empty

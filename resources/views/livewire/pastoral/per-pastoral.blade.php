@@ -12,7 +12,7 @@
                         $pastoral->user_id === auth()->user()->id ||
                             auth()->user()->hasRole('admin'))
                         <div class="card-tools">
-                            <x-button wire:click="openFormModal('edit', {{ $pastoral }})" flat xs icon="pencil" />
+                            <x-button wire:click="openFormModal('edit', {{ $pastoral }})" xs flat icon="pencil" />
                         </div>
                     @endif
                 </div>
@@ -119,8 +119,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button x-on:click="close" sm flat label="Cancelar" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </div>

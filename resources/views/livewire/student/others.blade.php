@@ -28,8 +28,8 @@
                             </x-native-select>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <x-button type="submit" sm primary label="Salvar" />
-                            <x-button @click="showform=false" sm flat label="Cancelar" />
+                            <x-button @click="showform=false" flat label="Cancelar" />
+                            <x-button type="submit" primary label="Salvar" />
                         </div>
                     </div>
                 </form>

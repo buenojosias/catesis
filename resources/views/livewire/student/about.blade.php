@@ -108,7 +108,7 @@
                 <a href="{{ route('students.show', [$student, 'comentarios']) }}" class="block p-2 border-t cursor-pointer">Comentários</a>
             </div>
             <div class="text-center font-semibold">
-                Um botão qualquer
+                <a class="block p-2 border-t cursor-pointer"></a>
             </div>
         </div>
     </div>
@@ -172,8 +172,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-end gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button label="Cancelar" sm flat x-on:click="close" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </form>

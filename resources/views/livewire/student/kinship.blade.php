@@ -135,12 +135,12 @@
                     <div class="card-header">
                         <h3 class="card-title">Alterar vínculo de familiar</h3>
                     </div>
-                    <div class="card-body display flex flex-col space-y-4">
-                        <x-errors class="mb-4 shadow" />
-                        <div>
-                            <x-input label="Nome do familiar" value="{{ $kinshipName }}" readonly />
+                    <div class="card-body display flex flex-col">
+                        <x-errors class="shadow" />
+                        <div class="mb-4">
+                            <x-input label="Nome do familiar" hint="Somente leitura" value="{{ $kinshipName }}" readonly />
                         </div>
-                        <div>
+                        <div class="mb-4">
                             <x-native-select label="Grau de parentesco *" wire:model.defer="kinshipForm.pivot.title"
                                 required>
                                 @foreach ($titles as $title)
@@ -148,7 +148,7 @@
                                 @endforeach
                             </x-native-select>
                         </div>
-                        <div class="flex">
+                        <div class="mb-4 flex">
                             <div class="grow">
                                 <x-label label="Mora junto" />
                             </div>
@@ -167,8 +167,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button x-on:click="close" sm flat label="Cancelar" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </div>

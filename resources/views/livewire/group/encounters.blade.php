@@ -4,7 +4,7 @@
             <h3 class="card-title">Encontros</h3>
             <div class="card-tools">
                 @can('group_edit')
-                    <x-button outline primary xs label="Adicionar" wire:click="openFormModal('create')" />
+                    <x-button sm flat icon="plus" wire:click="openFormModal('create')" />
                 @endcan
             </div>
         </div>
@@ -31,11 +31,9 @@
                                 $group->community_id === auth()->user()->community_id ||
                                     auth()->user()->hasRole('admin'))
                                 <td class="text-right">
-                                    <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" flat primary
-                                        sm icon="eye" />
+                                    <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat icon="eye" />
                                     @can('group_edit')
-                                        <x-button wire:click="openFormModal('edit', {{ $encounter }})" flat primary sm
-                                            icon="pencil" />
+                                        <x-button wire:click="openFormModal('edit', {{ $encounter }})" sm flat icon="pencil" />
                                     @endcan
                                 </td>
                             @endif
@@ -84,8 +82,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="flex justify-between gap-x-4">
-                                <x-button flat label="Cancelar" x-on:click="close" />
-                                <x-button type="submit" primary label="Salvar" />
+                                <x-button x-on:click="close" sm flat label="Cancelar" />
+                                <x-button type="submit" sm primary label="Salvar" />
                             </div>
                         </div>
                     </div>

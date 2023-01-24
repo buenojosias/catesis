@@ -25,12 +25,7 @@
                             <td>{{ $community->users_count }}</td>
                             <td>{{ $community->active_students_count }}</td>
                             <td class="text-right">
-                                <x-button href="{{ route('communities.show', $community) }}" flat primary sm
-                                    icon="eye" />
-                                @can('community_edit')
-                                    <x-button href="{{ route('communities.edit', $community) }}" flat primary sm
-                                        icon="pencil" />
-                                @endcan
+                                <x-button href="{{ route('communities.show', $community) }}" flat sm icon="eye" />
                             </td>
                         </tr>
                     @endforeach

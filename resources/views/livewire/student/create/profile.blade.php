@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <x-button type="submit" primary label="Salvar e continuar" />
+                    <x-button type="submit" sm primary label="Salvar e continuar" />
                 </div>
             </div>
         </form>

@@ -127,7 +127,7 @@
                                 </x-native-select>
                             </div>
                             <div>
-                                <x-button wire:click="syncCatechist" label="Salvar" />
+                                <x-button wire:click="syncCatechist" primary label="Salvar" />
                             </div>
                         </div>
                     </div>

@@ -37,11 +37,11 @@
         </div>
     </div>
     @can('theme_edit')
-        <x-modal wire:model.defer="showModal">
+        <x-modal wire:model.defer="showModal" max-width="md">
             <div class="card w-full">
                 <form wire:submit.prevent="submit">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $modalTitle }}</h3>
+                        <h3 class="card-title py-2">{{ $modalTitle }}</h3>
                     </div>
                     <div class="card-body display">
                         <x-errors class="mb-4 shadow" />
@@ -54,8 +54,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-end gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button x-on:click="close" sm flat label="Cancelar" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </form>

@@ -15,10 +15,9 @@
                             <td><a href="{{ route('grades.show', $grade) }}">{{ $grade->title }}</a></td>
                             <td>{{ $grade->active_students_count }}</td>
                             <td class="text-right">
-                                <x-button href="{{ route('grades.show', $grade) }}" flat primary sm
-                                    icon="eye" />
+                                <x-button href="{{ route('grades.show', $grade) }}" sm flat icon="eye" />
                                 @can('grade_edit')
-                                    <x-button href="#" flat primary sm icon="pencil" />
+                                    <x-button href="#" sm flat icon="pencil" />
                                 @endcan
                             </td>
                         </tr>

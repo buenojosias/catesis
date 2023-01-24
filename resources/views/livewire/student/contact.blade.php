@@ -3,6 +3,9 @@
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Endereço</h3>
+            <div class="card-tools">
+                <x-button wire:click="openAddressModal()" sm flat icon="pencil-alt" />
+            </div>
         </div>
         @if ($address)
             <div class="card-body display">
@@ -44,7 +47,7 @@
                     <h3 class="card-title">Contatos</h3>
                     @can('student_edit')
                         <div class="card-tools">
-                            <x-button wire:click="openContactModal()" sm flat label="Editar" />
+                            <x-button wire:click="openContactModal()" sm flat icon="pencil-alt" />
                         </div>
                     @endcan
                 </div>
@@ -119,8 +122,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button x-on:click="close" sm flat label="Cancelar" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </form>
@@ -151,8 +154,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
-                            <x-button flat label="Cancelar" x-on:click="close" />
-                            <x-button type="submit" primary label="Salvar" />
+                            <x-button x-on:click="close" sm flat label="Cancelar" />
+                            <x-button type="submit" sm primary label="Salvar" />
                         </div>
                     </div>
                 </form>

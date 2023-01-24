@@ -20,13 +20,10 @@
                         </p>
                     </div>
                     <div class="px-4 pb-4 md:pb-0 flex items-center">
-                        <x-button label="Ação" class="w-full" />
+                        {{--  --}}
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
-                    <div class="text-center font-semibold">
-                        <a href="#" class="block p-2 border-t">Item 1</a>
-                    </div>
                     @hasanyrole(['coordinator','secretary'])
                     <div class="text-center font-semibold">
                         <a href="{{route('students.create')}}" class="block p-2 border-t"><i class="fas fa-plus"></i> Catequizando</a>
@@ -37,6 +34,9 @@
                         <a href="{{route('catechists.create')}}" class="block p-2 border-t"><i class="fas fa-plus"></i> Catequista</a>
                     </div>
                     @endhasanyrole
+                    <div class="text-center font-semibold">
+                        <a href="" class="block p-2 border-t"></a>
+                    </div>
                 </div>
             </div>
             {{-- mais cards... --}}

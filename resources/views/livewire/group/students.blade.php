@@ -24,7 +24,7 @@
                                 {{ $student->encounters->count() }}
                             </td>
                             <td class="text-right">
-                                <x-button href="{{ route('students.show', $student) }}" flat primary sm icon="eye" />
+                                <x-button href="{{ route('students.show', $student) }}" flat sm icon="eye" />
                             </td>
                         </tr>
                     @empty

@@ -69,8 +69,7 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <x-button icon="eye" href="{{ route('students.show', $student) }}" flat primary
-                                    sm />
+                                <x-button icon="eye" href="{{ route('students.show', $student) }}" flat sm />
                                 {{-- @can('student_edit')
                                     <x-button href="{{ route('students.edit', $student) }}" flat primary sm
                                         icon="pencil" />
