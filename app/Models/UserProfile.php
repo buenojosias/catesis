@@ -9,8 +9,8 @@ class UserProfile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['birth','marital_status'];
-    protected $dates = ['birth'];
+    protected $fillable = ['birthday','marital_status'];
+    protected $dates = ['birthday'];
 
     public function user() {
         return $this->belongsTo(User::class);

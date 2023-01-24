@@ -13,7 +13,7 @@
                             <x-input wire:model.defer="name" label="Nome" placeholder="Informe o nome completo" />
                         </div>
                         <div class="sm:col-span-2">
-                            <x-datetime-picker without-time without-tips without-timezone wire:model.defer="birth"
+                            <x-datetime-picker without-time without-tips without-timezone wire:model.defer="birthday"
                                 :max="now()->subYears(13)" label="Data de nascimento" placeholder="Selecione" />
                         </div>
                         <div class="sm:col-span-2">
@@ -79,7 +79,7 @@
                     </div>
                     <div>
                         <h4>Data de nascimento</h4>
-                        <p>{{ Carbon\Carbon::parse($profile->birth)->format('d/m/Y') }}</p>
+                        <p>{{ Carbon\Carbon::parse($profile->birthday)->format('d/m/Y') }}</p>
                     </div>
                     <div>
                         <h4>Estado civil</h4>

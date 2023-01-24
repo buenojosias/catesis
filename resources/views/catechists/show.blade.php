@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-span-2">
                     <h4>Data de nascimento</h4>
-                    <p>{{ $catechist->profile->birth->format('d/m/Y') }}</p>
+                    <p>{{ $catechist->profile->birthday->format('d/m/Y') }}</p>
                 </div>
                 <div class="col-span-2">
                     <h4>Estado civil</h4>
@@ -42,17 +42,21 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    @foreach ($groups->where('year', date('Y'))->where('finished', false) as $group)
+                    @forelse ($groups->where('year', date('Y'))->where('finished', false) as $group)
                         <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
                             <div class="font-semibold">
                                 <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
                             </div>
                             <div>
-                                <x-badge outline secondary label="{{ $group->weekday }}, {{ $group->time->format('H:i') }}" />
+                                <x-badge outline secondary label="{{ $weekdays[$group->weekday] }}, {{ $group->time->format('H:i') }}" />
                             </div>
                             <div class="basis-full text-sm">{{ $group->students_count }} catequizandos</div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="p-4 text-center text-sm font-semibold">
+                            Nenhum grupo adicionado.
+                        </div>
+                    @endforelse
                 </div>
             </div>
             <div class="card mb-4">
@@ -96,9 +100,4 @@
             @endcan
         </div>
     </div>
-    <h4 class="mt-4 font-bold">Recursos</h4>
-    <ul>
-        <li>- Turma atual</li>
-        <li>- Histórico de turmas</li>
-    </ul>
 </x-app-layout>

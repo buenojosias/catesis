@@ -16,7 +16,7 @@ class Create extends Component
     use Actions;
 
     public $name, $email, $password, $password_confirmation, $community_id, $role;
-    public $birth, $marital_status;
+    public $birthday, $marital_status;
     public $communities;
     public $roles;
     public $catechist;
@@ -29,7 +29,7 @@ class Create extends Component
         'password' => 'Senha',
         'password_confirmation' => 'Confirmação de senha',
         'community_id' => 'Comunidade',
-        'birth' => 'Data de nascimento',
+        'birthday' => 'Data de nascimento',
         'marital_status' => 'Estado civil',
         'role' => 'Função',
     ];
@@ -60,7 +60,7 @@ class Create extends Component
             'community_id' => 'nullable|required_unless:role,1|integer',
         ]);
         $validateProfile = $this->validate([
-            'birth' => 'required|date|before:now',
+            'birthday' => 'required|date|before:now',
             'marital_status' => 'required|string',
         ]);
 

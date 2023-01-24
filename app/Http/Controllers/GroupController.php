@@ -9,15 +9,7 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public $weekdays = [
-        'Domingo',
-        'Segunda-feira',
-        'Terça-feira',
-        'Quarta-feira',
-        'Quinta-feira',
-        'Sexta-feira',
-        'Sábado'
-    ];
+    public $weekdays = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
 
     public function index()
     {
