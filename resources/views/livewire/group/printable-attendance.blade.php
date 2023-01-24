@@ -53,7 +53,7 @@
                                 $cell = $encounter->students->where('id', $student->id)->first();
                             @endphp
                             @if ($cell)
-                                <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }}">
+                                <div class="{{ $cell->pivot->attendance === 'F' ? 'absence' : '' }} {{ $student->status !== 'ativo' ? 'removed' : '' }}">
                                     {{ $cell->pivot->attendance }}
                                 </div>
                             @endif

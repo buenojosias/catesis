@@ -1,7 +1,7 @@
 <div>
     @can('group_create')
         <div class="flex justify-end mb-4">
-            <x-button wire:click="openFormModal" primary label="Novo grupo" />
+            <x-button wire:click="openFormModal()" primary label="Novo grupo" />
         </div>
     @endcan
     <div class="card">
@@ -84,7 +84,7 @@
     @can('group_create')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
-                @livewire('group.form');
+                @livewire('group.form', ['group' => null, 'weekdays' => $weekdays]);
             </x-modal>
         @endif
     @endcan

@@ -80,7 +80,7 @@
             font-weight: 600;
         }
 
-        td.attendance>.absence {
+        td.attendance > .absence {
             color: #a90a0a;
         }
 
@@ -99,7 +99,7 @@
             white-space: nowrap;
         }
 
-        td > .truncate.removed {
+        td > .truncate.removed, td.attendance .removed {
             color: #555555;
         }
 

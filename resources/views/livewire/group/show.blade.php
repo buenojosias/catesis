@@ -1,7 +1,0 @@
-<div>
-    <x-notifications />
-
-
-
-
-</div>

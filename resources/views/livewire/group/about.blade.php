@@ -71,7 +71,7 @@
                         auth()->user()->hasRole('admin'))
                     @can('group_edit')
                         <li>
-                            <x-button wire:click="openCatechistsModal" md white icon="pencil-alt"
+                            <x-button wire:click="openCatechistsModal" md white icon="users"
                                 label="Gereciar catequistas" class="w-full shadow" />
                         </li>
                         <li>

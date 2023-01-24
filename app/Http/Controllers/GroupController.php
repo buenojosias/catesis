@@ -21,7 +21,9 @@ class GroupController extends Controller
 
     public function index()
     {
-        return view('groups.index');
+        return view('groups.index', [
+            'weekdays' => $this->weekdays,
+        ]);
     }
 
     public function show(Group $group, $section = null)

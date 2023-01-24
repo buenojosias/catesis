@@ -12,14 +12,20 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $years = [2023,2022,2021,2020];
-    public $year = 2023;
     public $community = null;
-    public $grade = null;
     public $showFormModal;
+    public $grade = null;
+    public $weekdays;
+    public $year = 2023;
+    public $years = [2023,2022,2021,2020];
 
     public function openFormModal() {
         $this->showFormModal = true;
+    }
+
+    public function mount($weekdays)
+    {
+        $this->weekdays = $weekdays;
     }
 
     public function render()
