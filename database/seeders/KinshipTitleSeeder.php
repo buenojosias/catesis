@@ -15,7 +15,7 @@ class KinshipTitleSeeder extends Seeder
      */
     public function run()
     {
-        foreach(['Pai','Mãe','Tio','Tia','Padrinho','Madrinha','Avô','Avó','Irmão','Irmã','Primo','Prima'] as $title){
+        foreach(['Pai','Mãe','Tio','Tia','Padrinho','Madrinha','Avô','Avó','Padrasto','Madrasta','Irmão','Irmã','Primo','Prima'] as $title){
             kinshipTitle::create([
                 'title' => $title
             ]);

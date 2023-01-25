@@ -50,7 +50,7 @@
                             </div>
                             <div class="sm:col-span-2">
                                 <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
-                                    wire:model.defer="birth" without-tips without-time :max="now()->subYears(2)" required />
+                                    wire:model.defer="birthday" without-tips without-time :max="now()->subYears(2)" required />
                             </div>
                         @endif
                         @if ($option)
@@ -66,7 +66,7 @@
                                 <div class="sm:col-span-2"></div>
                             @endif
                             <div class="sm:col-span-2">
-                                <x-toggle md left-label="Mora junto" wire:model.defer="live_together" />
+                                <x-toggle md left-label="Mora junto" wire:model.defer="lives_together" />
                             </div>
                             <div class="sm:col-span-2">
                                 <x-toggle md left-label="É responsável pelo(a) catequizando(a)"
@@ -119,7 +119,7 @@
                         </div>
                         <div>
                             <h4>Mora junto</h4>
-                            <p>{{ $live_together ? 'Sim' : 'Não' }}</p>
+                            <p>{{ $lives_together ? 'Sim' : 'Não' }}</p>
                         </div>
                     </div>
                     <div class="mt-4 md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">

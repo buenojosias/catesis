@@ -17,7 +17,7 @@ class Kinship extends Component
     public $option;
     public $student;
     public $kinship;
-    public $ksid, $name, $birth, $title, $is_enroller = false, $lives_together = false;
+    public $ksid, $name, $birthday, $title, $is_enroller = false, $lives_together = false;
     public $phone, $whatsapp, $email, $facebook, $instagram;
 
     protected $validationAttributes = [
@@ -45,8 +45,8 @@ class Kinship extends Component
         ]);
         if($this->option == 'create') {
             $validateContact = $this->validate([
-                'phone' => 'nullable|required_without:ksid|string|min:14|max:15',
-                'whatsapp' => 'nullable|required_without:ksid|string|min:14|max:15',
+                'phone' => 'nullable|required_without:whatsapp|string|min:14|max:15',
+                'whatsapp' => 'nullable|required_without:phone|string|min:14|max:15',
                 'email' => 'nullable|email',
                 'facebook' => 'nullable|url',
                 'instagram' => 'nullable|url',

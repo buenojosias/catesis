@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('grade_id')->nullable()->constrained();
             $table->string('name', 128);
             $table->date('birthday');
-            $table->enum('status', ['Ativo','Desistente','Crismado','Transferido'])->default('Ativo');
+            $table->enum('status', ['Pendente','Ativo','Desistente','Crismado','Transferido'])->default('Ativo');
             $table->timestamps();
         });
     }
