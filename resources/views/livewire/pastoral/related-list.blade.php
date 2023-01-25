@@ -30,8 +30,8 @@
         </div>
         @if ($pastorals)
             @can('student_edit')
-                <div class="card-footer">
-                    <x-button sm flat black wire:click="openFormModal" label="Vincular movimento/pastoral" />
+                <div class="card-footer justify-end">
+                    <x-button wire:click="openFormModal" label="Adicionar" sm flat primary />
                 </div>
             @endcan
         @endif

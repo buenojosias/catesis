@@ -1,67 +1,75 @@
 <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
     <x-notifications />
-    <div class="col-span-2 mb-4">
+    <div class="col-span-2 mb-4 sm:px-2">
         <h2 class="mb-4 border-b border-gray-300 text-2xl font-semibold text-slate-900">{{ $community_name }}</h2>
-        @foreach ($pastorals as $key => $pastoral)
-            <div x-data="{ expand: false }" class="card mb-2">
-                <div class="card-header">
-                    <h3 @click="expand = !expand" class="card-title block w-full cursor-pointer">
-                        {{ $pastoral->name }}
-                    </h3>
-                    @if (
-                        $pastoral->user_id === auth()->user()->id ||
-                            auth()->user()->hasRole('admin'))
-                        <div class="card-tools">
-                            <x-button wire:click="openFormModal('edit', {{ $pastoral }})" xs flat icon="pencil" />
+        <div>
+            <ul class="focusable">
+                @foreach ($pastorals as $key => $pastoral)
+                    <li x-data="{ expand: false }">
+                        <div x-show="!expand" @click="expand=true" class="focusable-item">
+                            {{ $pastoral->name }}</div>
+                        <div x-show="expand" @click.outside="expand=false" class="focusable-focus">
+                            <div class="flex">
+                                <div class="flex-1">
+                                    <h4>{{ $pastoral->name }}</h4>
+                                    @if ($pastoral->coordinator)
+                                        <p class="font-semibold">
+                                            Coordenador(a): {{ $pastoral->coordinator }}
+                                        </p>
+                                    @endif
+                                    @if ($pastoral->encounters)
+                                        <p class="font-semibold">
+                                            Encontros: {{ $pastoral->encounters }}
+                                        </p>
+                                    @endif
+                                </div>
+                                @if (
+                                    $pastoral->user_id === auth()->user()->id ||
+                                        auth()->user()->hasRole('admin'))
+                                    <div class="px-2">
+                                        <x-button wire:click="openFormModal('edit', {{ $pastoral }})" sm flat
+                                            icon="pencil" />
+                                    </div>
+                                @endif
+
+                            </div>
+                            @if ($pastoral->students->count() > 0)
+                                <div class="header">
+                                    CATEQUIZANDOS PARTICIPANTES
+                                </div>
+                                <ul class="text-sm">
+                                    @foreach ($pastoral->students as $student)
+                                        <li class="list-item">
+                                            <div class="sm:flex-1 font-semibold text-gray-900">{{ $student->name }}
+                                            </div>
+                                            <div class="sm:text-right text-gray-600">{{ $student->community->name }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            @if ($pastoral->kinships->count() > 0)
+                                <div class="header">
+                                    FAMILIARES PARTICIPANTES
+                                </div>
+                                <ul class="text-sm">
+                                    @foreach ($pastoral->kinships as $kinship)
+                                        <li class="sm:flex mx-4 py-2 border-b last:border-none">
+                                            <div class="font-semibold text-gray-900">{{ $kinship->name }}</div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
-                    @endif
-                </div>
-                <div x-show="expand" class="card-body">
-                    @if ($pastoral->coordinator)
-                        <div class="py-1 px-4">
-                            Coordenador(a): {{ $pastoral->coordinator }}
-                        </div>
-                    @endif
-                    @if ($pastoral->encounters)
-                        <div class="py-1 px-4">
-                            Encontros: {{ $pastoral->encounters }}
-                        </div>
-                    @endif
-                    @if ($pastoral->students->count() > 0)
-                        <div class="py-2 px-4 bg-gray-100 font-semibold">
-                            CATEQUIZANDOS PARTICIPANTES
-                        </div>
-                        <table class="table">
-                            <tbody>
-                                @foreach ($pastoral->students as $student)
-                                    <tr>
-                                        <td>{{ $student->name }}</td>
-                                        <td class="text-right">{{ $student->community->name }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                    @if ($pastoral->kinships->count() > 0)
-                        <div class="py-2 px-4 bg-gray-100 font-semibold">
-                            FAMILIARES PARTICIPANTES
-                        </div>
-                        <table class="table">
-                            <tbody>
-                                @foreach ($pastoral->kinships as $kinship)
-                                    <tr>
-                                        <td>{{ $kinship->name }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                </div>
-            </div>
-        @endforeach
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+
     </div>
     <div>
-        <x-button wire:click="openFormModal('create')" primary label="ADICIONAR MOVIMENTO/PASTORAL"
+        <x-button wire:click="openFormModal('create')" label="ADICIONAR MOVIMENTO/PASTORAL" primary
             class="mb-4 block w-full" />
         <div class="card">
             <div class="card-header">
@@ -87,7 +95,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">{{ $method === 'create' ? 'Adicionar' : 'Editar' }} movimento ou
-                            pastoral</h3>
+                            pastoral
+                        </h3>
                     </div>
                     <div class="card-body display">
                         <x-errors class="mb-4 shadow" />
@@ -103,7 +112,9 @@
                                 </div>
                             @else
                                 <div>
-                                    <x-input label="Comunidade" corner-hint="Somente leitura" value="{{ $communities->where('id', $form['community_id'])->first()->name }}" readonly />
+                                    <x-input label="Comunidade" corner-hint="Somente leitura"
+                                        value="{{ $communities->where('id', $form['community_id'])->first()->name }}"
+                                        readonly />
                                 </div>
                             @endif
                             <div>

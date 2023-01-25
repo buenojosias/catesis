@@ -1,6 +1,6 @@
 <div>
     @can('group_create')
-        <x-button wire:click="openFormModal()" primary label="Novo grupo" class="mb-2" />
+        <x-button wire:click="openFormModal()" label="Novo grupo" primary class="mb-3 w-full sm:w-auto" />
     @endcan
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">

@@ -46,7 +46,7 @@
         </div>
         <div class="card-footer justify-end space-x-2">
             @can('student_edit')
-                <x-button onclick="$openModal('kinshipCreateModal')" primary sm label="Adicionar familiar" />
+                <x-button onclick="$openModal('kinshipCreateModal')" sm flat primary label="Adicionar" />
             @endcan
         </div>
     </div>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="sm:col-span-2">
                                     <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
-                                        wire:model.defer="ks_birth" without-tips without-time :max="now()->subYears(2)" required />
+                                        wire:model.defer="ks_birthday" without-tips without-time :max="now()->subYears(2)" required />
                                 </div>
                             @endif
                             @if ($option)

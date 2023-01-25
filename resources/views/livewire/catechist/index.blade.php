@@ -42,8 +42,7 @@
                             @endhasrole
                             <td>{{ $catechist->roles[0]->label }}</td>
                             <td class="text-right">
-                                <x-button href="{{ route('catechists.show', $catechist) }}" flat primary sm
-                                    icon="eye" />
+                                <x-button href="{{ route('catechists.show', $catechist) }}" flat sm icon="eye" />
                             </td>
                         </tr>
                     @empty

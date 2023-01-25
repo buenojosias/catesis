@@ -138,9 +138,21 @@
     @apply col-span-full bg-gray-50 px-4 py-3 text-right rounded-b;
 }
 
-.btn {
-    @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150;
+ul.focusable .focusable-item {
+    @apply py-2 px-4 border-b bg-white cursor-pointer;
 }
-.btn-primary {
-    @apply bg-sky-800 hover:bg-sky-700 focus:bg-sky-700 focus:ring-sky-700 active:bg-sky-900;
+ul.focusable .focusable-focus {
+    @apply -mx-1.5 sm:-mx-2 my-1.5 pt-2 bg-white rounded shadow;
+}
+ul.focusable .focusable-focus h4 {
+    @apply mb-1 px-4 font-semibold;
+}
+ul.focusable .focusable-focus p {
+    @apply pb-0.5 px-4 text-sm text-gray-600;
+}
+ul.focusable .focusable-focus .header {
+    @apply mt-2 py-1 px-4 bg-gray-100 font-semibold;
+}
+ul.focusable .focusable-focus .list-item {
+    @apply sm:flex mx-4 py-1.5 border-b last:border-none;
 }

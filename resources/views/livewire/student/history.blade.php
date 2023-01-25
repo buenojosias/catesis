@@ -1,6 +1,8 @@
 <div>
     @can('student_edit')
-        <x-button wire:click="openRematriculationModal()" primary label="Fazer rematrícula" />
+    <div class="mb-3">
+        <x-button wire:click="openRematriculationModal()" primary label="Fazer rematrícula" class="w-full sm:w-auto" />
+    </div>
     @endcan
     <div class="card mt-2">
         <div class="card-header">

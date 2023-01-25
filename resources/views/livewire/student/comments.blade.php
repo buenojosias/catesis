@@ -12,7 +12,7 @@
                 <x-errors class="mb-4" />
                 <x-textarea wire:model.defer="description" placeholder="Adicionar novo comentário" rows="2"
                     required />
-                <div class="mt-2 flex justify-end space-x-2">
+                <div class="mt-2 flex space-x-2">
                     <x-button wire:click="resetDescription" @click="showTextarea = false" sm flat label="Cancelar" />
                     <x-button wire:click="submitComment" sm primary label="Salvar" />
                 </div>

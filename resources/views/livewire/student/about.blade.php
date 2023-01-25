@@ -128,7 +128,7 @@
                             </div>
                             <div class="sm:col-span-2">
                                 <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
-                                    wire:model.defer="birth" without-tips without-time without-timezone :min="now()->subYears(18)"
+                                    wire:model.defer="birthday" without-tips without-time without-timezone :min="now()->subYears(18)"
                                     :max="now()->subYears(5)" required />
                             </div>
                             <div class="sm:col-span-2">

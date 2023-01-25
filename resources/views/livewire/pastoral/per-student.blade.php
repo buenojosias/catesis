@@ -1,34 +1,41 @@
 <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
     <div class="col-span-2 mb-2">
-        <h4 class="mb-4 text-lg font-semibold">Exibindo catequizandos {{ $communities ? 'da comunidade '.$community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline">não</span>' !!} participam de
+        <h4 class="mb-4 text-lg font-semibold">Exibindo catequizandos
+            {{ $communities ? 'da comunidade ' . $community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline">não</span>' !!} participam de
             movimentos ou pastorais.</h4>
-        @foreach ($students as $student)
-            <div x-data="{ expand: false }" class="card mb-2">
-                <div class="card-header">
-                    <h3 @click="expand = !expand" class="card-title block w-full cursor-pointer">
-                        {{ $student->name }}
-                    </h3>
-                </div>
-                <div x-show="expand" class="card-body">
-                    {{-- <div class="py-2 px-4 bg-gray-100 font-semibold">
-                        MOVIMENTOS E PASTORAIS
-                    </div> --}}
-                    <table class="table">
-                        <tbody>
+
+        <ul class="focusable">
+            @foreach ($students as $key => $student)
+                <li x-data="{ expand: false }">
+                    <div x-show="!expand" @click="expand=true" class="focusable-item">
+                        {{ $student->name }}</div>
+                    <div x-show="expand" @click.outside="expand=false" class="focusable-focus">
+                        <div class="flex border-b">
+                            <div class="flex-1">
+                                <h4>{{ $student->name }}</h4>
+                            </div>
+                            @if ($student->community_id === auth()->user()->community_id || auth()->user()->hasRole('admin'))
+                                <div class="px-2">
+                                    <x-button href="{{ route('students.show', $student) }}" sm flat icon="eye" />
+                                </div>
+                            @endif
+
+                        </div>
+                        <ul class="text-sm">
                             @foreach ($student->pastorals as $pastoral)
-                                <tr>
-                                    <td>{{ $pastoral->name }}</td>
-                                    <td class="text-right">{{ $pastoral->community->name }}</td>
-                                </tr>
+                                <li class="sm:flex mx-4 py-2 border-b last:border-none">
+                                    <div class="font-semibold text-gray-900">{{ $pastoral->name }}</div>
+                                </li>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        </ul>
+                    </div>
+                </li>
+            @endforeach
+            <div class="pt-4">
+                {{ $students->links() }}
             </div>
-        @endforeach
-        <div class="card-paginate">
-            {{ $students->links() }}
-        </div>
+        </ul>
+
     </div>
     <div>
         <div class="card mb-4">
