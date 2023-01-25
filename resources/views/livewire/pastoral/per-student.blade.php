@@ -1,5 +1,5 @@
 <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
-    <div class="col-span-2 mb-2">
+    <div class="col-span-2">
         <h4 class="mb-4 text-lg font-semibold">Exibindo catequizandos
             {{ $communities ? 'da comunidade ' . $community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline">não</span>' !!} participam de
             movimentos ou pastorais.</h4>
@@ -19,12 +19,12 @@
                                     <x-button href="{{ route('students.show', $student) }}" sm flat icon="eye" />
                                 </div>
                             @endif
-
                         </div>
                         <ul class="text-sm">
                             @foreach ($student->pastorals as $pastoral)
                                 <li class="sm:flex mx-4 py-2 border-b last:border-none">
-                                    <div class="font-semibold text-gray-900">{{ $pastoral->name }}</div>
+                                    <div class="sm:flex-1 font-semibold text-gray-900">{{ $pastoral->name }}</div>
+                                    <div class="sm:text-right text-gray-600">{{ $pastoral->community->name }}</div>
                                 </li>
                             @endforeach
                         </ul>
