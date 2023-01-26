@@ -8,6 +8,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KinshipController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Livewire\Event\Index as Event;
 use App\Http\Livewire\Group\PrintableAttendance;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');
 
     Route::get('/pastorais/{list?}', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');
+
+    Route::get('/eventos/{section?}', Event::class)->name('events.index');
 });
 
 require __DIR__ . '/auth.php';
