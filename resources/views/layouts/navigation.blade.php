@@ -20,6 +20,7 @@
                     @endcan
                     <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')" icon="people-group">Grupos</x-nav-link>
                     <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.*')" icon="list-ol">Etapas</x-nav-link>
+                    <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')" icon="calendar-alt">Agenda de eventos</x-nav-link>
                     <x-nav-link :href="route('pastorals.index')" :active="request()->routeIs('pastorals.*')" icon="circle-nodes">Movimentos e Pastorais</x-nav-link>
                 </div>
             </div>

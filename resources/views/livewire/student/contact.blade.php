@@ -3,9 +3,11 @@
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Endereço</h3>
+            @can('student_edit')
             <div class="card-tools">
                 <x-button wire:click="openAddressModal()" sm flat icon="pencil-alt" />
             </div>
+            @endcan
         </div>
         @if ($address)
             <div class="card-body display">

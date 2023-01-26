@@ -33,6 +33,7 @@
                                 <div class="hidden sm:inline-block px-0.5">
                                     @foreach ($day_events as $event)
                                         <div
+                                            wire:click="openShowModal({{ $event }})"
                                             class="max-h-5 w-full mb-0.5 py-0.5 px-1 overflow-hidden bg-sky-800 hover:bg-sky-900 rounded text-xs font-normal cursor-pointer">
                                             <span>{{ $event->title }}</span>
                                         </div>
@@ -48,4 +49,5 @@
             </div>
         </div>
     </div>
+    @livewire('event.show-modal')
 </div>

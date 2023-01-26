@@ -27,32 +27,8 @@ class Calendar extends Component
 
     public function mount($currentMonth = null, $currentYear = null)
     {
-        $this->load($currentMonth, $currentYear);
-
-
-        // $firstDayOfMonth = date('Y-m-t', strtotime($this->currentMonth.'-'.$this->currentMonth.'-15'));
-        // $lastDayOfMonth = date('Y-m-01', strtotime($this->currentMonth.'-'.$this->currentMonth.'-15'));
-        // $firstWeekDayOfMonth = date('w', $firstDayOfMonth);
-        // $lastWeekDayOfMonth = $lastDayOfMonth('w');
-        // dd($lastWeekDayOfMonth);
-
-        // $firstDayOfMonth = ;
-        // $lastDayOfMonth = date('Y-m-t', strtotime($this->currentMonth.'-'.$this->currentMonth.'-15'));
-        // $firstMonthDay = $firstDayOfMonth('w');
-        //$this->firstWeekDay = $firstMonthDay('w');
-        // First day of the month.
-        // dd($lastDayOfMonth);
-
-
-        // $this->daysInMonth = intval(date('t',strtotime($this->currentYear.'-'.$this->currentMonth.'-01')));
-        // $this->numOfweeks = ($this->daysInMonth%7 == 0 ? 0 : 1) + intval($this->daysInMonth/7);
-        // $this->monthStartDay = date('N',strtotime($this->currentYear.'-'.$this->currentMonth.'-01'));
-        // $this->monthEndingDay = date('N',strtotime($this->currentYear.'-'.$this->currentMonth.'-'.$this->daysInMonth));
-        // if($this->monthEndingDay < $this->monthStartDay) {
-        //     $this->numOfweeks++;
-        // }
-        // dd($this->numOfweeks);
-
+        $this->currentMonth = $currentMonth;
+        $this->currentYear = $currentYear;
     }
 
     public function load($currentMonth, $currentYear)
@@ -99,8 +75,14 @@ class Calendar extends Component
         }
     }
 
+    public function openShowModal($eventData)
+    {
+        $this->emit('emitOpenShowModal', $eventData);
+    }
+
     public function render()
     {
+        $this->load($this->currentMonth, $this->currentYear);
         return view('livewire.event.calendar');
     }
 }
