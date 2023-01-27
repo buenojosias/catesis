@@ -48,7 +48,8 @@
                                 <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
                             </div>
                             <div>
-                                <x-badge outline secondary label="{{ $weekdays[$group->weekday] }}, {{ $group->time->format('H:i') }}" />
+                                <x-badge outline secondary
+                                    label="{{ $weekdays[$group->weekday] }}, {{ $group->time->format('H:i') }}" />
                             </div>
                             <div class="basis-full text-sm">{{ $group->students_count }} catequizandos</div>
                         </div>
@@ -93,11 +94,14 @@
             <div class="card">
                 @livewire('catechist.contact', ['catechist' => $catechist])
             </div>
-            @can('catechist_edit')
+            @if (
+                (auth()->user()->can('catechist_edit') &&
+                    auth()->user()->community_id === $catechist->community_id) ||
+                    auth()->user()->hasRole('admin'))
                 <div class="card mt-4">
                     @livewire('catechist.edit-role', ['catechist' => $catechist])
                 </div>
-            @endcan
+            @endif
         </div>
     </div>
 </x-app-layout>

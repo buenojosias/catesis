@@ -12,6 +12,7 @@ class About extends Component
     public $avaliable_catechists;
     public $catechists;
     public $community;
+    public $current_group;
     public $group;
     public $selected_catechist;
     public $showFormModal;
@@ -73,6 +74,12 @@ class About extends Component
         }
     }
 
+    public function getCurrentEncounter() {
+        if ($this->group->users->contains(auth()->user())) {
+            $this->current_group = $this->group->encounters()->where('date', date('Y-m-d'))->first();
+        }
+    }
+
     public function mount($group, $weekdays)
     {
         $this->group = $group;
@@ -82,6 +89,7 @@ class About extends Component
             $this->community = $group->community;
         }
         $this->weekdays = $weekdays;
+        $this->getCurrentEncounter();
     }
 
     public function render()

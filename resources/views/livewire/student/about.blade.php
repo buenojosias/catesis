@@ -134,9 +134,9 @@
                             <div class="sm:col-span-2">
                                 <x-native-select label="Sexo *" wire:model.defer="gender" required>
                                     <option value="">Selecione</option>
-                                    <option value="male">Masculino</option>
-                                    <option value="female">Feminino</option>
-                                    <option value="other">Outro</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Feminino">Feminino</option>
+                                    <option value="Outro">Outro</option>
                                 </x-native-select>
                             </div>
                             <div class="sm:col-span-4">

@@ -1,7 +1,7 @@
 <div>
-    @can('group_edit')
+    @if (auth()->user()->hasRole('admin') || ($group->community_id === auth()->user()->community_id && auth()->user()->can('group_edit')))
         <x-button wire:click="openFormModal('create')" label="Cadastrar encontro" primary class="mb-3 w-full sm:w-auto" />
-    @endcan
+    @endif
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Encontros</h3>
@@ -20,13 +20,11 @@
                     @forelse ($encounters as $encounter)
                         <tr>
                             <td>
-                                <a
-                                    href="{{ route('groups.encounter', [$group, $encounter]) }}">{{ $encounter->date->format('d/m/Y') }}</a>
+                                <a href="{{ route('groups.encounter', [$group, $encounter]) }}">{{ $encounter->date->format('d/m/Y') }}</a>
                             </td>
                             <td>{{ $encounter->method }}</td>
                             <td>{{ $encounter->theme->title ?? '' }}</td>
-                            @if (
-                                $group->community_id === auth()->user()->community_id ||
+                            @if ($group->community_id === auth()->user()->community_id ||
                                     auth()->user()->hasRole('admin'))
                                 <td class="text-right">
                                     <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat

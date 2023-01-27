@@ -50,8 +50,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($groups as $group)
-                        <tr>
+                    @forelse ($groups->sortByDesc('priority') as $group)
+                        <tr class="{{ $group->priority == 1 ? 'bg-slate-100' : '' }}">
                             <td><a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a></td>
                             @hasrole('admin')
                                 <td>{{ $group->community->name }}</td>

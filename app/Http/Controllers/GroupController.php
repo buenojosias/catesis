@@ -31,7 +31,11 @@ class GroupController extends Controller
 
     public function encounter(Group $group, $encounter_id)
     {
-        abort_unless(auth()->user()->hasRole('admin') or $group->community_id === auth()->user()->community_id, 403);
+        abort_unless(
+            auth()->user()->hasRole('admin') ||
+            ($group->community_id === auth()->user()->community_id && auth()->user()->hasAnyRole(['coordinator','secretary'])) ||
+            $group->users->contains(auth()->user()),
+        403);
         $encounter = $group->encounters()->with('theme')->findOrFail($encounter_id);
         return view('livewire.group.encounter', [
             'group' => $group,

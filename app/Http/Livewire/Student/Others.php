@@ -44,8 +44,7 @@ class Others extends Component
     }
 
     public function changeGroupStatus($newStatus) {
-        $currentGroup = $this->student->groups()->where('finished', false)->where('year', date('Y'))->orderBy('id', 'desc')->first();
-        dd($currentGroup);
+        $currentGroup = $this->student->groups()->where('finished', false)->wherePivot('status', 'Ativo')->first();
         if (!$currentGroup)
             return;
         $newStatusArray = ['Ativo' => 'Ativo', 'Desistente' => 'Removido', 'Transferido' => 'Transferido', 'Crismado' => 'Aprovado'];

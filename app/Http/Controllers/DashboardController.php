@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Encounter;
 use App\Models\Group;
 use App\Models\Student;
 use App\Models\User;

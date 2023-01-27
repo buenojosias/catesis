@@ -43,7 +43,7 @@ class Index extends Component
                 return $query->with('community');
             })
             ->when(auth()->user()->community_id, function($query) {
-                return $query->where('community_id', auth()->user()->community_id);
+                $query->where('community_id', auth()->user()->community_id);
             })
             ->when($this->community, function($query) {
                 return $query->where('community_id', $this->community);
@@ -53,6 +53,14 @@ class Index extends Component
             })
             ->orderBy('grade_id', 'asc')
             ->paginate();
+
+            foreach($groups as $group) {
+                if($group->users->contains(auth()->user())) {
+                    $group->priority = 1;
+                } else {
+                    $group->priority = 0;
+                }
+            }
 
         return view('livewire.group.index', [
             'groups' => $groups,

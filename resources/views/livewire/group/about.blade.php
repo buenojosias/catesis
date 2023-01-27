@@ -47,12 +47,12 @@
                             <h4>Data final</h4>
                             <p>{{ $group->end_date ? $group->end_date->format('d/m/Y') : '' }}</p>
                         </div>
-                        @hasrole('admin')
+                        @if (auth()->user()->hasrole('admin') || auth()->user()->community_id != $group->community_id)
                             <div class="col-span-3">
                                 <h4>Comunidade</h4>
                                 <p>{{ $group->community->name }}</p>
                             </div>
-                        @endhasrole
+                        @endif
                     </div>
                 </div>
             </div>
@@ -71,8 +71,8 @@
                         auth()->user()->hasRole('admin'))
                     @can('group_edit')
                         <li>
-                            <x-button wire:click="openCatechistsModal" md white icon="users"
-                                label="Gereciar catequistas" class="w-full shadow" />
+                            <x-button wire:click="openCatechistsModal" md white icon="users" label="Gereciar catequistas"
+                                class="w-full shadow" />
                         </li>
                         <li>
                             <x-button wire:click="openFormModal" md white icon="pencil-alt" label="Editar"

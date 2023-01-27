@@ -55,7 +55,7 @@ class Profile extends Component
             'gender' => 'required|string',
             'naturalness' => 'nullable|string|max:100',
             'has_baptism' => 'required|boolean',
-            'baptism_date' => 'nullable|date|after:birth|before:now',
+            'baptism_date' => 'nullable|date|after:birthday|before:now',
             'baptism_church' => 'nullable|string|min:10|max:160',
             'married_parents' => 'required|boolean',
             'health_problems' => 'nullable|string|max:255',

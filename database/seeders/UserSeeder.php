@@ -107,9 +107,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->roles()->attach(4);
 
-        User::factory(10)->hasProfile()->create([
-            'community_id' => rand(1,4)
-        ]);
+        User::factory(10)->hasProfile()->create();
 
         $users = User::where('id', '>', 13)->get();
         foreach ($users as $user) {
