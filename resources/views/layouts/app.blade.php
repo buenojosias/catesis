@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{{ asset('icons/all.min.css') }}">
     <style>[x-cloak] { display: none !important; }</style>
     @wireUiScripts
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ asset('build/assets/app-f983f4f5.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/build/assets/app-dc72fc33.js') }}">
     @livewireStyles
     @livewireScripts
     @stack('scripts')
