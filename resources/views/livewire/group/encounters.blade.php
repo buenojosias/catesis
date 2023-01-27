@@ -1,6 +1,10 @@
 <div>
-    @if (auth()->user()->hasRole('admin') || ($group->community_id === auth()->user()->community_id && auth()->user()->can('group_edit')))
-        <x-button wire:click="openFormModal('create')" label="Cadastrar encontro" primary class="mb-3 w-full sm:w-auto" />
+    <x-dialog />
+    @if (auth()->user()->hasRole('admin') ||
+            ($group->community_id === auth()->user()->community_id &&
+                auth()->user()->can('group_edit')))
+        <x-button wire:click="openFormModal('create')" label="Cadastrar encontro" primary
+            class="mb-3 w-full sm:w-auto" />
     @endif
     <div class="card mb-4">
         <div class="card-header">
@@ -20,18 +24,24 @@
                     @forelse ($encounters as $encounter)
                         <tr>
                             <td>
-                                <a href="{{ route('groups.encounter', [$group, $encounter]) }}">{{ $encounter->date->format('d/m/Y') }}</a>
+                                <a
+                                    href="{{ route('groups.encounter', [$group, $encounter]) }}">{{ $encounter->date->format('d/m/Y') }}</a>
                             </td>
                             <td>{{ $encounter->method }}</td>
                             <td>{{ $encounter->theme->title ?? '' }}</td>
-                            @if ($group->community_id === auth()->user()->community_id ||
+                            @if (
+                                $group->community_id === auth()->user()->community_id ||
                                     auth()->user()->hasRole('admin'))
                                 <td class="text-right">
                                     <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat
                                         icon="eye" />
                                     @can('group_edit')
-                                        <x-button wire:click="openFormModal('edit', {{ $encounter }})" sm flat
-                                            icon="pencil" />
+                                        <x-dropdown>
+                                            <x-dropdown.item wire:click="openFormModal('edit', {{ $encounter }})" icon="pencil-alt" label="Editar" />
+                                            @if ($encounter->date > date('Y-m-d'))
+                                                <x-dropdown.item wire:click="removeEncounter({{ $encounter }})" icon="trash" label="Remover" />
+                                            @endif
+                                        </x-dropdown>
                                     @endcan
                                 </td>
                             @endif

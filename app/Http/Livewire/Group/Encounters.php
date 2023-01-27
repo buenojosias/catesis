@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Group;
 
+use App\Models\Encounter;
 use App\Models\Theme;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -69,6 +70,28 @@ class Encounters extends Component
     public function mount($group)
     {
         $this->group = $group;
+    }
+
+    public function removeEncounter($encounter): void
+    {
+        $this->dialog()->confirm([
+            'title' => 'Remover encontro',
+            'description' => 'Tem certeza que deseja remover o encontro do dia '.\Carbon\Carbon::parse($encounter['date'])->format('d/m/Y').'?',
+            'method' => 'doremoveEncounter',
+            'params' => ['encounter' => $encounter['id']],
+            'acceptLabel' => 'Confirmar',
+            'rejectLabel' => 'Cancelar',
+        ]);
+    }
+
+    public function doremoveEncounter($encounter) {
+        try {
+            $this->group->encounters()->where('id', $encounter)->delete();
+            $this->notification()->success($description = 'Encontro removido com sucesso.');
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao desvincular remover encontro.');
+            dd($th);
+        }
     }
 
     public function render()
