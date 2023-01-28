@@ -33,11 +33,11 @@
                                 $day_events = $events->where('day', $i);
                             @endphp
                             <div class="basis-1/7 h-12 flex items-center justify-center border-t">
-                                <div
+                                <div wire:click="selectDay({{ $day_events->count() > 0 ? $i : null }})"
                                     class="
                                         w-8 h-8 flex items-center justify-center rounded-full text-sm
                                         {{ date($currentYear . '-' . substr("00{$currentMonth}", -2) . '-' . substr("00{$i}", -2)) == date('Y-m-d') && $day_events->count() == 0 ? 'text-sky-700 font-bold' : '' }}
-                                        {{ $day_events->count() > 0 ? 'bg-sky-600 text-white font-semibold' : '' }}
+                                        {{ $day_events->count() > 0 ? 'bg-sky-600 text-white font-semibold cursor-pointer' : 'cursor-default' }}
                                     ">
                                     {{ $i }}</div>
                             </div>
@@ -46,26 +46,42 @@
                             <div class="basis-1/7 "></div>
                         @endfor
                     </div>
-                    <!-- FINAL DO CALENDÁRIO -->
-                    <x-button wire:click="openFormModal('create')" label="Adicionar evento" class="w-full mt-6 font-semibold" md primary />
+                    <!-- FIM DO CALENDÁRIO -->
+                    <x-button wire:click="openFormModal('create')" label="Adicionar evento"
+                        class="w-full mt-6 font-semibold" md primary />
                 </div>
                 <div class="md:col-span-3 px-4 md:pr-6">
+                    @if ($currentDay)
+                        <p class="mt-2 pb-2 border-b text-sm font-semibold text-gray-600">
+                            Exibindo eventos do dia
+                            {{ $currentDay . '/' . $currentMonth . '/' . $currentYear }}
+                            <span wire:click="selectDay({{ null }})" class="text-sm cursor-pointer">[limpar
+                                filtro]</span>
+                        </p>
+                    @endif
                     <ul>
-                        @forelse ($events as $event)
-                            <li class="flex py-4 last:border-b-0 border-b">
-                                <div class="grow">
-                                    <p wire:click="openShowModal({{ $event }})"
-                                        class="font-semibold text-gray-900 cursor-pointer">{{ $event->title }}</p>
+                        @forelse ($currentDay != null ? $events->where('day', $currentDay) : $events as $event)
+                            <li class="flex py-4 border-b last:border-b-0 hover:bg-gray-50">
+                                <div wire:click="openShowModal({{ $event }})" class="grow cursor-pointer">
+                                    <p class="font-semibold text-gray-900">{{ $event->title }}</p>
                                     <p class="text-gray-700 text-sm font-semibold">
                                         <i class="fa fa-calendar-alt text-xs text-gray-500 mr-0.5"></i>
                                         {{ strtolower($event->starts_at->format('d/m h:i')) }}
                                         {{ $event->ends_at ? 'a ' . strtolower($event->ends_at->format('d/m h:i')) : '' }}
                                     </p>
                                 </div>
-                                <div class="flex items-center">
-                                    <x-button wire:click="openFormModal('edit', {{ $event }})" icon="pencil-alt" sm flat />
-                                    <x-button icon="trash" sm flat negative />
-                                </div>
+                                @if (
+                                    $event->user_id === auth()->user()->id ||
+                                        auth()->user()->hasRole('admin'))
+                                    <div class="flex items-center">
+                                        <x-dropdown class="px-4">
+                                            <x-dropdown.item wire:click="openFormModal('edit', {{ $event }})"
+                                                icon="pencil-alt" label="Editar" />
+                                            <x-dropdown.item wire:click="removeEvent({{ $event }})" icon="trash"
+                                                label="Remover" />
+                                        </x-dropdown>
+                                    </div>
+                                @endif
                             </li>
                         @empty
                             <x-empty label="Nenhum evento programado para o mês selecionado." />

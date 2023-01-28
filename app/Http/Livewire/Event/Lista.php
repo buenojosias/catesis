@@ -27,10 +27,9 @@ class Lista extends Component
     public $previusYear;
 
     public $events;
+    public $periodEvents;
     public $form;
-
     public $method;
-
     public $showFormModal;
 
     protected $validationAttributes = [
@@ -82,7 +81,7 @@ class Lista extends Component
         $this->load($this->currentMonth, $this->currentYear);
     }
 
-    public function selectDay($day) {
+    public function selectDay($day = null) {
         if($this->currentDay != $day) {
             $this->currentDay = $day;
         } else {
@@ -92,16 +91,17 @@ class Lista extends Component
 
     public function getEvents()
     {
-        $this->events = Event::query()
+        $events = Event::query()
             ->whereMonth('starts_at', $this->currentMonth)
             ->whereYear('starts_at', $this->currentYear)
             ->with('user')
             ->orderBy('starts_at', 'asc')
             ->get();
 
-        foreach($this->events as $event) {
-            $event['day'] = Carbon::parse($event->starts_at)->format('d');
+        foreach($events as $event) {
+            $event['day'] = intval(Carbon::parse($event->starts_at)->format('d'));
         }
+        $this->events = $events;
     }
 
     public function openShowModal($eventData)
@@ -132,7 +132,6 @@ class Lista extends Component
             try {
                 auth()->user()->events()->create($this->form);
                 $this->notification()->success($description = 'Evento adicionado com sucesso.');
-                //$this->events->push($encounter);
                 $this->showFormModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar evento.');
@@ -142,12 +141,33 @@ class Lista extends Component
             try {
                 Event::findOrFail($this->form['id'])->update($this->form);
                 $this->notification()->success($description = 'Evento atualizado com sucesso.');
-                //$this->encounters = $this->group->encounters()->orderBy('date', 'asc')->with('theme')->get();
                 $this->showFormModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao atualizar evento.');
                 dd($th);
             }
+        }
+    }
+
+    public function removeEvent($event): void
+    {
+        $this->dialog()->confirm([
+            'title' => 'Remover evento',
+            'description' => 'Tem certeza que deseja remover o evento'.$event['title'].', do dia '.\Carbon\Carbon::parse($event['starts_at'])->format('d/m/Y').'?',
+            'method' => 'doRemoveEvent',
+            'params' => ['event' => $event['id']],
+            'acceptLabel' => 'Confirmar',
+            'rejectLabel' => 'Cancelar',
+        ]);
+    }
+
+    public function doRemoveEvent($event) {
+        try {
+            Event::query()->where('id', $event)->delete();
+            $this->notification()->success($description = 'Evento removido com sucesso.');
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao remover evento.');
+            dd($th);
         }
     }
 

@@ -77,19 +77,19 @@ class Encounters extends Component
         $this->dialog()->confirm([
             'title' => 'Remover encontro',
             'description' => 'Tem certeza que deseja remover o encontro do dia '.\Carbon\Carbon::parse($encounter['date'])->format('d/m/Y').'?',
-            'method' => 'doremoveEncounter',
+            'method' => 'doRemoveEncounter',
             'params' => ['encounter' => $encounter['id']],
             'acceptLabel' => 'Confirmar',
             'rejectLabel' => 'Cancelar',
         ]);
     }
 
-    public function doremoveEncounter($encounter) {
+    public function doRemoveEncounter($encounter) {
         try {
             $this->group->encounters()->where('id', $encounter)->delete();
             $this->notification()->success($description = 'Encontro removido com sucesso.');
         } catch (\Throwable $th) {
-            $this->notification()->error($description = 'Ocorreu um erro ao desvincular remover encontro.');
+            $this->notification()->error($description = 'Ocorreu um erro ao remover encontro.');
             dd($th);
         }
     }
