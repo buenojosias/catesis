@@ -71,6 +71,7 @@ class Lista extends Component
     {
         $this->currentMonth = $this->nextMonth;
         $this->currentYear = $this->nextYear;
+        $this->currentDay = null;
         $this->load($this->currentMonth, $this->currentYear);
     }
 
@@ -78,6 +79,7 @@ class Lista extends Component
     {
         $this->currentMonth = $this->previusMonth;
         $this->currentYear = $this->previusYear;
+        $this->currentDay = null;
         $this->load($this->currentMonth, $this->currentYear);
     }
 

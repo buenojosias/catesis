@@ -55,7 +55,7 @@
                         <p class="mt-2 pb-2 border-b text-sm font-semibold text-gray-600">
                             Exibindo eventos do dia
                             {{ $currentDay . '/' . $currentMonth . '/' . $currentYear }}
-                            <span wire:click="selectDay({{ null }})" class="text-sm cursor-pointer">[limpar
+                            <span wire:click="selectDay({{ null }})" class="text-sm text-sky-600 cursor-pointer">[limpar
                                 filtro]</span>
                         </p>
                     @endif
