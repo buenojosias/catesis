@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Agenda de eventos</h2>
-        <nav class="tabs" x-data="{ showtabs: false }">
+        {{-- <nav class="tabs" x-data="{ showtabs: false }">
             <div>
                 <div class="hidden sm:block">
                     <div class="flex items-baseline space-x-2">
@@ -42,13 +42,13 @@
                 <x-tab-link href="{{ route('events.index', 'lista') }}" active="{{ $section === 'lista' }}"
                     label="Lista" />
             </div>
-        </nav>
+        </nav> --}}
     </x-slot>
-
-    @if (!$section || $section === 'calendario')
+    @livewire('event.lista')
+    {{-- @if (!$section || $section === 'calendario')
         @livewire('event.calendar')
     @endif
-    @if ($section === 'cat')
+    @if ($section === 'lista')
         @livewire('event.lista')
-    @endif
+    @endif --}}
 </div>

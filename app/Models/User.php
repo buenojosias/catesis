@@ -53,6 +53,10 @@ class User extends Authenticatable
         return $this->morphOne(Contact::class, 'contactable');
     }
 
+    public function events() {
+        return $this->hasMany(Event::class);
+    }
+
     public function groups() {
         return $this->belongsToMany(Group::class);
     }

@@ -62,7 +62,7 @@
                 </div>
                 @if ($events->count() > 3)
                     <div class="card-footer justify-center">
-                        <a href="#" class="text-sm font-semibold">Ver todos</a>
+                        <a href="{{ route('events.index') }}" class="text-sm font-semibold">Ver todos</a>
                     </div>
                 @endif
             </div>
