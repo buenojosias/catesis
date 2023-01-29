@@ -20,7 +20,6 @@
     @include('layouts.navstack')
     <div class="flex overflow-hidden pt-12">
         @include('layouts.navigation')
-
         <div class="h-full w-full relative overflow-y-auto lg:ml-64">
             @if (isset($header))
                 <header class="bg-white shadow px-4">
@@ -38,7 +37,6 @@
     </div>
     @stack('scripts')
 </body>
-
 </html>
 
 {{-- <!DOCTYPE html>

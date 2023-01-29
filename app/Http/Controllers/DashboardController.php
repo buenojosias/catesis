@@ -12,47 +12,26 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $community;
-    }
-
-
     public function __invoke()
     {
-        $user = auth()->user();
-        if (auth()->user()->community) {
-            $this->community = $user->community;
-        }
+        $user_id = session('user_id');
+        $community_id = session('community_id');
+        $role = session('role');
+
         $students_count = Student::query()
-            ->when(auth()->user()->hasAnyRole(['coordinator', 'secretary']), function ($query) {
-                $query->where('community_id', $this->community->id);
-            })
-            ->when(auth()->user()->hasRole('catechist'), function ($query) {
-                $students = $query->whereHas(
-                    'groups',
-                    function ($query) {
-                            $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
-                            return $query->whereIn('group_id', $groups);
-                        }
+            ->when($role == 'catechist', function ($query) use ($user_id) {
+                $students = $query->whereHas('groups', function ($query) use ($user_id) {
+                    $groups = Group::query()->whereIn('group_id', $user_id)->where('year', date('Y'))->where('finished', false)->pluck('id');
+                    // $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
+                    return $query->whereIn('group_id', $groups);
+                    }
                 );
             })
-            ->where('status', 'ativo')
+            ->where('status', 'Ativo')
             ->count();
 
-        $catechists_count = User::query()
-            ->when(auth()->user()->community, function ($query) {
-                $query->where('community_id', $this->community->id);
-            })
-            ->count();
-
-        $groups_count = Group::query()
-            ->when(auth()->user()->community, function ($query) {
-                $query->where('community_id', $this->community->id);
-            })
-            ->where('finished', false)
-            ->count();
-
+        $catechists_count = User::query()->count();
+        $groups_count = Group::query()->where('finished', false)->count();
         $events = Event::query()
             ->whereDate('starts_at', '>=', date('Y-m-d'))
             ->orderBy('starts_at')
@@ -68,11 +47,11 @@ class DashboardController extends Controller
             }
         }
 
-        $birthdays = Student::query()->
-            when(auth()->user()->community, function ($query) {
-                $query->where('community_id', $this->community->id)->with('grade');
+        $birthdays = Student::query()
+            ->when($community_id, function ($query) {
+                $query->with('grade');
             })
-            ->when(!auth()->user()->community, function ($query) {
+            ->when(!$community_id, function ($query) {
                 $query->with('community');
             })
             ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(birthday)')
@@ -81,9 +60,9 @@ class DashboardController extends Controller
             ->get();
 
         return view('dashboard', [
-            'user' => $user,
-            'name' => strstr($user->name, ' ', true),
-            'community' => $this->community ?? null,
+            'role' => $role,
+            'name' => strstr(session('user_name'), ' ', true),
+            // 'community' => $this->community ?? null,
             'students_count' => $students_count,
             'catechists_count' => $catechists_count,
             'groups_count' => $groups_count,

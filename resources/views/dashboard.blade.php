@@ -10,13 +10,13 @@
                 <div class="flex flex-col md:flex-row">
                     <div class="p-4 flex-1">
                         <p class="font-semibold text-gray-700">Bem vindo(a),</p>
-                        <h2 class="text-3xl font-bold">{{$name}}</h2>
+                        <h2 class="text-3xl font-bold">{{ $name }}</h2>
                         <p class="font-semibold text-gray-700">
-                            @hasrole('admin')
+                            @if($role === 'admin')
                                 Coordenador Paroquial
                             @else
-                                {{$community->name}}
-                            @endhasrole
+                                {{-- {{ $community->name }} --}}
+                            @endif
                         </p>
                     </div>
                     <div class="px-4 pb-4 md:pb-0 flex items-center">
@@ -24,16 +24,16 @@
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-3 bg-gray-50 divide-x rounded-b">
-                    @hasanyrole(['coordinator','secretary'])
+                    @if($role === 'coordinator' || $role === 'secretary')
                     <div class="text-center font-semibold">
                         <a href="{{route('students.create')}}" class="block p-2 border-t"><i class="fas fa-plus"></i> Catequizando</a>
                     </div>
-                    @endhasanyrole
-                    @hasanyrole(['coordinator','admin'])
+                    @endif
+                    @if($role === 'coordinator' || $role === 'admin')
                     <div class="text-center font-semibold">
                         <a href="{{route('catechists.create')}}" class="block p-2 border-t"><i class="fas fa-plus"></i> Catequista</a>
                     </div>
-                    @endhasanyrole
+                    @endif
                     <div class="text-center font-semibold">
                         <a href="" class="block p-2 border-t"></a>
                     </div>
@@ -78,7 +78,7 @@
                                     <a href="{{ route('students.show', $birthday) }}">{{ $birthday->name }}</a>
                                 </p>
                                 <h4 class="text-sm font-medium text-gray-600 grow">
-                                    {{ $birthday->birthday->format('d/m') }} ({{ auth()->user()->community ? $birthday->grade->title : $birthday->community->name  }})
+                                    {{ $birthday->birthday->format('d/m') }} ({{ session('community') ? $birthday->grade->title : $birthday->community->name  }})
                                 </h4>
                             </li>
                         @empty
