@@ -2,25 +2,27 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Communityable;
+use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    use HasFactory;
+    use HasFactory, Parishable, Communityable;
 
     protected $fillable = ['grade_id','year','weekday','time','start_date','end_date','finished'];
 
     protected $dates = ['start_date','end_date','time'];
 
-    public function parish()
-    {
-        return $this->belongsTo(Parish::class);
-    }
+    // public function parish()
+    // {
+    //     return $this->belongsTo(Parish::class);
+    // }
 
-    public function community() {
-        return $this->belongsTo(Community::class);
-    }
+    // public function community() {
+    //     return $this->belongsTo(Community::class);
+    // }
 
     public function grade() {
         return $this->belongsTo(Grade::class);

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\Communityable;
+use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, Parishable, Communityable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'active',
+        'parish_id',
         'community_id'
     ];
 
@@ -45,14 +48,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function parish()
-    {
-        return $this->belongsTo(Parish::class);
-    }
+    // public function parish()
+    // {
+    //     return $this->belongsTo(Parish::class);
+    // }
 
-    public function community() {
-        return $this->belongsTo(Community::class);
-    }
+    // public function community() {
+    //     return $this->belongsTo(Community::class);
+    // }
 
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');

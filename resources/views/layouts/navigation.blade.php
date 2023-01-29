@@ -13,7 +13,6 @@
                         <x-nav-link :href="route('catechists.index')" :active="request()->routeIs('catechists.*')" icon="users">Catequistas</x-nav-link>
                     </li>
                 </ul>
-
                 <div class="space-y-2 pt-2">
                     @can('community_show')
                         <x-nav-link :href="route('communities.index')" :active="request()->routeIs('communities.*')" icon="church">Comunidades</x-nav-link>

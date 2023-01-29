@@ -23,7 +23,6 @@
                     <span class="self-center whitespace-nowrap">{{ config('app.name', 'CateSis') }}</span>
                 </a>
             </div>
-
             <div class="flex items-center">
                 <div class="relative md:order-2">
                     <button @click="usermenu = !usermenu"
@@ -38,9 +37,8 @@
                     <div x-show="usermenu" @click.outside="usermenu = false"
                         class="absolute right-0 z-10 mt-2 w-48 origin-top-right text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                         <div class="py-3 px-4">
-                            <span class="block text-sm text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                            <span
-                                class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{{ Auth::user()->email }}</span>
+                            <span class="block text-sm text-gray-900 dark:text-white">{{ session('user_name') }}</span>
+                            {{-- <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{{ Auth::user()->email }}</span> --}}
                         </div>
                         <ul class="py-1" aria-labelledby="user-menu-button">
                             <li>

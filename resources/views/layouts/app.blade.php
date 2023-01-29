@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,10 +16,8 @@
     @livewireScripts
     @stack('scripts')
 </head>
-
 <body x-data="{ showsidebar: false, usermenu: false }" class="bg-gray-200 antialiased">
     @include('layouts.navstack')
-
     <div class="flex overflow-hidden pt-12">
         @include('layouts.navigation')
 
