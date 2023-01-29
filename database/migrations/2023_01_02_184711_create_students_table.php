@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('community_id')->constrained();
+            $table->foreignId('parish_id')->constrained();
+            $table->foreignId('community_id')->nullable()->constrained();
             $table->foreignId('grade_id')->nullable()->constrained();
             $table->string('name', 128);
             $table->date('birthday');

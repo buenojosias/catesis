@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('community_id')->constrained();
+            $table->foreignId('parish_id')->constrained();
+            $table->foreignId('community_id')->nullable()->constrained();
             $table->foreignId('grade_id')->constrained();
             $table->year('year');
             $table->tinyInteger('weekday');

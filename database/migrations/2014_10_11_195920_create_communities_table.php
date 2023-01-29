@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parish_id')->constrained();
             $table->string('name', 128);
-            $table->string('address', 260);
             $table->timestamps();
         });
     }

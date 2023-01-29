@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('encounters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parish_id')->constrained();
             $table->foreignId('group_id')->constrained();
             $table->foreignId('theme_id')->nullable()->constrained()->nullOnDelete();
             $table->date('date');

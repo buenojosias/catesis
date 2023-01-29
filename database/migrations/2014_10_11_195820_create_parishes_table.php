@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('parishes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parish_id')->constrained();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->dateTime('starts_at');
-            $table->dateTime('ends_at')->nullable();
+            $table->string('name', 128);
+            $table->enum('tenancy_type', ['multi', 'single']);
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('parishes');
     }
 };
