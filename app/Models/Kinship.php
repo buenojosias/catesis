@@ -2,21 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Kinship extends Model
 {
-    use HasFactory;
+    use HasFactory, Parishable;
 
     protected $fillable = ['name','birthday'];
-
+    protected $guarded = ['id'];
     protected $dates = ['birthday'];
-
-    public function parish()
-    {
-        return $this->belongsTo(Parish::class);
-    }
 
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');

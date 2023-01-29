@@ -8,8 +8,13 @@ class Parish extends Model
 {
     protected $fillable = ['name', 'tenancy_type'];
 
-    public function users() {
-        return $this->hasMany(User::class);
+    public function active_students() {
+        return $this->hasMany(Student::class)->where(function($q) {
+            $q->where('status', 'Ativo')->get();
+        });
+    }
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 
     public function communities() {
@@ -34,9 +39,7 @@ class Parish extends Model
         return $this->hasMany(Theme::class);
     }
 
-    public function active_students() {
-        return $this->hasMany(Student::class)->where(function($q) {
-            $q->where('status', 'Ativo')->get();
-        });
+    public function users() {
+        return $this->hasMany(User::class);
     }
 }

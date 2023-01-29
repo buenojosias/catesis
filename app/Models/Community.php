@@ -10,15 +10,16 @@ class Community extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    protected $guarded = ['id'];
 
-    public function parish()
+    public function active_students()
     {
-        return $this->belongsTo(Parish::class);
+        return $this->hasMany(Student::class)->where(function ($q) {
+            $q->where('status', 'Ativo')->get();
+        });
     }
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 
     public function coordinators()
@@ -38,10 +39,8 @@ class Community extends Model
         return $this->hasMany(Student::class);
     }
 
-    public function active_students()
+    public function users()
     {
-        return $this->hasMany(Student::class)->where(function ($q) {
-            $q->where('status', 'Ativo')->get();
-        });
+        return $this->hasMany(User::class);
     }
 }

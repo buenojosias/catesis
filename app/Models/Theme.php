@@ -13,11 +13,6 @@ class Theme extends Model
     protected $fillable = ['grade_id','title','description','sequence'];
     protected $guarded = ['id'];
 
-    // public function parish()
-    // {
-    //     return $this->belongsTo(Parish::class);
-    // }
-
     public function grade() {
         return $this->belongsTo(Grade::class);
     }

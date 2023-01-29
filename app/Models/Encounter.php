@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Communityable;
+use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Encounter extends Model
 {
-    use HasFactory;
-
+    use HasFactory, Parishable, Communityable;
+    protected $guarded = ['id'];
     protected $fillable = ['group_id','theme_id','date','method'];
     protected $dates = ['date'];
 
-    public function parish()
-    {
-        return $this->belongsTo(Parish::class);
+    public function absences() {
+        return $this->belongsToMany(Student::class)->wherePivot('attendance', 'F');
     }
 
     public function group() {
@@ -23,10 +24,6 @@ class Encounter extends Model
 
     public function students() {
         return $this->belongsToMany(Student::class)->withPivot(['attendance']);
-    }
-
-    public function absences() {
-        return $this->belongsToMany(Student::class)->wherePivot('attendance', 'F');
     }
 
     public function theme() {

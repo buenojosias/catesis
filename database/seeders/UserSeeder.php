@@ -39,14 +39,6 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->roles()->attach(1);
         User::create([
-            'parish_id' => 3,
-            'name' => 'Coordenador Paroquial São Jorge',
-            'email' => 'admin@sjorge.com',
-            'password' => bcrypt('123456'),
-            'remember_token' => Str::random(10),
-        ])->roles()->attach(1);
-
-        User::create([
             'parish_id' => 1,
             'community_id' => 1,
             'name' => 'Coordenador da Matriz São Marcos',
@@ -108,6 +100,13 @@ class UserSeeder extends Seeder
             'community_id' => 8,
             'name' => 'Coordenador da São Sebastião',
             'email' => 'coordenador@sebastiao.com',
+            'password' => bcrypt('123456'),
+            'remember_token' => Str::random(10),
+        ])->roles()->attach(2);
+        User::create([
+            'parish_id' => 3,
+            'name' => 'Coordenador da Paróquia São Jorge',
+            'email' => 'coordenador@jorge.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ])->roles()->attach(2);

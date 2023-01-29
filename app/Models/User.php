@@ -20,14 +20,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'active',
-        'parish_id',
-        'community_id'
-    ];
+    protected $fillable = ['name','email','password','active','parish_id','community_id'];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,15 +41,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // public function parish()
-    // {
-    //     return $this->belongsTo(Parish::class);
-    // }
-
-    // public function community() {
-    //     return $this->belongsTo(Community::class);
-    // }
 
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');
