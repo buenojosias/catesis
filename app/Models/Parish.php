@@ -13,7 +13,7 @@ class Parish extends Model
     }
 
     public function communities() {
-        return $this->hasMany(Comunity::class);
+        return $this->hasMany(Community::class);
     }
 
     public function coordinators() {
@@ -28,6 +28,10 @@ class Parish extends Model
 
     public function students() {
         return $this->hasMany(Student::class);
+    }
+
+    public function themes() {
+        return $this->hasMany(Theme::class);
     }
 
     public function active_students() {

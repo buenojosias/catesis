@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'community_id' => rand(1, 4),
-            'name' => fake()->name(),
+            'name' => $this->faker->firstName().' '.$this->faker->lastName().' '.$this->faker->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('123456'),

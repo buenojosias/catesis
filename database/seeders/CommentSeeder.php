@@ -15,6 +15,7 @@ class CommentSeeder extends Seeder
      */
     public function run()
     {
+        // NECESSÁRIA ALTERAÇÃO PARA MULTI TENANCY
         Comment::factory(1000)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Grade;
+use App\Models\Parish;
 use App\Models\Theme;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,10 +18,14 @@ class ThemeSeeder extends Seeder
     public function run()
     {
         $grades = Grade::all();
-        foreach($grades as $grade) {
-            Theme::factory(8)->create([
-                'grade_id' => $grade->id,
-            ]);
+        $parishes = Parish::all();
+        foreach($parishes as $parish) {
+            foreach($grades as $grade) {
+                Theme::factory(8)->create([
+                    'parish_id' => $parish->id,
+                    'grade_id' => $grade->id,
+                ]);
+            }
         }
     }
 }

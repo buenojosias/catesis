@@ -16,20 +16,36 @@ class CommunitySeeder extends Seeder
     public function run()
     {
         Community::create([
-            'name' => 'Paróquia São Marcos',
-            'address' => 'Rua Roberto Gava, 310',
+            'parish_id' => 1,
+            'name' => 'Paróquia São Marcos (Matriz)',
         ]);
         Community::create([
+            'parish_id' => 1,
             'name' => 'Capela Beato Giácomo Cusmano',
-            'address' => 'Rua Victório Gabardo, 325',
         ]);
         Community::create([
+            'parish_id' => 1,
             'name' => 'Capela Nossa Senhora da Misericórdia',
-            'address' => 'Rua Campo Largo da Piedade, 460',
         ]);
         Community::create([
+            'parish_id' => 1,
             'name' => 'Capela Nossa Senhora da Perseverança',
-            'address' => 'R. Alexandre Von Humboldt, 283',
+        ]);
+        Community::create([
+            'parish_id' => 2,
+            'name' => 'Paróquia São João Batista (Matriz)',
+        ]);
+        Community::create([
+            'parish_id' => 2,
+            'name' => 'Capela Nossa Senhora Aparecida',
+        ]);
+        Community::create([
+            'parish_id' => 2,
+            'name' => 'Capela Sagrada Família',
+        ]);
+        Community::create([
+            'parish_id' => 2,
+            'name' => 'Capela São Sebastião',
         ]);
     }
 }
