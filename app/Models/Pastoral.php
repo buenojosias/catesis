@@ -11,6 +11,11 @@ class Pastoral extends Model
 
     protected $fillable = ['user_id', 'community_id', 'name', 'coordinator', 'encounters'];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function community() {
         return $this->belongsTo(Community::class);
     }

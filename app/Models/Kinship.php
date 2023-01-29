@@ -13,6 +13,11 @@ class Kinship extends Model
 
     protected $dates = ['birthday'];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');
     }

@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function community() {
         return $this->belongsTo(Community::class);
     }

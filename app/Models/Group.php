@@ -13,6 +13,11 @@ class Group extends Model
 
     protected $dates = ['start_date','end_date','time'];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function community() {
         return $this->belongsTo(Community::class);
     }

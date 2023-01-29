@@ -13,6 +13,11 @@ class Comment extends Model
 
     protected $dates = ['timestamp'];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

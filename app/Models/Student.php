@@ -13,16 +13,21 @@ class Student extends Model
 
     protected $dates = ['birthday'];
 
+    public function community() {
+        return $this->belongsTo(Community::class);
+    }
+
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function address() {
         return $this->hasOne(StudentAddress::class);
     }
 
     public function comments() {
         return $this->hasMany(Comment::class);
-    }
-
-    public function community() {
-        return $this->belongsTo(Community::class);
     }
 
     public function contact() {

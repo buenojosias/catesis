@@ -12,6 +12,11 @@ class Encounter extends Model
     protected $fillable = ['group_id','theme_id','date','method'];
     protected $dates = ['date'];
 
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
     public function group() {
         return $this->belongsTo(Group::class);
     }

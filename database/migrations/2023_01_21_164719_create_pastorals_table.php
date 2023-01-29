@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('pastorals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parish_id')->constrained();
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('community_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('name', 128);
             $table->string('coordinator', 128)->nullable();
             $table->string('encounters', 128)->nullable();
