@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Community extends Model
 {
-    use HasFactory;
+    use HasFactory, Parishable;
 
     protected $fillable = ['name'];
     protected $guarded = ['id'];

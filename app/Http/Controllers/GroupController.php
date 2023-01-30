@@ -20,7 +20,7 @@ class GroupController extends Controller
 
     public function show(Group $group, $section = null)
     {
-        abort_unless(auth()->user()->hasAnyRole(['admin','coordinator']) or $group->community_id === auth()->user()->community_id, 403);
+        // abort_unless(auth()->user()->hasAnyRole(['admin','coordinator']) or $group->community_id === auth()->user()->community_id, 403);
         $group->load('grade');
         return view('groups.show', [
             'group' => $group,

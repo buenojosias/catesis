@@ -1,7 +1,7 @@
 <div>
-    @can('group_create')
+    @if($can_create)
         <x-button wire:click="openFormModal()" label="Novo grupo" primary class="mb-3 w-full sm:w-auto" />
-    @endcan
+    @endif
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
             <div class="card-search"></div>
@@ -9,7 +9,7 @@
                 <x-button flat icon="filter" @click="filters = !filters" />
             </div>
             <div x-show="filters" @click.outside="filters = false" class="filters">
-                @role('admin')
+                @if($role === 'admin')
                     <div>
                         <x-native-select label="Etapa" wire:model="grade">
                             <option value="">Todas</option>
@@ -26,7 +26,7 @@
                             @endforeach
                         </x-native-select>
                     </div>
-                @endrole
+                @endif
                 <div>
                     <x-native-select label="Ano" wire:model="year">
                         @foreach ($years as $year)
@@ -41,9 +41,9 @@
                 <thead>
                     <tr>
                         <th>Etapa</th>
-                        @hasrole('admin')
+                        @if($role === 'admin')
                             <th>Comunidade</th>
-                        @endhasrole
+                        @endif
                         <th>Catequizandos</th>
                         <th>Catequista(s)</th>
                         <th></th>
@@ -53,9 +53,9 @@
                     @forelse ($groups->sortByDesc('priority') as $group)
                         <tr class="{{ $group->priority == 1 ? 'bg-slate-100' : '' }}">
                             <td><a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a></td>
-                            @hasrole('admin')
+                            @if($role === 'admin')
                                 <td>{{ $group->community->name }}</td>
-                            @endrole
+                            @endif
                             <td>{{ $group->active_students_count }}</td>
                             <td>
                                 <ul>
@@ -80,7 +80,7 @@
             {{ $groups->links() }}
         </div>
     </div>
-    @can('group_create')
+    @if($can_create)
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 @livewire('group.form', ['group' => null, 'weekdays' => $weekdays]);

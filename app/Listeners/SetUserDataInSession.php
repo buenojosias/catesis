@@ -31,6 +31,7 @@ class SetUserDataInSession
             'parish_id' => $event->user->parish_id,
             'community_id' => $event->user->community_id,
             'role' => $event->user->roles->first()->name,
+            'permissions' => $event->user->roles->first()->permissions->pluck('name'),
         ]);
     }
 }

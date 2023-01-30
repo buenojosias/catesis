@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Group;
 
 use App\Models\Grade;
+use App\Models\Group;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -43,11 +44,10 @@ class Form extends Component
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after:start_date',
         ]);
-        $community = auth()->user()->community;
 
         if(!$this->group) {
             try {
-                $group = $community->groups()->create([
+                $group = Group::create([
                     'grade_id' => $this->grade_id,
                     'year' => $this->year,
                     'weekday' => $this->weekday,

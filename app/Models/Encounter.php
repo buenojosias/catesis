@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Communityable;
 use App\Models\Traits\Parishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Encounter extends Model
 {
-    use HasFactory, Parishable, Communityable;
+    use HasFactory, Parishable;
     protected $guarded = ['id'];
     protected $fillable = ['group_id','theme_id','date','method'];
     protected $dates = ['date'];

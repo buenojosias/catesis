@@ -1,8 +1,6 @@
 <div>
     <x-dialog />
-    @if (auth()->user()->hasRole('admin') ||
-            ($group->community_id === auth()->user()->community_id &&
-                auth()->user()->can('group_edit')))
+    @if ($role === 'admin' || $can_edit)
         <x-button wire:click="openFormModal('create')" label="Cadastrar encontro" primary
             class="mb-3 w-full sm:w-auto" />
     @endif
@@ -29,20 +27,18 @@
                             </td>
                             <td>{{ $encounter->method }}</td>
                             <td>{{ $encounter->theme->title ?? '' }}</td>
-                            @if (
-                                $group->community_id === auth()->user()->community_id ||
-                                    auth()->user()->hasRole('admin'))
+                            @if ($group->community_id === auth()->user()->community_id || $role === 'admin')
                                 <td class="text-right">
                                     <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat
                                         icon="eye" />
-                                    @can('group_edit')
+                                    @if($can_edit)
                                         <x-dropdown>
                                             <x-dropdown.item wire:click="openFormModal('edit', {{ $encounter }})" icon="pencil-alt" label="Editar" />
                                             @if ($encounter->date > date('Y-m-d'))
                                                 <x-dropdown.item wire:click="removeEncounter({{ $encounter }})" icon="trash" label="Remover" />
                                             @endif
                                         </x-dropdown>
-                                    @endcan
+                                    @endif
                                 </td>
                             @endif
                         </tr>
@@ -53,7 +49,7 @@
             </table>
         </div>
     </div>
-    @can('group_edit')
+    @if($can_edit)
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 <form wire:submit.prevent="submitEncounter">
@@ -98,5 +94,5 @@
                 </form>
             </x-modal>
         @endif
-    @endcan
+    @endif
 </div>

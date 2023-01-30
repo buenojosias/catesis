@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Group;
 
+use App\Models\User;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -9,6 +10,10 @@ class About extends Component
 {
     use Actions;
 
+    public $community_id;
+    public $user_id;
+    public $role;
+    public $can_edit;
     public $avaliable_catechists;
     public $catechists;
     public $community;
@@ -27,9 +32,13 @@ class About extends Component
 
     public function openCatechistsModal()
     {
-        $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
-            return $query->where('group_id', $this->group->id);
-        })->orderBy('name', 'asc')->get();
+        $this->avaliable_catechists = User::query()
+            ->when($this->group->community, function ($query) {
+                $query->where('community_id', $this->group->community_id);
+            })
+            ->whereDoesntHave('groups', function ($query) {
+                return $query->where('group_id', $this->group->id);
+            })->orderBy('name', 'asc')->get();
         $this->showCatechistsModal = true;
     }
 
@@ -47,9 +56,13 @@ class About extends Component
                 $this->catechists->push($selected->first());
                 $this->notification()->success($description = 'Catequista adicionado com sucesso.');
                 $this->hideCatechistsModal();
-                $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+                $this->avaliable_catechists = User::query()
+                ->when($this->group->community, function ($query) {
+                    $query->where('community_id', $this->group->community_id);
+                })
+                ->whereDoesntHave('groups', function ($query) {
                     return $query->where('group_id', $this->group->id);
-                })->get();
+                })->orderBy('name', 'asc')->get();
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Erro ao adicionar catequista.');
             }
@@ -65,9 +78,13 @@ class About extends Component
             $this->catechists = $this->group->users()->get();
             $this->notification()->success($description = 'Catequista removido(a) com sucesso.');
             $this->hideCatechistsModal();
-            $this->avaliable_catechists = $this->group->community->users()->whereDoesntHave('groups', function ($query) {
+            $this->avaliable_catechists = User::query()
+            ->when($this->group->community, function ($query) {
+                $query->where('community_id', $this->group->community_id);
+            })
+            ->whereDoesntHave('groups', function ($query) {
                 return $query->where('group_id', $this->group->id);
-            })->get();
+            })->orderBy('name', 'asc')->get();
         } catch (\Throwable $th) {
             $this->notification()->error($description = 'Erro ao remover catequista.');
             dd($th);
@@ -75,17 +92,21 @@ class About extends Component
     }
 
     public function getCurrentEncounter() {
-        if ($this->group->users->contains(auth()->user())) {
+        if ($this->group->users->contains($this->user_id)) {
             $this->current_group = $this->group->encounters()->where('date', date('Y-m-d'))->first();
         }
     }
 
     public function mount($group, $weekdays)
     {
+        $this->user_id = session('user_id');
+        $this->community_id = session('community_id');
+        $this->role = session('role');
+        $this->can_edit = in_array('group_edit', session('permissions')->toArray());
         $this->group = $group;
         $this->catechists = $this->group->users;
         $this->students_count = $group->active_students()->count();
-        if(auth()->user()->hasRole('admin')) {
+        if($this->role === 'admin') {
             $this->community = $group->community;
         }
         $this->weekdays = $weekdays;

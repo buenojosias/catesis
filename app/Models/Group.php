@@ -16,7 +16,7 @@ class Group extends Model
     protected $dates = ['start_date','end_date','time'];
 
     public function active_students() {
-        return $this->belongsToMany(Student::class)->where('status', 'Ativo')->wherePivot('status', 'Ativo');
+        return $this->belongsToMany(Student::class)->wherePivot('status', 'Ativo');
     }
 
     public function grade() {

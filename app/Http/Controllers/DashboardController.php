@@ -21,8 +21,8 @@ class DashboardController extends Controller
         $students_count = Student::query()
             ->when($role == 'catechist', function ($query) use ($user_id) {
                 $students = $query->whereHas('groups', function ($query) use ($user_id) {
-                    $groups = Group::query()->whereIn('group_id', $user_id)->where('year', date('Y'))->where('finished', false)->pluck('id');
-                    // $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
+                    // $groups = Group::query()->whereIn('group_id', $user_id)->where('year', date('Y'))->where('finished', false)->pluck('id');
+                    $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
                     return $query->whereIn('group_id', $groups);
                     }
                 );

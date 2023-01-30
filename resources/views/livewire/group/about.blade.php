@@ -47,7 +47,7 @@
                             <h4>Data final</h4>
                             <p>{{ $group->end_date ? $group->end_date->format('d/m/Y') : '' }}</p>
                         </div>
-                        @if (auth()->user()->hasrole('admin') || auth()->user()->community_id != $group->community_id)
+                        @if ($role === 'admin')
                             <div class="col-span-3">
                                 <h4>Comunidade</h4>
                                 <p>{{ $group->community->name }}</p>
@@ -66,24 +66,20 @@
                     <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" md white
                         icon="table" label="Imprimir chamada" class="w-full shadow" />
                 </li>
-                @if (
-                    $group->community_id === auth()->user()->community_id ||
-                        auth()->user()->hasRole('admin'))
-                    @can('group_edit')
-                        <li>
-                            <x-button wire:click="openCatechistsModal" md white icon="users" label="Gereciar catequistas"
-                                class="w-full shadow" />
-                        </li>
-                        <li>
-                            <x-button wire:click="openFormModal" md white icon="pencil-alt" label="Editar"
-                                class="w-full shadow" />
-                        </li>
-                    @endcan
+                @if (($group->community_id === $community_id && $can_edit) || $role === 'admin')
+                    <li>
+                        <x-button wire:click="openCatechistsModal" md white icon="users" label="Gereciar catequistas"
+                            class="w-full shadow" />
+                    </li>
+                    <li>
+                        <x-button wire:click="openFormModal" md white icon="pencil-alt" label="Editar"
+                            class="w-full shadow" />
+                    </li>
                 @endif
             </ul>
         </div>
     </div>
-    @can('group_edit')
+    @if('can_edit')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 @livewire('group.form', ['group' => $group, 'weekdays' => $weekdays]);
@@ -134,5 +130,5 @@
                 </div>
             </x-modal>
         @endif
-    @endcan
+    @endif
 </div>
