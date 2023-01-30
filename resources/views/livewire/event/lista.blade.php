@@ -109,11 +109,11 @@
                             </div>
                             <div>
                                 <x-datetime-picker wire:model.defer="form.starts_at" label="Início"
-                                    placeholder="Data e hora" without-timezone time-format="24" :min="now()" />
+                                    placeholder="Data e hora" time-format="24" :min="now()" />
                             </div>
                             <div>
                                 <x-datetime-picker wire:model.defer="form.ends_at" label="Término"
-                                    placeholder="Data e hora" corner-hint="Opcional" without-timezone time-format="24"
+                                    placeholder="Data e hora" corner-hint="Opcional" time-format="24"
                                     :min="now()" />
                             </div>
                             <div class="col-span-2">

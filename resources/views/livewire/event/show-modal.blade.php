@@ -27,15 +27,16 @@
                             <h4 class="text-sm font-medium text-gray-600">Detalhes</h4>
                             <p class="text-sm text-gray-900">{{ $eventData['description'] }}</p>
                         </li>
-                        <li class="py-1 px-4">
-                            <h4 class="text-sm font-medium text-gray-600">Cadastrado por</h4>
-                            <p class="text-sm text-gray-900">{{ $eventData['user']['name'] }}</p>
-                        </li>
+                        @if ($eventData['user'])
+                            <li class="py-1 px-4">
+                                <h4 class="text-sm font-medium text-gray-600">Cadastrado por</h4>
+                                <p class="text-sm text-gray-900">{{ $eventData['user']['name'] }}</p>
+                            </li>
+                        @endif
                     </ul>
                 </div>
-                {{-- @if (
-                    $eventData['user_id'] === auth()->user()->id ||
-                        auth()->user()->hasRole('admin'))
+                {{-- @if ($eventData['user_id'] === auth()->user()->id ||
+    auth()->user()->hasRole('admin'))
                     <div class="card-footer justify-end">
                         <x-button sm flat label="Editar" />
                         <x-button sm flat negative label="Excluir" />

@@ -22,10 +22,9 @@ class EventFactory extends Factory
 
     public function definition()
     {
-        $starts_at = $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+3 months', $timezone = null);
+        $starts_at = $this->faker->dateTimeBetween($startDate = '- 2 weeks', $endDate = '+3 months', $timezone = null);
         $ends_at = \Carbon\Carbon::parse($starts_at)->addDays(1);
         return [
-            'user_id' => rand(1, 5),
             'title' => $this->faker->sentence($nbWords = 3, $variableNbWords = true),
             'description' => $this->faker->text($maxNbChars = 160),
             'starts_at' => $starts_at,
