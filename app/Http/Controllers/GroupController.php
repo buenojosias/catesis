@@ -31,13 +31,17 @@ class GroupController extends Controller
 
     public function encounter(Group $group, $encounter_id)
     {
-        abort_unless(
-            auth()->user()->hasRole('admin') ||
-            ($group->community_id === auth()->user()->community_id && auth()->user()->hasAnyRole(['coordinator','secretary'])) ||
-            $group->users->contains(auth()->user()),
-        403);
+        $role = session('role');
+        $community_id = session('community_id');
+
+        // abort_unless(
+        //     $role === 'admin' ||
+        //     ($group->community_id === $community_id && ($role === 'coordinator' || $role === 'secretary')) ||
+        //     $group->users->contains(auth()->user()),
+        // 403);
         $encounter = $group->encounters()->with('theme')->findOrFail($encounter_id);
         return view('livewire.group.encounter', [
+            'role' => $role,
             'group' => $group,
             'encounter' => $encounter,
         ]);

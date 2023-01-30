@@ -23,7 +23,6 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'community_id' => rand(1, 4),
             'grade_id' => rand(1, 8),
             'name' => $this->faker->firstName().' '.$this->faker->lastName().' '.$this->faker->lastName(),
             'birthday' => $this->faker->dateTimeBetween('-16 years', '-8 years'),

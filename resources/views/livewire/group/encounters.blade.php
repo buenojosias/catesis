@@ -69,8 +69,8 @@
                                     @if ($method === 'create')
                                         <option value="">Selecione</option>
                                     @endif
-                                    <option value="presencial">Presencial</option>
-                                    <option value="familiar">Familiar</option>
+                                    <option value="Presencial">Presencial</option>
+                                    <option value="Familiar">Familiar</option>
                                 </x-native-select>
                                 <div class="col-span-2">
                                     <x-native-select wire:model.defer="form.theme_id" label="Tema">

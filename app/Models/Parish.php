@@ -31,6 +31,10 @@ class Parish extends Model
         return $this->hasMany(Group::class);
     }
 
+    public function kinships() {
+        return $this->hasMany(Kinship::class);
+    }
+
     public function students() {
         return $this->hasMany(Student::class);
     }

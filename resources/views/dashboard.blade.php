@@ -78,7 +78,7 @@
                                     <a href="{{ route('students.show', $birthday) }}">{{ $birthday->name }}</a>
                                 </p>
                                 <h4 class="text-sm font-medium text-gray-600 grow">
-                                    {{ $birthday->birthday->format('d/m') }} ({{ session('community') ? $birthday->grade->title : $birthday->community->name  }})
+                                    {{ $birthday->birthday->format('d/m') }} ({{ $birthday->grade->title  }})
                                 </h4>
                             </li>
                         @empty

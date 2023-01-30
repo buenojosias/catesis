@@ -11,7 +11,7 @@ class Student extends Model
 {
     use HasFactory, Parishable, Communityable;
 
-    protected $fillable = ['community_id','grade_id','name','birthday','status'];
+    protected $fillable = ['grade_id','name','birthday','status'];
     protected $guarded = ['id'];
     protected $dates = ['birthday'];
 

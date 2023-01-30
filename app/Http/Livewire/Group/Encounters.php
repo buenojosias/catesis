@@ -40,7 +40,7 @@ class Encounters extends Component
     public function submitEncounter()
     {
         $validThemes = $this->themes->pluck('id')->toArray();
-        $validMethods = ['presencial', 'familiar'];
+        $validMethods = ['Presencial', 'Familiar'];
         $validate = $this->validate([
             'form.date' => 'required|date',
             'form.method' => 'required|string|in:' . implode(',', $validMethods),

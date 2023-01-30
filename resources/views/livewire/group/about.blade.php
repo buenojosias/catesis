@@ -76,6 +76,10 @@
                             class="w-full shadow" />
                     </li>
                 @endif
+                <li>
+                    <x-button href="#" md negative
+                        icon="table" label="!! Lançar frequência de hoje !!" class="w-full shadow" />
+                </li>
             </ul>
         </div>
     </div>

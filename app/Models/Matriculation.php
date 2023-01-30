@@ -11,7 +11,7 @@ class Matriculation extends Model
 {
     use HasFactory, Parishable, Communityable;
 
-    protected $fillable = ['user_id','community_id','student_id','kinship_id','year'];
+    protected $fillable = ['user_id','student_id','kinship_id','year'];
     protected $guarded = ['id'];
 
     public function group() {

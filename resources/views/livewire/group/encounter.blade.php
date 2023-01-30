@@ -29,12 +29,12 @@
                         <h4>Tema abordado</h4>
                         <p>{{ $encounter->theme->title }}</p>
                     </div>
-                    @hasrole('admin')
+                    @if($role === 'admin')
                         <div class="mt-4">
                             <h4>Comunidade</h4>
                             <p>{{ $group->community->name }}</p>
                         </div>
-                    @endhasrole
+                    @endif
                 </div>
             </div>
         </div>

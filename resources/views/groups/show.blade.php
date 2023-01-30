@@ -61,9 +61,9 @@
     @if (!$section)
         @livewire('group.about', ['group' => $group, 'weekdays' => $weekdays])
     @endif
-    {{-- @if ($section === 'catequizandos')
+    @if ($section === 'catequizandos')
         @livewire('group.students', ['group' => $group])
-    @endif --}}
+    @endif
     @if ($section === 'encontros')
         @livewire('group.encounters', ['group' => $group])
     @endif

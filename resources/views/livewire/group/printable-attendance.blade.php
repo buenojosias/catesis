@@ -2,8 +2,8 @@
     <div>
         <p>
             MITRA DA ARQUIDIOCESE DE CURITIBA<br>
-            {!! $group->community_id > 1 ? 'PARÓQUIA SÃO MARCOS<br>' : '' !!}
-            {{ strtoupper($group->community->name) }}<br>
+            {{ $group->parish->name }}<br>
+            {!! $group->community ? $group->community->name .'<br>' : '' !!}
             PASTORAL DE ANIMAÇÃO BÍBLICO CATEQUÉTICA
         </p>
     </div>

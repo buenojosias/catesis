@@ -44,7 +44,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/etapas/{grade}', [GradeController::class, 'show'])->name('grades.show');
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
-    Route::get('/grupos/{group}/chamada', function ($group) {
+    Route::get(
+        '/grupos/{group}/chamada',
+        function ($group) {
+            $group = \App\Models\Group::findOrFail($group);
         return view('groups.printable-attendance', ['group' => $group]);
     }
     )->name('groups.printableattendance');

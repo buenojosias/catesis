@@ -48,13 +48,8 @@ class DashboardController extends Controller
         }
 
         $birthdays = Student::query()
-            ->when($community_id, function ($query) {
-                $query->with('grade');
-            })
-            ->when(!$community_id, function ($query) {
-                $query->with('community');
-            })
             ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(birthday)')
+            ->with('grade')
             ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(birthday)')
             ->orderByRaw('DAYOFYEAR(birthday)')
             ->get();
