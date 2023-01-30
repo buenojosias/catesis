@@ -21,7 +21,7 @@ class Create extends Component
     public $roles;
     public $catechist;
     public $profile;
-    public $user;
+    public $user, $auth_role;
 
     protected $validationAttributes = [
         'name' => 'Nome',
@@ -36,14 +36,13 @@ class Create extends Component
 
     public function mount(): void
     {
+        $this->auth_role = session('role');
         $this->user = Auth::user();
-        if($this->user->hasRole('admin')) {
+        if($this->auth_role === 'admin') {
             $this->communities = Community::all();
-        } else {
-            $this->community_id = $this->user->community_id;
         }
         $roles = Role::query();
-        if(!$this->user->hasRole('admin')) {
+        if($this->auth_role !== 'admin') {
             $roles->where('name','<>','admin');
         }
         $this->roles = $roles->get();
@@ -57,7 +56,7 @@ class Create extends Component
             'password' => 'required|string|min:6|max:32',
             'password_confirmation' => 'required|same:password',
             'role' => 'required|integer',
-            'community_id' => 'nullable|required_unless:role,1|integer',
+            'community_id' => 'nullable|integer',
         ]);
         $validateProfile = $this->validate([
             'birthday' => 'required|date|before:now',
@@ -70,7 +69,7 @@ class Create extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => bcrypt($this->password),
-                'community_id' => $this->community_id,
+                'community_id' => $this->community_id ?? null,
             ]);
             $profile = $user->profile()->create($validateProfile);
             $role = $user->roles()->attach((int)$this->role);

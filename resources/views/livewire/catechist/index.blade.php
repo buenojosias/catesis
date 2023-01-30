@@ -1,6 +1,6 @@
 <div>
     <div class="card">
-        @role('admin')
+        @if($role === 'admin')
             <div class="card-header relative" x-data="{ filters: false }">
                 <div class="card-search">
                     <x-input type="text" right-icon="search" wire:model.debounce.500ms="search"
@@ -20,15 +20,15 @@
                     </div>
                 </div>
             </div>
-        @endrole
+        @endif
         <div class="card-body table-responsive">
             <table class="table table-hover whitespace-nowrap">
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        @hasrole('admin')
+                        @if($role === 'admin')
                             <th>Comunidade</th>
-                        @endhasrole
+                        @endif
                         <th>Função</th>
                         <th></th>
                     </tr>
@@ -37,9 +37,9 @@
                     @forelse ($catechists as $catechist)
                         <tr>
                             <td><a href="{{ route('catechists.show', $catechist) }}">{{ $catechist->name }}</a></td>
-                            @hasrole('admin')
+                            @if($role === 'admin')
                                 <td>{{ $catechist->community->name }}</td>
-                            @endhasrole
+                            @endif
                             <td>{{ $catechist->roles[0]->label }}</td>
                             <td class="text-right">
                                 <x-button href="{{ route('catechists.show', $catechist) }}" flat sm icon="eye" />

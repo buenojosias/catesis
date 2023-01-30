@@ -13,22 +13,24 @@ class Index extends Component
 
     public $search = null;
     public $community = null;
+    public $role;
 
+    public function mount()
+    {
+        $this->role = session('role');
+    }
     public function render()
     {
-        if(auth()->user()->hasRole('admin')) {
+        if($this->role === 'admin') {
             $communities = Community::all();
         }
 
         $catechists = User::query()
             ->with('roles')
-            ->when(auth()->user()->hasRole('admin'), function($query) {
+            ->when($this->role === 'admin', function($query) {
                 return $query->with('community');
             })
-            ->where('id', '<>', auth()->user()->id)
-            ->when(auth()->user()->community_id, function($query) {
-                return $query->where('community_id', auth()->user()->community_id);
-            })
+            // ->where('id', '<>', auth()->user()->id)
             ->when($this->community, function($query) {
                 return $query->where('community_id', $this->community);
             })

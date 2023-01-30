@@ -9,7 +9,9 @@ class CatechistController extends Controller
 {
     public function index()
     {
-        return view('catechists.index');
+        return view('catechists.index', [
+            'can_create' => in_array('user_create', session('permissions')->toArray()),
+        ]);
     }
 
     public function show(User $user)

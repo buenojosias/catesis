@@ -25,16 +25,16 @@
                                 <option value="Outro">Outro</option>
                             </x-native-select>
                         </div>
-                        @role('admin')
+                        @if($auth_role === 'admin')
                             <div class="sm:col-span-4">
-                                <x-native-select wire:model.defer="community_id" label="Comunidade">
+                                <x-native-select wire:model.defer="community_id" label="Comunidade" required>
                                     <option value="">Selecione</option>
                                     @foreach ($communities as $community)
                                         <option value="{{ $community->id }}">{{ $community->name }}</option>
                                     @endforeach
                                 </x-native-select>
                             </div>
-                        @endrole
+                        @endif
                     </div>
                 </div>
                 <div class="heading border-t">
