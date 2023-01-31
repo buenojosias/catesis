@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Community;
 use App\Models\Kinship;
+use App\Models\Parish;
 use App\Models\Pastoral;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
@@ -19,34 +22,33 @@ class PastoralSeeder extends Seeder
      */
     public function run()
     {
-        // Pastoral::query()->truncate(); DB::table('pastorables')->truncate(); // return;
+        // Pastoral::query()->truncate();
+        // DB::table('pastorables')->truncate();
 
-        $students = Student::all();
-        $psmStudents = $students->where('community_id', 1)->pluck('id')->toArray();
-        $bgcStudents = $students->where('community_id', 2)->pluck('id')->toArray();
-        $nsmStudents = $students->where('community_id', 3)->pluck('id')->toArray();
-        $nspStudents = $students->where('community_id', 4)->pluck('id')->toArray();
+        $parish_id = 1;
 
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'Pastoral da Criança', 'coordinator' => null])->students()->sync(Arr::random($psmStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'Infância e Adolescência Missionária', 'coordinator' => 'Álvaro César'])->students()->sync(Arr::random($psmStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'Pastoral do Empreendedor', 'coordinator' => 'João Carlos']);
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'Coral Doce Canto', 'coordinator' => 'Josias Bueno'])->students()->sync(Arr::random($psmStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'Coroinhas e Acólitos', 'coordinator' => 'Felipe Wosch'])->students()->sync(Arr::random($psmStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 1, 'name' => 'MESCs', 'coordinator' => null]);
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 2, 'name' => 'Grupo de Jovens', 'coordinator' => 'Fabiano Brito'])->students()->sync(Arr::random($bgcStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 2, 'name' => 'Grupo Familiar', 'coordinator' => 'Fabiano Brito'])->students()->sync(Arr::random($bgcStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 2, 'name' => 'Coroinhas', 'coordinator' => null])->students()->sync(Arr::random($bgcStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 2, 'name' => 'MESCs', 'coordinator' => null]);
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 3, 'name' => 'Apostolado da Oração', 'coordinator' => null]);
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 3, 'name' => 'Grupo de Cantos', 'coordinator' => 'Josias e João Luiz'])->students()->sync(Arr::random($nsmStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 3, 'name' => 'MESCs', 'coordinator' => null]);
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 4, 'name' => 'Grupo de Cantos', 'coordinator' => 'Marquinhos e Solange'])->students()->sync(Arr::random($nspStudents, rand(1,10)));
-        Pastoral::create(['user_id' => rand(1,13), 'community_id' => 4, 'name' => 'Legião de Maria', 'coordinator' => null]);
+        $students = Student::where('parish_id', $parish_id)->get()->pluck('id')->toArray();
+        $users = User::where('parish_id', $parish_id)->get()->pluck('id')->toArray();
+        $pastorals = [
+            'Grupo de Jovens',
+            'Pastoral da Comunicação',
+            'Pastoral Familiar',
+            'Legião de Maria',
+            'Terço dos Homens',
+            'Grupo de Oração',
+            'Pastoral do Empreendedor',
+            'Pastoral da Música',
+            'Pastoral da Liturgia',
+            'Terço dos Homens',
+        ];
 
-        $kinships = Kinship::all();
+        for($i = 0; $i <= 9; $i++) {
+            Pastoral::create(['user_id' => Arr::random($users), 'parish_id' => $parish_id, 'community_id' => rand(1, 4), 'name' => $pastorals[$i], 'coordinator' => null])->students()->sync(Arr::random($students, rand(1,10)));
+        }
+
+        $kinships = Kinship::where('parish_id', $parish_id);
         $kinships = $kinships->pluck('id')->toArray();
-        $pastorals = Pastoral::whereDoesntHave('students')->get();
-        foreach($pastorals as $pastoral) {
+        foreach(Pastoral::where('parish_id', $parish_id)->whereDoesntHave('students')->get() as $pastoral) {
             $pastoral->kinships()->sync(Arr::random($kinships, rand(1, 10)));
         }
    }

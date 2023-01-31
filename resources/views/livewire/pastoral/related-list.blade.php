@@ -12,11 +12,15 @@
                         <li class="flex py-2 px-4 border-b">
                             <div class="grow">
                                 <h4 class="font-medium text-gray-900">{{ $pastoral->name }}</h4>
-                                <p class="text-sm font-medium text-gray-600">{{ $pastoral->community->name }}</p>
+                                @if ($pastoral->community)
+                                    <p class="text-sm font-medium text-gray-600">{{ $pastoral->community->name }}</p>
+                                @endif
                             </div>
-                            <div class="flex items-center">
-                                <x-button wire:click="detach({{ $pastoral }})" xs flat icon="trash" />
-                            </div>
+                            @can('student_edit')
+                                <div class="flex items-center">
+                                    <x-button wire:click="detach({{ $pastoral }})" xs flat icon="trash" />
+                                </div>
+                            @endcan
                         </li>
                     @empty
                         <x-empty label="Nenhum movimento ou pastoral vinculado." />
@@ -46,14 +50,16 @@
                     <div class="card-body display">
                         <x-errors class="mb-4 shadow" />
                         <div class="flex flex-col space-y-4">
-                            <div>
-                                <x-native-select wire:model="community_id" label="Comunidade *">
-                                    <option value="">Selecione</option>
-                                    @foreach ($communities as $community)
-                                        <option value="{{ $community->id }}">{{ $community->name }}</option>
-                                    @endforeach
-                                </x-native-select>
-                            </div>
+                            @if ($communities && $communities->count() > 0)
+                                <div>
+                                    <x-native-select wire:model="community_id" label="Comunidade *">
+                                        <option value="">Selecione</option>
+                                        @foreach ($communities as $community)
+                                            <option value="{{ $community->id }}">{{ $community->name }}</option>
+                                        @endforeach
+                                    </x-native-select>
+                                </div>
+                            @endif
                             <div>
                                 <x-native-select wire:model="pastoral_id" label="Movimento ou pastoral *">
                                     <option value="">Selecione</option>
@@ -67,7 +73,7 @@
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
                             <x-button flat label="Cancelar" x-on:click="close" />
-                            @if ($community_id && $pastoral_id)
+                            @if ($pastoral_id)
                                 <x-button type="submit" primary label="Salvar" />
                             @endif
                         </div>

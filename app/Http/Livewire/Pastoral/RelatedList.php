@@ -50,7 +50,7 @@ class RelatedList extends Component
             $validPastorals = $this->community_pastorals->pluck('id')->toArray();
         }
         $validate = $this->validate([
-            'community_id' => 'required|integer|in:' . implode(',', $validCommunities),
+            'community_id' => 'nullable|integer|in:' . implode(',', $validCommunities),
             'pastoral_id' => 'required|integer|in:' . implode(',', $validPastorals),
         ]);
         try {
@@ -69,7 +69,7 @@ class RelatedList extends Component
     {
         $this->dialog()->confirm([
             'title' => 'Desvincular movimento ou pastoral',
-            'description' => 'Tem certeza que deseja desvincular o '.$pastoral['name'].'?',
+            'description' => 'Tem certeza que deseja desvincular '.$pastoral['name'].'?',
             'method' => 'doDetach',
             'params' => ['pastoral' => $pastoral['id']],
             'acceptLabel' => 'Confirmar',
@@ -94,11 +94,10 @@ class RelatedList extends Component
 
     public function render()
     {
-        if($this->community_id) {
-            $this->community_pastorals = Pastoral::query()
-                ->where('community_id', $this->community_id)
-                ->orderBy('name', 'asc')
-                ->get();
+        if (session('role') !== 'admin' && !auth()->user()->community_id) {
+            $this->community_pastorals = Pastoral::query()->orderBy('name', 'asc')->get();
+        } else if ($this->community_id) {
+            $this->community_pastorals = Pastoral::query()->where('community_id', $this->community_id)->orderBy('name', 'asc')->get();
         } else {
             $this->community_pastorals = [];
         }

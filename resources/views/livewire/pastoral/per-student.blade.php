@@ -1,7 +1,7 @@
 <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
     <div class="col-span-2">
         <h4 class="mb-4 text-lg font-semibold">Exibindo catequizandos
-            {{ $communities ? 'da comunidade ' . $community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline">não</span>' !!} participam de
+            {{ $communities ? 'da comunidade ' . $community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline text-red-600">não</span>' !!} participam de
             movimentos ou pastorais.</h4>
 
         <ul class="focusable">
@@ -12,9 +12,11 @@
                     <div x-show="expand" @click.outside="expand=false" class="focusable-focus">
                         <div class="flex border-b">
                             <div class="flex-1">
-                                <h4>{{ $student->name }}</h4>
+                                <h4 class="pb-2">{{ $student->name }}</h4>
                             </div>
-                            @if ($student->community_id === auth()->user()->community_id || auth()->user()->hasRole('admin'))
+                            @if (
+                                $student->community_id === auth()->user()->community_id ||
+                                    auth()->user()->hasRole('admin'))
                                 <div class="px-2">
                                     <x-button href="{{ route('students.show', $student) }}" sm flat icon="eye" />
                                 </div>
@@ -24,7 +26,9 @@
                             @foreach ($student->pastorals as $pastoral)
                                 <li class="sm:flex mx-4 py-2 border-b last:border-none">
                                     <div class="sm:flex-1 font-semibold text-gray-900">{{ $pastoral->name }}</div>
-                                    <div class="sm:text-right text-gray-600">{{ $pastoral->community->name }}</div>
+                                    @if ($pastoral->community)
+                                        <div class="sm:text-right text-gray-600">{{ $pastoral->community->name }}</div>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

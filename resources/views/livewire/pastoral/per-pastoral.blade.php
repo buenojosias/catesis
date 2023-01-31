@@ -1,7 +1,9 @@
 <div class="sm:grid sm:grid-cols-3 sm:space-x-6">
     <x-notifications />
     <div class="col-span-2 mb-4 sm:px-2">
-        <h2 class="mb-4 border-b border-gray-300 text-2xl font-semibold text-slate-900">{{ $community_name }}</h2>
+        @if ($community_name)
+            <h2 class="mb-4 border-b border-gray-300 text-2xl font-semibold text-slate-900">{{ $community_name }}</h2>
+        @endif
         <div>
             <ul class="focusable">
                 @foreach ($pastorals as $key => $pastoral)
@@ -31,7 +33,6 @@
                                             icon="pencil" />
                                     </div>
                                 @endif
-
                             </div>
                             @if ($pastoral->students->count() > 0)
                                 <div class="header">
@@ -42,7 +43,8 @@
                                         <li class="list-item">
                                             <div class="sm:flex-1 font-semibold text-gray-900">{{ $student->name }}
                                             </div>
-                                            <div class="sm:text-right text-gray-600">{{ $student->community->name }}
+                                            <div class="sm:text-right text-gray-600">
+                                                {{ session('role') === 'admin' ? $student->community->name : $student->grade->title }}
                                             </div>
                                         </li>
                                     @endforeach
@@ -65,29 +67,29 @@
                 @endforeach
             </ul>
         </div>
-
-
     </div>
     <div>
         <x-button wire:click="openFormModal('create')" label="ADICIONAR MOVIMENTO/PASTORAL" primary
             class="mb-4 block w-full" />
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Comunidades</h3>
+        @if ($communities && $communities->count() > 0)
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Comunidades</h3>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table">
+                        <tbody>
+                            @foreach ($communities as $community)
+                                <tr>
+                                    <td wire:click="selectCommunity({{ $community->id }})" class="cursor-pointer">
+                                        {{ $community->name }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="body table-responsive">
-                <table class="table">
-                    <tbody>
-                        @foreach ($communities as $community)
-                            <tr>
-                                <td wire:click="selectCommunity({{ $community->id }})" class="cursor-pointer">
-                                    {{ $community->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        @endif
     </div>
     @if ($showFormModal)
         <x-modal wire:model.defer="showFormModal" max-width="md">
@@ -101,21 +103,23 @@
                     <div class="card-body display">
                         <x-errors class="mb-4 shadow" />
                         <div class="flex flex-col space-y-4">
-                            @if ($method === 'create')
-                                <div>
-                                    <x-native-select wire:model.defer="form.community_id" label="Comunidade *">
-                                        <option value="">Selecione</option>
-                                        @foreach ($communities as $community)
-                                            <option value="{{ $community->id }}">{{ $community->name }}</option>
-                                        @endforeach
-                                    </x-native-select>
-                                </div>
-                            @else
-                                <div>
-                                    <x-input label="Comunidade" corner-hint="Somente leitura"
-                                        value="{{ $communities->where('id', $form['community_id'])->first()->name }}"
-                                        readonly />
-                                </div>
+                            @if ($communities->count() > 0)
+                                @if ($method === 'create')
+                                    <div>
+                                        <x-native-select wire:model.defer="form.community_id" label="Comunidade *">
+                                            <option value="">Selecione</option>
+                                            @foreach ($communities as $community)
+                                                <option value="{{ $community->id }}">{{ $community->name }}</option>
+                                            @endforeach
+                                        </x-native-select>
+                                    </div>
+                                @else
+                                    <div>
+                                        <x-input label="Comunidade" corner-hint="Somente leitura"
+                                            value="{{ $communities->where('id', $form['community_id'])->first()->name }}"
+                                            readonly />
+                                    </div>
+                                @endif
                             @endif
                             <div>
                                 <x-input wire:model.defer="form.name" label="Nome do movimento/pastoral *" />
