@@ -36,7 +36,6 @@
             </table>
         </div>
     </div>
-
     {{-- @if ($rematriculationModal) --}}
     @can('student_edit')
         <x-modal wire:model.defer="rematriculationModal">
@@ -44,5 +43,4 @@
         </x-modal>
     @endcan
     {{-- @endif --}}
-
 </div>

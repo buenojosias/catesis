@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
         // attach(3) = secretário
         // attach(4) = catequista
 
+        Permission::create(['name' => 'communities_show', 'label' => 'Ver comunidades'])->roles()->attach([1]);
         Permission::create(['name' => 'community_edit', 'label' => 'Editar comunidade'])->roles()->attach([1,2]);
 
         Permission::create(['name' => 'user_read', 'label' => 'Ver usuários'])->roles()->attach([1,2]);

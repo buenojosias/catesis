@@ -62,7 +62,6 @@
             </div>
         @endcan
     </div>
-
     @can('student_edit')
         <x-modal wire:model.defer="showEditProfileModal">
             <div class="card w-full">

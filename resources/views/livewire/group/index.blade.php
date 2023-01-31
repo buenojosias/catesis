@@ -1,7 +1,7 @@
 <div>
-    @if($can_create)
+    @can('group_create')
         <x-button wire:click="openFormModal()" label="Novo grupo" primary class="mb-3 w-full sm:w-auto" />
-    @endif
+    @endcan
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
             <div class="card-search"></div>
@@ -80,7 +80,7 @@
             {{ $groups->links() }}
         </div>
     </div>
-    @if($can_create)
+    @can('group_create')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 @livewire('group.form', ['group' => null, 'weekdays' => $weekdays]);

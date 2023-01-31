@@ -13,7 +13,6 @@ class Index extends Component
     use WithPagination;
 
     public $community = null;
-    public $can_create;
     public $showFormModal;
     public $grade = null;
     public $role;
@@ -29,7 +28,6 @@ class Index extends Component
     public function mount($weekdays)
     {
         $this->role = session('role');
-        $this->can_create = in_array('group_create', session('permissions')->toArray());
         $this->weekdays = $weekdays;
     }
 

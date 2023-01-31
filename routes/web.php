@@ -29,7 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/perfil', [UserProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [UserProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware('can:community_show')->group(function () {
+    Route::middleware('can:communities_show')->group(function () {
         Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
         Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
         Route::get('/comunidades/{community}/editar', [CommunityController::class, 'edit'])->name('communities.edit');

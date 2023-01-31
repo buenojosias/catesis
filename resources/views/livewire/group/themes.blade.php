@@ -1,5 +1,4 @@
 <div class="md:max-w-3xl mx-auto">
-
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Temas</h3>
@@ -27,7 +26,6 @@
             <x-empty label="Nenhum tema cadastrado para esta etapa." />
         @endforelse
     </ul>
-
 
     {{-- <div class="card mb-4">
         <div class="card-header">

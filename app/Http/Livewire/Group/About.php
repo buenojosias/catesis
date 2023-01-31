@@ -13,7 +13,6 @@ class About extends Component
     public $community_id;
     public $user_id;
     public $role;
-    public $can_edit;
     public $avaliable_catechists;
     public $catechists;
     public $community;
@@ -102,7 +101,6 @@ class About extends Component
         $this->user_id = session('user_id');
         $this->community_id = session('community_id');
         $this->role = session('role');
-        $this->can_edit = in_array('group_edit', session('permissions')->toArray());
         $this->group = $group;
         $this->catechists = $this->group->users;
         $this->students_count = $group->active_students()->count();

@@ -66,7 +66,7 @@
                     <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" md white
                         icon="table" label="Imprimir chamada" class="w-full shadow" />
                 </li>
-                @if (($group->community_id === $community_id && $can_edit) || $role === 'admin')
+                @can ('group_edit')
                     <li>
                         <x-button wire:click="openCatechistsModal" md white icon="users" label="Gereciar catequistas"
                             class="w-full shadow" />
@@ -75,7 +75,7 @@
                         <x-button wire:click="openFormModal" md white icon="pencil-alt" label="Editar"
                             class="w-full shadow" />
                     </li>
-                @endif
+                @endcan
                 <li>
                     <x-button href="#" md negative
                         icon="table" label="!! Lançar frequência de hoje !!" class="w-full shadow" />
@@ -83,7 +83,7 @@
             </ul>
         </div>
     </div>
-    @if('can_edit')
+    @can('group_edit')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 @livewire('group.form', ['group' => $group, 'weekdays' => $weekdays]);
@@ -134,5 +134,5 @@
                 </div>
             </x-modal>
         @endif
-    @endif
+    @endcan
 </div>

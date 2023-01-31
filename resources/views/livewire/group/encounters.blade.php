@@ -1,9 +1,9 @@
 <div>
     <x-dialog />
-    @if ($role === 'admin' || $can_edit)
+    @can ('group_edit')
         <x-button wire:click="openFormModal('create')" label="Cadastrar encontro" primary
             class="mb-3 w-full sm:w-auto" />
-    @endif
+    @endcan
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Encontros</h3>
@@ -31,14 +31,14 @@
                                 <td class="text-right">
                                     <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat
                                         icon="eye" />
-                                    @if($can_edit)
+                                    @can('group_edit')
                                         <x-dropdown>
                                             <x-dropdown.item wire:click="openFormModal('edit', {{ $encounter }})" icon="pencil-alt" label="Editar" />
                                             @if ($encounter->date > date('Y-m-d'))
                                                 <x-dropdown.item wire:click="removeEncounter({{ $encounter }})" icon="trash" label="Remover" />
                                             @endif
                                         </x-dropdown>
-                                    @endif
+                                    @endcan
                                 </td>
                             @endif
                         </tr>
@@ -49,7 +49,7 @@
             </table>
         </div>
     </div>
-    @if($can_edit)
+    @can('group_edit')
         @if ($showFormModal)
             <x-modal wire:model.defer="showFormModal" max-width="md">
                 <form wire:submit.prevent="submitEncounter">
@@ -94,5 +94,5 @@
                 </form>
             </x-modal>
         @endif
-    @endif
+    @endcan
 </div>

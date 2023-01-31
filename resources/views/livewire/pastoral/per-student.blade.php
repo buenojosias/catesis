@@ -3,7 +3,6 @@
         <h4 class="mb-4 text-lg font-semibold">Exibindo catequizandos
             {{ $communities ? 'da comunidade ' . $community_name : '' }} que {!! $has_pastoral ? '' : '<span class="underline text-red-600">não</span>' !!} participam de
             movimentos ou pastorais.</h4>
-
         <ul class="focusable">
             @foreach ($students as $key => $student)
                 <li x-data="{ expand: false }">

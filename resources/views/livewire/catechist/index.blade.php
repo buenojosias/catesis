@@ -38,9 +38,9 @@
                         <tr>
                             <td><a href="{{ route('catechists.show', $catechist) }}">{{ $catechist->name }}</a></td>
                             @if($role === 'admin')
-                                <td>{{ $catechist->community->name }}</td>
+                                <td>{{ $catechist->community->name ?? '' }}</td>
                             @endif
-                            <td>{{ $catechist->roles[0]->label }}</td>
+                            <td>{{ $catechist->roles[0]->label ?? 'Nenhuma' }}</td>
                             <td class="text-right">
                                 <x-button href="{{ route('catechists.show', $catechist) }}" flat sm icon="eye" />
                             </td>

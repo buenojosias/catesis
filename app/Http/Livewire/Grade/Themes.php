@@ -15,6 +15,7 @@ class Themes extends Component
     public $modalTitle;
     public $modalTheme;
     public $themes;
+    public $grade;
 
     protected $validationAttributes = [
         'title' => 'Título',

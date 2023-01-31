@@ -12,7 +12,6 @@ class Encounters extends Component
     use Actions;
 
     public $role;
-    public $can_edit;
     public $encounters;
     public $form;
     public $group;
@@ -50,7 +49,6 @@ class Encounters extends Component
             try {
                 $this->group->encounters()->create($this->form);
                 $this->notification()->success($description = 'Encontro cadastrado com sucesso.');
-                //$this->encounters->push($encounter);
                 $this->showFormModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar encontro.');
@@ -60,7 +58,6 @@ class Encounters extends Component
             try {
                 $this->group->encounters()->findOrFail($this->form['id'])->update($this->form);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
-                //$this->encounters = $this->group->encounters()->orderBy('date', 'asc')->with('theme')->get();
                 $this->showFormModal = false;
             } catch (\Throwable $th) {
                 $this->notification()->error($description = 'Ocorreu um erro ao salvar encontro.');
@@ -72,7 +69,6 @@ class Encounters extends Component
     public function mount($group)
     {
         $this->role = session('role');
-        $this->can_edit = in_array('group_edit', session('permissions')->toArray());
         $this->group = $group;
     }
 

@@ -9,10 +9,10 @@
                     <h4>Nome</h4>
                     <p>{{ $community->name }}</p>
                 </div>
-                <div class="col-span-2">
+                {{-- <div class="col-span-2">
                     <h4>Endereço</h4>
                     <p>{{ $community->address }}</p>
-                </div>
+                </div> --}}
                 <div class="col-span-4">
                     <h4>Coordenador(es)</h4>
                     <p>

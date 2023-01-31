@@ -35,5 +35,4 @@ class CommunityController extends Controller
             'community' => $community
         ]);
     }
-
 }
