@@ -106,7 +106,7 @@
                             @if ($communities->count() > 0)
                                 @if ($method === 'create')
                                     <div>
-                                        <x-native-select wire:model.defer="form.community_id" label="Comunidade *">
+                                        <x-native-select wire:model="form.community_id" label="Comunidade *">
                                             <option value="">Selecione</option>
                                             @foreach ($communities as $community)
                                                 <option value="{{ $community->id }}">{{ $community->name }}</option>
@@ -135,7 +135,9 @@
                     <div class="card-footer">
                         <div class="flex justify-between gap-x-4">
                             <x-button x-on:click="close" sm flat label="Cancelar" />
-                            <x-button type="submit" sm primary label="Salvar" />
+                            @if ($communities->count() === 0 || $form['community_id'])
+                                <x-button type="submit" sm primary label="Salvar" />
+                            @endif
                         </div>
                     </div>
                 </div>
