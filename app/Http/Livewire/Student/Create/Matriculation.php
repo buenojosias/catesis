@@ -42,12 +42,12 @@ class Matriculation extends Component
         try {
             $matriculation = $this->student->matriculations()->create([
                 'user_id' => auth()->user()->id,
-                'community_id' => $this->student->community_id,
                 'kinship_id' => $this->kinship,
                 'year' => $group->year,
             ]);
             $this->student->groups()->attach($group->id, [
                 'matriculation_id' => $matriculation->id,
+                'status' => 'Ativo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -68,8 +68,6 @@ class Matriculation extends Component
             DB::commit();
             $this->matriculation = $matriculation;
             $this->group = $group;
-            // $this->notification()->success($description = 'Matrícula concluída com sucesso.');
-            // $this->dispatchBrowserEvent('close', ['form' => false]);
             return redirect()->route('students.show', $this->student)->with('success','Cadastro concluído com sucesso.');
         } else {
             DB::rollback();
@@ -81,7 +79,7 @@ class Matriculation extends Component
     {
         $this->student = $student;
         $this->groups = Group::query()
-            ->where('community_id', $student->community_id)
+            // ->where('community_id', $student->community_id)
             ->where('finished', false)
             ->with('grade')
             ->get();

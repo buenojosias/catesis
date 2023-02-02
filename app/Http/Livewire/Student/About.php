@@ -11,6 +11,7 @@ class About extends Component
 {
     use Actions;
 
+    public $community;
     public $student;
     public $profile;
     public $group;
@@ -50,9 +51,11 @@ class About extends Component
         $this->health_problems = $this->profile->health_problems;
         $this->school = $this->profile->school;
         $this->grade = $student->grade;
-        $this->community = $student->community;
         $this->group = $this->student->groups()->where('finished', false)->where('year', date('Y'))->first();
         $this->catechists = $this->group->users ?? [];
+        if(auth()->user()->hasRole('admin')) {
+            $this->community = $student->community;
+        }
     }
 
     public function submitProfile()

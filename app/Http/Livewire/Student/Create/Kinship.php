@@ -63,7 +63,7 @@ class Kinship extends Component
                 $kinship->profile()->create(['profession'=>null]);
                 $contact = $kinship->contact()->create($validateContact);
             } else if($this->option === 'sync') {
-                $kinship = KinshipModel::find($this->ksid);
+                $kinship = KinshipModel::with('contact')->find($this->ksid);
                 $contact = $kinship->contact;
                 if(!$contact) {
                     $contact = $kinship->contact()->create([

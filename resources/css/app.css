@@ -23,7 +23,7 @@
     @apply grow py-1 my-0.5;
 }
 .card-header > .card-search {
-    @apply flex-1 py-1;
+    @apply grow sm:grow-0 sm:w-2/3 md:w-1/2 py-1;
 }
 .card-header > .card-tools {
     @apply ml-2 flex justify-end items-center;

@@ -13,7 +13,7 @@ class Profile extends Component
     use Actions;
 
     public $student;
-    public $community_id;
+    // public $community_id;
     public $name;
     public $birthday;
     public $gender;
@@ -41,13 +41,13 @@ class Profile extends Component
 
     public function mount(): void
     {
-        $this->community_id = Auth::user()->community_id;
+        // $this->community_id = Auth::user()->community_id;
     }
 
     public function submit()
     {
         $validateStudent = $this->validate([
-            'community_id' => 'required',
+            // 'community_id' => 'required',
             'name' => 'required|string|min:6|max:255',
             'birthday' => 'required|date|before:now',
         ]);

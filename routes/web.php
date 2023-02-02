@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
     Route::get('/catequizandos/{student}/{section?}', [StudentController::class, 'show'])->name('students.show');
 
+    Route::get('/familiares', [KinshipController::class, 'index'])->name('kinships.index');
     Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');
 
     Route::get('/pastorais/{list?}', App\Http\Livewire\Pastoral\Index::class)->name('pastorals.index');

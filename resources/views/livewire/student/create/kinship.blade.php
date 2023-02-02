@@ -122,7 +122,7 @@
                             <p>{{ $lives_together ? 'Sim' : 'Não' }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
+                    {{-- <div class="mt-4 md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
                         <div>
                             <h4>Telefone</h4>
                             <p>{{ $contact->phone }}</p>
@@ -143,7 +143,7 @@
                             <h4>Instagram</h4>
                             <p>{{ $contact->instagram }}</p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         @endif

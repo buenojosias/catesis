@@ -25,11 +25,13 @@
                             <p>{{ $encounter->method }}</p>
                         </div>
                     </div>
-                    <div>
-                        <h4>Tema abordado</h4>
-                        <p>{{ $encounter->theme->title }}</p>
-                    </div>
-                    @if($role === 'admin')
+                    @if ($encounter->theme)
+                        <div>
+                            <h4>Tema abordado</h4>
+                            <p>{{ $encounter->theme->title }}</p>
+                        </div>
+                    @endif
+                    @if ($role === 'admin')
                         <div class="mt-4">
                             <h4>Comunidade</h4>
                             <p>{{ $group->community->name }}</p>

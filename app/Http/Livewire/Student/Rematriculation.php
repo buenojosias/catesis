@@ -57,6 +57,7 @@ class Rematriculation extends Component
             ]);
             $this->student->groups()->attach($group->id, [
                 'matriculation_id' => $matriculation->id,
+                'status' => 'Ativo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
