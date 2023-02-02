@@ -30,14 +30,16 @@ class UserSeeder extends Seeder
             'email' => 'admin@smarcos.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(1);
+        //])->roles()->attach(2);
+        ])->assignRole('admin');
         User::create([
             'parish_id' => 2,
             'name' => 'Coordenador Paroquial São João Batista',
             'email' => 'admin@sjbatista.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(1);
+        //])->roles()->attach(2);
+        ])->assignRole('admin');
         User::create([
             'parish_id' => 1,
             'community_id' => 1,
@@ -45,7 +47,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@matriz.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 1,
             'community_id' => 2,
@@ -53,7 +56,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@beato.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 1,
             'community_id' => 3,
@@ -61,7 +65,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@misericordia.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 1,
             'community_id' => 4,
@@ -69,7 +74,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@perseveranca.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
 
         User::create([
             'parish_id' => 2,
@@ -78,7 +84,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@saojoao.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 2,
             'community_id' => 6,
@@ -86,7 +93,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@aparecida.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 2,
             'community_id' => 7,
@@ -94,7 +102,8 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@famila.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 2,
             'community_id' => 8,
@@ -102,14 +111,16 @@ class UserSeeder extends Seeder
             'email' => 'coordenador@sebastiao.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
         User::create([
             'parish_id' => 3,
             'name' => 'Coordenador da Paróquia São Jorge',
             'email' => 'coordenador@jorge.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(2);
+        //])->roles()->attach(3);
+        ])->assignRole('coordinator');
 
         User::create([
             'parish_id' => 1,
@@ -118,7 +129,8 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@matriz.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(3);
+        //])->roles()->attach(4);
+        ])->assignRole('secretary');
         User::create([
             'parish_id' => 1,
             'community_id' => 2,
@@ -126,7 +138,8 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@beato.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(3);
+        //])->roles()->attach(4);
+        ])->assignRole('secretary');
         User::create([
             'parish_id' => 1,
             'community_id' => 3,
@@ -134,7 +147,8 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@misericordia.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(3);
+        //])->roles()->attach(4);
+        ])->assignRole('secretary');
         User::create([
             'parish_id' => 1,
             'community_id' => 4,
@@ -142,7 +156,8 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@perseveranca.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(3);
+        //])->roles()->attach(4);
+        ])->assignRole('secretary');
 
         User::create([
             'parish_id' => 1,
@@ -151,7 +166,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@matriz.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 1,
             'community_id' => 2,
@@ -159,7 +175,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@beato.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 1,
             'community_id' => 3,
@@ -167,7 +184,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@misericordia.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 1,
             'community_id' => 4,
@@ -175,7 +193,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@perseveranca.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
 
         User::create([
             'parish_id' => 2,
@@ -184,7 +203,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@saojoao.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 2,
             'community_id' => 6,
@@ -192,7 +212,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@aparecida.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 2,
             'community_id' => 7,
@@ -200,7 +221,8 @@ class UserSeeder extends Seeder
             'email' => 'catequista@famila.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 2,
             'community_id' => 8,
@@ -208,14 +230,16 @@ class UserSeeder extends Seeder
             'email' => 'catequista@sebastiao.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
         User::create([
             'parish_id' => 3,
             'name' => 'Catequista da São Jorge',
             'email' => 'catequista@jorge.com',
             'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
-        ])->roles()->attach(4);
+        //])->roles()->attach(5);
+        ])->assignRole('catechist');
 
         foreach(Community::all() as $community) {
             User::factory(10)->hasProfile()->create([
@@ -232,7 +256,8 @@ class UserSeeder extends Seeder
 
         $users = User::where('id', '>', 24)->get();
         foreach ($users as $user) {
-            $user->roles()->attach(4);
+            // $user->roles()->attach(5);
+            $user->assignRole('catechist');
         }
     }
 }

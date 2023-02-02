@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             EncounterSeeder::class,
             CommentSeeder::class,
             PastoralSeeder::class,
-            EventSeeder::class,
+            // EventSeeder::class,
         ]);
     }
 }

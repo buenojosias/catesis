@@ -15,30 +15,31 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        // attach(1) = coordenador paroquial
-        // attach(2) = coordenador de comunidade
-        // attach(3) = secretário
-        // attach(4) = catequista
+        // attach(1) = super admin
+        // attach(2) = coordenador paroquial
+        // attach(3) = coordenador de comunidade
+        // attach(4) = secretário
+        // attach(5) = catequista
 
-        Permission::create(['name' => 'communities_show', 'label' => 'Ver comunidades'])->roles()->attach([1]);
-        Permission::create(['name' => 'community_edit', 'label' => 'Editar comunidade'])->roles()->attach([1,2]);
+        Permission::create(['name' => 'communities_show', 'label' => 'Ver comunidades'])->roles()->attach([2]);
+        Permission::create(['name' => 'community_edit', 'label' => 'Editar comunidade'])->roles()->attach([2,3]);
 
-        Permission::create(['name' => 'user_read', 'label' => 'Ver usuários'])->roles()->attach([1,2]);
-        Permission::create(['name' => 'user_edit', 'label' => 'Editar usuários'])->roles()->attach([1,2]);
-        Permission::create(['name' => 'user_create', 'label' => 'Cadastrar usuário'])->roles()->attach([1,2]);
+        Permission::create(['name' => 'user_read', 'label' => 'Ver usuários'])->roles()->attach([2,3]);
+        Permission::create(['name' => 'user_edit', 'label' => 'Editar usuários'])->roles()->attach([2,3]);
+        Permission::create(['name' => 'user_create', 'label' => 'Cadastrar usuário'])->roles()->attach([2,3]);
 
-        Permission::create(['name' => 'grade_edit', 'label' => 'Gerenciar etapas'])->roles()->attach([1]);
-        Permission::create(['name' => 'group_create', 'label' => 'Criar grupos'])->roles()->attach([2]);
-        Permission::create(['name' => 'group_edit', 'label' => 'Editar grupos'])->roles()->attach([1,2]);
-        Permission::create(['name' => 'attendance_edit', 'label' => 'Alterar frequência'])->roles()->attach([1,2]);
+        Permission::create(['name' => 'grade_edit', 'label' => 'Gerenciar etapas'])->roles()->attach([2]);
+        Permission::create(['name' => 'group_create', 'label' => 'Criar grupos'])->roles()->attach([3]);
+        Permission::create(['name' => 'group_edit', 'label' => 'Editar grupos'])->roles()->attach([2,3]);
+        Permission::create(['name' => 'attendance_edit', 'label' => 'Alterar frequência'])->roles()->attach([2,3]);
 
         Permission::create(['name' => 'student_create', 'label' => 'Cadastrar catequizando'])->roles()->attach([2,3]);
-        Permission::create(['name' => 'student_edit', 'label' => 'Editar catequizando'])->roles()->attach([1,2,3]);
+        Permission::create(['name' => 'student_edit', 'label' => 'Editar catequizando'])->roles()->attach([2,3,4]);
 
-        Permission::create(['name' => 'catechist_create', 'label' => 'Cadastrar catequistas'])->roles()->attach([1,2]);
-        Permission::create(['name' => 'catechist_read', 'label' => 'Ver catequistas'])->roles()->attach([1,2,3,4]);
-        Permission::create(['name' => 'catechist_edit', 'label' => 'Editar catequistas'])->roles()->attach([1,2]);
+        Permission::create(['name' => 'catechist_create', 'label' => 'Cadastrar catequistas'])->roles()->attach([2,3]);
+        Permission::create(['name' => 'catechist_read', 'label' => 'Ver catequistas'])->roles()->attach([2,3,4,5]);
+        Permission::create(['name' => 'catechist_edit', 'label' => 'Editar catequistas'])->roles()->attach([2,3]);
 
-        Permission::create(['name' => 'theme_edit', 'label' => 'Editar temas'])->roles()->attach([1]);
+        Permission::create(['name' => 'theme_edit', 'label' => 'Editar temas'])->roles()->attach([2]);
     }
 }
