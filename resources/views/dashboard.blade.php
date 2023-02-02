@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="infobox-wrapper">
-        <x-infobox value="{{ $students_count }}" label="Catequizandos ativos" href="{{ route('students.index') }}"
+        <x-infobox value="{{ $students_count }}" label="{{ $role === 'catechist' ? 'Seus catequizandos ativos' : 'Catequizandos ativos'}}" href="{{ route('students.index') }}"
             icon="children" />
         <x-infobox value="{{ $groups_count }}" label="Grupos ativos" href="{{ route('groups.index') }}"
             icon="people-group" />

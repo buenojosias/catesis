@@ -127,9 +127,10 @@
                                     required />
                             </div>
                             <div class="sm:col-span-2">
-                                <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
+                                <x-input type="date" wire:model.defer="birthday" label="Data de nascimento *" />
+                                {{-- <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
                                     wire:model.defer="birthday" without-tips without-time without-timezone :min="now()->subYears(18)"
-                                    :max="now()->subYears(5)" required />
+                                    :max="now()->subYears(5)" required /> --}}
                             </div>
                             <div class="sm:col-span-2">
                                 <x-native-select label="Sexo *" wire:model.defer="gender" required>
@@ -148,9 +149,10 @@
                             </div>
                             @if ($has_baptism)
                                 <div class="sm:col-span-2">
-                                    <x-datetime-picker label="Data do batismo" placeholder="Data do batismo"
-                                        wire:model.defer="baptism_date" without-tips without-time without-timezone
-                                        :min="now()->subYears(18)" :max="now()" />
+                                    <x-input type="date" wire:model.defer="baptism_date" label="Data do batismo" />
+                                    {{-- <x-datetime-picker label="Data do batismo" placeholder="Data do batismo"
+                                    wire:model.defer="baptism_date" without-tips without-time without-timezone
+                                    :min="now()->subYears(18)" :max="now()" /> --}}
                                 </div>
                                 <div class="sm:col-span-4">
                                     <x-input label="Onde foi batizado(a)" placeholder="Nome da igreja"

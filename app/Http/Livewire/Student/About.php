@@ -41,11 +41,11 @@ class About extends Component
         // $this->age = Carbon::parse($student->birthday)->age;
         $this->profile = $student->profile;
         $this->name = $this->student->name;
-        $this->birthday = $this->student->birthday;
+        $this->birthday = Carbon::parse($this->student->birthday)->format('Y-m-d');
         $this->gender = $this->profile->gender;
         $this->naturalness = $this->profile->naturalness;
         $this->has_baptism = $this->profile->has_baptism;
-        $this->baptism_date = $this->profile->baptism_date;
+        $this->baptism_date = Carbon::parse($this->profile->baptism_date)->format('Y-m-d');
         $this->baptism_church = $this->profile->baptism_church;
         $this->married_parents = $this->profile->married_parents;
         $this->health_problems = $this->profile->health_problems;

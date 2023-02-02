@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Group;
 
+use App\Models\Encounter;
 use App\Models\User;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -23,6 +24,7 @@ class About extends Component
     public $showCatechistsModal;
     public $students_count;
     public $weekdays;
+    public $currentEncounter;
 
     public function openFormModal()
     {
@@ -106,6 +108,9 @@ class About extends Component
         $this->students_count = $group->active_students()->count();
         if($this->role === 'admin') {
             $this->community = $group->community;
+        }
+        if($this->role === 'catechist' && $this->catechists->contains(auth()->user())) {
+            //
         }
         $this->weekdays = $weekdays;
         $this->getCurrentEncounter();

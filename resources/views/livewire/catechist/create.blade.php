@@ -13,8 +13,9 @@
                             <x-input wire:model.defer="name" label="Nome" placeholder="Informe o nome completo" />
                         </div>
                         <div class="sm:col-span-2">
-                            <x-datetime-picker without-time without-tips without-timezone wire:model.defer="birthday"
-                                :max="now()->subYears(13)" label="Data de nascimento" placeholder="Selecione" />
+                            <x-input type="date" wire:model.defer="birthday" label="Data de nascimento *" />
+                            {{-- <x-datetime-picker without-time without-tips without-timezone wire:model.defer="birthday"
+                                :max="now()->subYears(13)" label="Data de nascimento" placeholder="Selecione" /> --}}
                         </div>
                         <div class="sm:col-span-2">
                             <x-native-select wire:model.defer="marital_status" label="Estado civil">

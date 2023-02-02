@@ -77,9 +77,10 @@
                                     required />
                             </div>
                             <div>
-                                <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
+                                <x-input type="date" wire:model.defer="birthday" label="Data de nascimento *" />
+                                {{-- <x-datetime-picker label="Data de nascimento *" placeholder="Data de nascimento"
                                     wire:model.defer="birthday" without-tips without-time without-timezone :min="now()->subYears(90)"
-                                    :max="now()->subYears(2)" required />
+                                    :max="now()->subYears(2)" required /> --}}
                             </div>
                             <div>
                                 <x-input label="Profissão" placeholder="Profissão" wire:model.defer="profession" />

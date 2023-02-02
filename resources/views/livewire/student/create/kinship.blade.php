@@ -49,8 +49,9 @@
                                 <x-input wire:model.defer="name" label="Nome *" placeholder="Nome completo *" required />
                             </div>
                             <div class="sm:col-span-2">
-                                <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
-                                    wire:model.defer="birthday" without-tips without-time :max="now()->subYears(2)" required />
+                                <x-input type="date" wire:model.defer="birthday" label="Data de nascimento *" />
+                                {{-- <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
+                                    wire:model.defer="birthday" without-tips without-time :max="now()->subYears(2)" required /> --}}
                             </div>
                         @endif
                         @if ($option)

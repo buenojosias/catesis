@@ -14,6 +14,7 @@ class Student extends Model
     protected $fillable = ['grade_id','name','birthday','status'];
     protected $guarded = ['id'];
     protected $dates = ['birthday'];
+    // protected $casts = [ 'birthday' => 'date:Y-m-d' ];
 
     public function address() {
         return $this->hasOne(StudentAddress::class);

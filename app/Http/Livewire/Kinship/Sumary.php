@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Kinship;
 
-use App\Models\Student;
+use Carbon\Carbon;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -37,7 +37,7 @@ class Sumary extends Component
         $this->kinship = $kinship;
         $this->profile = $kinship->profile;
         $this->name = $kinship->name;
-        $this->birthday = $kinship->birthday;
+        $this->birthday = Carbon::parse($this->kinship->birthday)->format('Y-m-d');
         $this->profession = $this->profile->profession;
         $this->marital_status = $this->profile->marital_status;
         $this->religion = $this->profile->religion;
