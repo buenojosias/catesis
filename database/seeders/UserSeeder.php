@@ -25,6 +25,13 @@ class UserSeeder extends Seeder
         User::query()->truncate();
 
         User::create([
+            'name' => 'Administrador Master',
+            'email' => 'admin@catesis.com',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+        //])->roles()->attach(1);
+        ])->assignRole('super-admin');
+        User::create([
             'parish_id' => 1,
             'name' => 'Coordenador Paroquial São Marcos',
             'email' => 'admin@smarcos.com',

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
@@ -22,13 +23,17 @@ class EventFactory extends Factory
 
     public function definition()
     {
-        $starts_at = $this->faker->dateTimeBetween($startDate = '- 2 weeks', $endDate = '+3 months', $timezone = null);
-        $ends_at = \Carbon\Carbon::parse($starts_at)->addDays(1);
+        $start_date = $this->faker->dateTimeBetween($format = 'Y-m-d', $startDate = '- 2 weeks', $endDate = '+3 months');
+        $start_time = rand(8, 20) . ':' . Arr::random(['00', '15', '30', '45']) . ':00';
+        $end_date = $this->faker->randomElement([null,null,null,\Carbon\Carbon::parse($start_date)->addDays(1)->format('Y-m-d')]);
+        if($end_date && $start_time) { $end_time = rand(8, 20) . ':' . Arr::random(['00', '15', '30', '45']) . ':00'; }
         return [
             'title' => $this->faker->sentence($nbWords = 3, $variableNbWords = true),
             'description' => $this->faker->text($maxNbChars = 160),
-            'starts_at' => $starts_at,
-            'ends_at' => $this->faker->randomElement([null,null,$ends_at]),
+            'start_date' => $start_date,
+            'start_time' => $start_time,
+            'end_date' => $end_date,
+            'end_time' => $end_time ?? null,
         ];
     }
 }

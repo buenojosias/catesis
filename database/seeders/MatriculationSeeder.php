@@ -21,19 +21,19 @@ class MatriculationSeeder extends Seeder
 
         $students = Student::whereHas('kinships')->get();
         $all_groups = Group::all();
-        $all_users = User::whereBetween('id', [2, 15])->get();
+        $all_users = User::whereBetween('id', [3, 15])->get();
         $year = 2023;
 
         foreach($students as $student) {
             if($student->community_id) {
                 $groups = $all_groups->where('community_id', $student->community_id)->where('grade_id', $student->grade_id)->where('year', $year)->toArray();
-                $users = $all_users->where('community_id', $student->community_id)->toArray();//->orderByRaw('RAND()')->first();
+                $users = $all_users->where('community_id', $student->community_id)->toArray();
             } else {
                 $groups = $all_groups->where('parish_id', $student->parish_id)->where('grade_id', $student->grade_id)->where('year', $year)->toArray();
-                $users = $all_users->where('parish_id', $student->parish_id)->toArray();//->orderByRaw('RAND()')->first();
+                $users = $all_users->where('parish_id', $student->parish_id)->toArray();
             }
-            $group = Arr::random($groups);//->orderByRaw('RAND()')->first();
-            $user = Arr::random($users);//->orderByRaw('RAND()')->first();
+            $group = Arr::random($groups);
+            $user = Arr::random($users);
             $kinship = $student->kinships->first();
             if($group) {
                 if($student->grade_id > 1) {

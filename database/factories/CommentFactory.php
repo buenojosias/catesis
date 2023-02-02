@@ -22,8 +22,6 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => rand(1,22),
-            'student_id' => rand(1,200),
             'description' => $this->faker->realText($maxNbChars = 200, $indexSize = 1),
         ];
     }

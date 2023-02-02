@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('parish_id')->constrained();
             $table->foreignId('community_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('grade_id')->nullable()->constrained();
             $table->string('name', 128);
             $table->date('birthday');
