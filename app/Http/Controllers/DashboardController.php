@@ -33,17 +33,17 @@ class DashboardController extends Controller
         $catechists_count = User::query()->count();
         $groups_count = Group::query()->where('finished', false)->count();
         $events = Event::query()
-            ->whereDate('starts_at', '>=', date('Y-m-d'))
-            ->orderBy('starts_at')
+            ->whereDate('start_date', '>=', date('Y-m-d'))
+            ->orderBy('start_date', 'asc')->orderBy('start_time', 'asc')
             ->get();
 
         foreach ($events as $event) {
-            if ($event->starts_at->format('Y-m-d') == Carbon::parse(now())->format('Y-m-d')) {
+            if ($event->start_date->format('Y-m-d') == Carbon::parse(now())->format('Y-m-d')) {
                 $event['date'] = 'Hoje';
-            } else if ($event->starts_at->format('Y-m-d') == Carbon::parse(now()->addDay())->format('Y-m-d')) {
+            } else if ($event->start_date->format('Y-m-d') == Carbon::parse(now()->addDay())->format('Y-m-d')) {
                 $event['date'] = 'Amanhã';
             } else {
-                $event['date'] = Carbon::parse($event->starts_at)->format('d/m');
+                $event['date'] = Carbon::parse($event->start_date)->format('d/m');
             }
         }
 

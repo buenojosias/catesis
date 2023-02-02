@@ -12,15 +12,21 @@
                     <ul>
                         <li class="py-1 px-4">
                             <h4 class="text-sm font-medium text-gray-600">Data
-                                {{ $eventData['ends_at'] ? 'de início' : '' }}</h4>
+                                {{ $eventData['start_time'] ? 'e hora' : '' }}
+                                {{ $eventData['end_date'] ? 'de início' : '' }}
+                            </h4>
                             <p class="font-medium text-gray-900">
-                                {{ \Carbon\Carbon::parse($eventData['starts_at'])->format('d/m/Y - H:i') }}</p>
+                                {{ \Carbon\Carbon::parse($eventData['start_date'])->format('d/m/Y') }}
+                                {{ $eventData['start_time'] ? ' - '.\Carbon\Carbon::createFromFormat('H:i:s', $eventData['start_time'])->format('H\hi') : '' }}
+                            </p>
                         </li>
-                        @if ($eventData['ends_at'])
+                        @if ($eventData['end_date'])
                             <li class="py-1 px-4">
                                 <h4 class="text-sm font-medium text-gray-600">Data de encerramento</h4>
                                 <p class="font-medium text-gray-900">
-                                    {{ \Carbon\Carbon::parse($eventData['ends_at'])->format('d/m/Y - H:i') }}</p>
+                                    {{ \Carbon\Carbon::parse($eventData['end_date'])->format('d/m/Y') }}
+                                    {{ $eventData['end_time'] ? ' - '.\Carbon\Carbon::createFromFormat('H:i:s', $eventData['end_time'])->format('H\hi') : '' }}
+                                </p>
                             </li>
                         @endif
                         <li class="py-1 px-4">

@@ -2,6 +2,7 @@
     <x-notifications />
     <x-dialog />
     <div class="card">
+        {{-- @dump($events) --}}
         {{-- <div class="card-header">
             <h3 class="card-title">Próximos eventos</h3>
         </div> --}}
@@ -55,7 +56,8 @@
                         <p class="mt-2 pb-2 border-b text-sm font-semibold text-gray-600">
                             Exibindo eventos do dia
                             {{ $currentDay . '/' . $currentMonth . '/' . $currentYear }}
-                            <span wire:click="selectDay({{ null }})" class="text-sm text-sky-600 cursor-pointer">[limpar
+                            <span wire:click="selectDay({{ null }})"
+                                class="text-sm text-sky-600 cursor-pointer">[limpar
                                 filtro]</span>
                         </p>
                     @endif
@@ -66,8 +68,20 @@
                                     <p class="font-semibold text-gray-900">{{ $event->title }}</p>
                                     <p class="text-gray-700 text-sm font-semibold">
                                         <i class="fa fa-calendar-alt text-xs text-gray-500 mr-0.5"></i>
-                                        {{ strtolower($event->starts_at->format('d/m h:i')) }}
-                                        {{ $event->ends_at ? 'a ' . strtolower($event->ends_at->format('d/m h:i')) : '' }}
+                                        {{ strtolower($event->start_date->format('d/m')) }}
+                                        @if ($event->start_time)
+                                            <i class="fa fa-clock text-xs text-gray-500 mr-0.5 ml-2"></i>
+                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->start_time)->format('h:i') }}
+                                        @endif
+                                        @if ($event->end_date)
+                                            <span class="px-2">a</span>
+                                            <i class="fa fa-calendar-alt text-xs text-gray-500 mr-0.5"></i>
+                                            {{ strtolower($event->end_date->format('d/m')) }}
+                                            @if ($event->start_time)
+                                                <i class="fa fa-clock text-xs text-gray-500 mr-0.5 ml-2"></i>
+                                                {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->end_time)->format('h:i') }}
+                                            @endif
+                                        @endif
                                     </p>
                                 </div>
                                 @if (
@@ -77,8 +91,8 @@
                                         <x-dropdown class="px-4">
                                             <x-dropdown.item wire:click="openFormModal('edit', {{ $event }})"
                                                 icon="pencil-alt" label="Editar" />
-                                            <x-dropdown.item wire:click="removeEvent({{ $event }})" icon="trash"
-                                                label="Remover" />
+                                            <x-dropdown.item wire:click="removeEvent({{ $event }})"
+                                                icon="trash" label="Remover" />
                                         </x-dropdown>
                                     </div>
                                 @endif
@@ -92,7 +106,6 @@
         </div>
     </div>
     @livewire('event.show-modal')
-    {{-- @can('group_edit') --}}
     @if ($showFormModal)
         <x-modal wire:model.defer="showFormModal" max-width="md">
             <form wire:submit.prevent="submitEvent">
@@ -108,13 +121,19 @@
                                 <x-input wire:model.defer="form.title" label="Título do evento" />
                             </div>
                             <div>
-                                <x-datetime-picker wire:model.defer="form.starts_at" label="Início"
-                                    placeholder="Data e hora" time-format="24" :min="now()" />
+                                <x-datetime-picker wire:model.defer="form.start_date" label="Data de início" without-time :min="now()" />
                             </div>
                             <div>
-                                <x-datetime-picker wire:model.defer="form.ends_at" label="Término"
-                                    placeholder="Data e hora" corner-hint="Opcional" time-format="24"
-                                    :min="now()" />
+                                <x-time-picker wire:model.defer="form.start_time" label="Horário (opcional)" format="24" interval="30" />
+                            </div>
+                            <div class="col-span-2 text-sm">
+                                Se o evento durar mais de um dia, informe a data de término.
+                            </div>
+                            <div>
+                                <x-datetime-picker wire:model.defer="form.end_date" label="Data de término" without-time :min="now()" />
+                            </div>
+                            <div>
+                                <x-time-picker wire:model.defer="form.end_time" label="Horário (opcional)" format="24" interval="30" />
                             </div>
                             <div class="col-span-2">
                                 <x-textarea wire:model.defer="form.description" label="Detalhes do evento" />
@@ -131,5 +150,4 @@
             </form>
         </x-modal>
     @endif
-    {{-- @endcan --}}
 </div>

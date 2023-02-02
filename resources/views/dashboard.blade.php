@@ -57,7 +57,7 @@
                             <li class="py-2 px-4 border-b">
                                 <h4 class="text-sm font-medium text-gray-600 grow">
                                     {{ $event->date }}
-                                    {{ $event->ends_at ? ' a ' . $event->ends_at->format('d/m') : '' }}
+                                    {{ $event->end_date ? ' a ' . $event->end_date->format('d/m') : '' }}
                                 </h4>
                                 <p class="font-medium text-gray-900">{{ $event->title }}</p>
                             </li>

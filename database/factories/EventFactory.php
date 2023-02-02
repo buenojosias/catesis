@@ -23,7 +23,7 @@ class EventFactory extends Factory
 
     public function definition()
     {
-        $start_date = $this->faker->dateTimeBetween($format = 'Y-m-d', $startDate = '- 2 weeks', $endDate = '+3 months');
+        $start_date = $this->faker->dateTimeBetween($startDate = '- 2 weeks', $endDate = '+3 months');
         $start_time = rand(8, 20) . ':' . Arr::random(['00', '15', '30', '45']) . ':00';
         $end_date = $this->faker->randomElement([null,null,null,\Carbon\Carbon::parse($start_date)->addDays(1)->format('Y-m-d')]);
         if($end_date && $start_time) { $end_time = rand(8, 20) . ':' . Arr::random(['00', '15', '30', '45']) . ':00'; }

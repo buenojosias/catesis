@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('model_has_roles')->truncate();
-        DB::table('user_profiles')->truncate();
-        User::query()->truncate();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // DB::table('model_has_roles')->truncate();
+        // DB::table('user_profiles')->truncate();
+        // User::query()->truncate();
 
         User::create([
             'name' => 'Administrador Master',

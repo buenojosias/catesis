@@ -35,9 +35,11 @@ class Lista extends Component
     protected $validationAttributes = [
         'form.title' => 'Título',
         'form.description' => 'Descrição',
-        'form.starts_at' => 'Data e horário de iníncio',
-        'form.ends_at' => 'Data e horário de término',
-    ];
+        'form.start_date' => 'Data de início',
+        'form.start_time' => 'Horário de início',
+        'form.end_date' => 'Data de término',
+        'form.end_time' => 'Horário de término',
+];
 
     public function mount($currentMonth = null, $currentYear = null)
     {
@@ -94,14 +96,14 @@ class Lista extends Component
     public function getEvents()
     {
         $events = Event::query()
-            ->whereMonth('starts_at', $this->currentMonth)
-            ->whereYear('starts_at', $this->currentYear)
+            ->whereMonth('start_date', $this->currentMonth)
+            ->whereYear('start_date', $this->currentYear)
             ->with('user')
-            ->orderBy('starts_at', 'asc')
+            ->orderBy('start_date', 'asc')->orderBy('start_time', 'asc')
             ->get();
 
         foreach($events as $event) {
-            $event['day'] = intval(Carbon::parse($event->starts_at)->format('d'));
+            $event['day'] = intval(Carbon::parse($event->start_date)->format('d'));
         }
         $this->events = $events;
     }
@@ -116,8 +118,10 @@ class Lista extends Component
         $this->method = $method;
         $this->form = $event;
         if ($method === 'create') {
-            $this->form['starts_at'] = null;
-            $this->form['ends_at'] = null;
+            $this->form['start_date'] = null;
+            $this->form['end_date'] = null;
+            $this->form['start_time'] = null;
+            $this->form['end_time'] = null;
         }
         $this->showFormModal = true;
     }
@@ -127,8 +131,10 @@ class Lista extends Component
         $validate = $this->validate([
             'form.title' => 'required|string|max:255',
             'form.description' => 'required|string',
-            'form.starts_at' => 'required|date|after:now',
-            'form.ends_at' => 'nullable|date|after:form.starts_at',
+            'form.start_date' => 'required|date|after:now',
+            'form.start_time' => 'nullable|date_format:H:i',
+            'form.end_date' => 'nullable|date|after:form.start_date',
+            'form.end_time' => 'nullable|date_format:H:i',
             ]);
         if ($this->method === 'create') {
             try {
@@ -155,7 +161,7 @@ class Lista extends Component
     {
         $this->dialog()->confirm([
             'title' => 'Remover evento',
-            'description' => 'Tem certeza que deseja remover o evento'.$event['title'].', do dia '.\Carbon\Carbon::parse($event['starts_at'])->format('d/m/Y').'?',
+            'description' => 'Tem certeza que deseja remover o evento'.$event['title'].', do dia '.\Carbon\Carbon::parse($event['start_date'])->format('d/m/Y').'?',
             'method' => 'doRemoveEvent',
             'params' => ['event' => $event['id']],
             'acceptLabel' => 'Confirmar',
