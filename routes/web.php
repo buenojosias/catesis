@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/etapas/{grade}', [GradeController::class, 'show'])->name('grades.show');
 
     Route::get('/grupos', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/grupos/{group}/imprimir', [GroupController::class, 'printCard'])->name('group.print');
     Route::get(
         '/grupos/{group}/chamada',
         function ($group) {
@@ -56,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
+    Route::get('/catequizandos/{student}/imprimir', [StudentController::class, 'printCard'])->name('student.print');
     Route::get('/catequizandos/{student}/{section?}', [StudentController::class, 'show'])->name('students.show');
 
     Route::get('/familiares', [KinshipController::class, 'index'])->name('kinships.index');

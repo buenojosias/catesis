@@ -77,7 +77,7 @@
                 @endhasrole
                 <div>
                     <h4>Status</h4>
-                    <p>{{ ucfirst($student->status) }}</p>
+                    <p>{{ $student->status }}</p>
                 </div>
                 <div>
                     <h4>Etapa atual</h4>
@@ -108,7 +108,7 @@
                 <a href="{{ route('students.show', [$student, 'comentarios']) }}" class="block p-2 border-t cursor-pointer">Comentários</a>
             </div>
             <div class="text-center font-semibold">
-                <a class="block p-2 border-t cursor-pointer"></a>
+                <a href="{{ route('student.print', $student) }}" target="_blank" class="block p-2 border-t cursor-pointer">Imprimir ficha</a>
             </div>
         </div>
     </div>

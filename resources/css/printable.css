@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #CCC;
+    font-family: "Arial";
+}
+
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    @apply bg-white rounded shadow;
+}
+
+.subpage {
+    height: 256mm;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+    }
+}
+
+.header {
+    font-size: 10pt;
+    @apply flex mb-4 text-center uppercase font-bold leading-tight;
+}
+
+h1 {
+    @apply my-4 text-center font-bold;
+    font-size: 12pt;
+}
+
+h2 {
+    @apply mt-2 py-0.5 bg-gray-100 text-center font-bold;
+    font-size: 11pt;
+}
+
+.infos {
+    @apply grid grid-cols-4 mb-4 gap-2 divide-x divide-y;
+}
+
+.infos > div {
+    @apply p-1;
+}
+
+.label {
+    @apply block;
+    font-size: 9pt;
+}
+
+.value {
+    @apply block font-bold;
+    font-size: 10pt;
+}
+
+table tr {
+    @apply py-3;
+}
+
+table td {
+    @apply px-2;
+}

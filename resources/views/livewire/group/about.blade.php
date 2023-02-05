@@ -60,7 +60,7 @@
         <div>
             <ul class="space-y-2">
                 <li>
-                    <x-button md white icon="printer" label="Imprimir ficha" class="w-full shadow" />
+                    <x-button href="{{ route('group.print', $group) }}" target="_blanck" md white icon="printer" label="Imprimir ficha" class="w-full shadow" />
                 </li>
                 <li>
                     <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" md white

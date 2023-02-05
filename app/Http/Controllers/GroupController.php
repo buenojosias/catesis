@@ -20,7 +20,6 @@ class GroupController extends Controller
 
     public function show(Group $group, $section = null)
     {
-        // abort_unless(auth()->user()->hasAnyRole(['admin','coordinator']) or $group->community_id === auth()->user()->community_id, 403);
         $group->load('grade');
         return view('groups.show', [
             'group' => $group,
@@ -33,17 +32,20 @@ class GroupController extends Controller
     {
         $role = session('role');
         $community_id = session('community_id');
-
-        // abort_unless(
-        //     $role === 'admin' ||
-        //     ($group->community_id === $community_id && ($role === 'coordinator' || $role === 'secretary')) ||
-        //     $group->users->contains(auth()->user()),
-        // 403);
         $encounter = $group->encounters()->with('theme')->findOrFail($encounter_id);
         return view('livewire.group.encounter', [
             'role' => $role,
             'group' => $group,
             'encounter' => $encounter,
         ]);
+    }
+
+    public function printCard(Group $group)
+    {
+        $weekdays = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+        $group->load(['grade','community','parish']);
+        $catechists = $group->users;
+        $students = $group->students()->orderBy('name', 'asc')->get();
+        return view('printable.group-card', compact(['weekdays','group','catechists','students']));
     }
 }
