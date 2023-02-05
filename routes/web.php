@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');
+    Route::get('/catequizandos/{student}/transferencia-{transfer}', [StudentController::class, 'printTransfer'])->name('student.transfer.print');
     Route::get('/catequizandos/{student}/imprimir', [StudentController::class, 'printCard'])->name('student.print');
     Route::get('/catequizandos/{student}/{section?}', [StudentController::class, 'show'])->name('students.show');
 

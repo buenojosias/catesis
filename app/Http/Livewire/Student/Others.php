@@ -11,11 +11,27 @@ class Others extends Component
 
     public $student;
     public $status;
+    public $transfer;
+    public $transferModal;
+
+    protected $listeners = [
+        'emitCloseModal',
+    ];
+
+    public function emitCloseModal()
+    {
+        $this->transferModal = false;
+        $this->student['status'] = 'Transferido';
+    }
+
 
     public function mount($student)
     {
         $this->student = $student;
         $this->status = $this->student->status;
+        if($student->status === 'Transferido') {
+            $this->transfer = $student->transfer()->first();
+        }
     }
 
     public function changeStatus(): void
@@ -47,12 +63,16 @@ class Others extends Component
         $currentGroup = $this->student->groups()->where('finished', false)->wherePivot('status', 'Ativo')->first();
         if (!$currentGroup)
             return;
-        $newStatusArray = ['Ativo' => 'Ativo', 'Desistente' => 'Removido', 'Transferido' => 'Transferido', 'Crismado' => 'Aprovado'];
+        $newStatusArray = ['Ativo' => 'Ativo', 'Desistente' => 'Removido', 'Crismado' => 'Aprovado'];
         try {
             $this->student->groups()->updateExistingPivot($currentGroup->id, ['status' => $newStatusArray[$newStatus]]);
         } catch (\Throwable $th) {
             dd($th);
         }
+    }
+
+    public function openTransferModal() {
+        $this->transferModal = true;
     }
 
     public function render()

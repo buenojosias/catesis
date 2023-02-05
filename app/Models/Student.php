@@ -63,4 +63,8 @@ class Student extends Model
     public function profile() {
         return $this->hasOne(StudentProfile::class);
     }
+
+    public function transfer() {
+        return $this->hasMany(Transfer::class);
+    }
 }

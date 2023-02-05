@@ -115,7 +115,7 @@
                 <p class="mt-2">Curitiba, {{ date('d') }} de {{ $monthLabels[intval(date('m'))] }} de {{ date('Y') }}.</p>
             </div>
 
-            <div class="mt-16 grid grid-cols-2 gap-8 text-center text-[10pt] leading-tight">
+            <div class="mt-16 grid grid-cols-2 gap-10 text-center text-[10pt] leading-tight">
                 <div class="border-t border-black pt-1">
                     {{ $user->name }}<br>
                     {{ $user->roles[0]->label }}

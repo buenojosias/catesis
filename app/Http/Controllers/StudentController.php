@@ -33,13 +33,12 @@ class StudentController extends Controller
         return view('printable.student-card', compact(['user','parish','community','student','enroller','monthLabels']));
     }
 
-    public function create()
+    public function printTransfer(Student $student, $transfer)
     {
-        return view('students.create');
-    }
-
-    public function delete()
-    {
-        //
+        $monthLabels = array('0', 'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'junho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro');
+        $transfer = $student->transfer()->with(['parish','community','user','kinship'])->findOrFail($transfer);
+        $transfer->user->load('roles');
+        $groups = $student->groups()->with('grade','users')->get();
+        return view('printable.student-transfer', compact(['student','transfer','groups','monthLabels']));
     }
 }

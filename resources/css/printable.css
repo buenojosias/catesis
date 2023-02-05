@@ -44,12 +44,12 @@ body {
 
 h1 {
     @apply my-4 text-center font-bold;
-    font-size: 12pt;
+    font-size: 14pt;
 }
 
 h2 {
     @apply mt-2 py-0.5 bg-gray-100 text-center font-bold;
-    font-size: 11pt;
+    font-size: 12pt;
 }
 
 .infos {
@@ -74,6 +74,6 @@ table tr {
     @apply py-3;
 }
 
-table td {
+table td, table th {
     @apply px-2;
 }
