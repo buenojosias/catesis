@@ -13,6 +13,16 @@ class Community extends Model
     protected $fillable = ['name'];
     protected $guarded = ['id'];
 
+    public function detail()
+    {
+        return $this->morphOne(ChurchDetail::class, 'detailable');
+    }
+
+    public function contact()
+    {
+        return $this->morphOne(Contact::class, 'contactable');
+    }
+
     public function active_students()
     {
         return $this->hasMany(Student::class)->where(function ($q) {

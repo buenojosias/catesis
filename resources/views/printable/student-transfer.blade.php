@@ -11,7 +11,7 @@
                         {{ $transfer->community->name }}<br>
                     @endif
                     PASTORAL CATEQUÉTICA<br>
-                    <span class="text-red">BAIRRO - CIDADE - PR</span>
+                    {{ $transfer->community->detail->district ?? $transfer->parish->detail->district }} - {{ $transfer->community->detail->city ?? $transfer->parish->detail->city }} - PR
                 </div>
             </div>
             <h1 class="mt-10">TRANSFERÊNCIA</h1>

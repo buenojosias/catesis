@@ -11,7 +11,7 @@
                         {{ $group->community->name }}<br>
                     @endif
                     PASTORAL CATEQUÉTICA<br>
-                    <span class="text-red">BAIRRO - CIDADE - PR</span>
+                    {{ $group->community->detail->district ?? $group->parish->detail->district }} - {{ $group->community->detail->city ?? $group->parish->detail->city }} - PR
                 </div>
             </div>
             <h1>FICHA DO GRUPO</h1>

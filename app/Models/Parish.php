@@ -8,6 +8,15 @@ class Parish extends Model
 {
     protected $fillable = ['name', 'tenancy_type'];
 
+    public function detail()
+    {
+        return $this->morphOne(ChurchDetail::class, 'detailable');
+    }
+
+    public function contact() {
+        return $this->morphOne(Contact::class, 'contactable');
+    }
+
     public function active_students() {
         return $this->hasMany(Student::class)->where(function($q) {
             $q->where('status', 'Ativo')->get();
