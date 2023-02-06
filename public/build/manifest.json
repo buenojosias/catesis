@@ -1,6 +1,11 @@
 {
+  "resources/css/printable.css": {
+    "file": "assets/printable-01eb661f.css",
+    "src": "resources/css/printable.css",
+    "isEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app-4885cb21.css",
+    "file": "assets/app-17a124b4.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
