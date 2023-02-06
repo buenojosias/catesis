@@ -45,21 +45,21 @@
         </div>
         {{-- mais cards... --}}
     </div>
-    <div class="mt-4 grid md:grid-cols-2 gap-4">
-        <div>
-            @if($today_group)
-                <div class="card mb-4">
-                    <div class="card-body display px-4 sm:flex content-center gap-4">
-                        <div class="">
-                            <p>Um ou mais de seus grupos tem encontro hoje.</p>
-                        </div>
-                        <div class="pt-2 sm:pt-0 sm:w-1/2 flex content-center">
-                            <x-button href="{{ route('groups.encounter', [$today_group, $today_group->encounters->first()]) }}" sm primary label="Registrar frequência" class="w-full" />
-                        </div>
-                    </div>
+    @if($today_group)
+        <div class="card my-4">
+            <div class="card-body display px-4 sm:flex content-center gap-4">
+                <div class="flex-1 sm:pt-1">
+                    <p>Um ou mais de seus grupos tem encontro hoje.</p>
                 </div>
-            @endif
-            <div class="card mb-4">
+                <div class="pt-2 sm:pt-0 flex content-center">
+                    <x-button href="{{ route('groups.encounter', [$today_group, $today_group->encounters->first()]) }}" sm primary label="Registrar frequência" class="w-full" />
+                </div>
+            </div>
+        </div>
+    @endif
+    <div class="mt-4 grid sm:grid-cols-3 gap-4">
+        <div>
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Próximos eventos</h3>
                 </div>
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div>
-            <div class="card mb-4">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Aniversariantes</h3>
                 </div>
@@ -99,6 +99,29 @@
                                 </p>
                                 <h4 class="text-sm font-medium text-gray-600 grow">
                                     {{ $birthday->birthday->format('d/m') }} ({{ $birthday->grade->title }})
+                                </h4>
+                            </li>
+                        @empty
+                            <li class="py-3 px-4 text-sm">Nenhum aniversariante na semana atual.</li>
+                        @endforelse
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Aniversariantes de batismo</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        @forelse ($baptisms as $baptism)
+                            <li class="py-2 px-4 border-b">
+                                <p class="font-medium text-gray-900">
+                                    <a href="{{ route('students.show', $baptism->student) }}">{{ $baptism->student->name }}</a>
+                                </p>
+                                <h4 class="text-sm font-medium text-gray-600 grow">
+                                    {{ $baptism->baptism_date->format('d/m') }} ({{ $baptism->student->grade->title }})
                                 </h4>
                             </li>
                         @empty

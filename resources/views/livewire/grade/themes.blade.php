@@ -35,7 +35,9 @@
                 </div>
             </li>
         @empty
-            <x-empty label="Nenhum tema cadastrado para esta etapa." />
+            <div class="card card-body">
+                <x-empty label="Nenhum tema cadastrado para esta etapa." />
+            </div>
         @endforelse
     </ul>
 

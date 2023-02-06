@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Encounter;
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\StudentProfile;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -53,6 +54,15 @@ class DashboardController extends Controller
             ->orderByRaw('DAYOFYEAR(birthday)')
             ->get();
 
+        $baptisms = StudentProfile::query()
+            ->whereHas('student')
+            ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(baptism_date) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(baptism_date)')
+            ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(baptism_date) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(baptism_date)')
+            ->orderByRaw('DAYOFYEAR(baptism_date)')
+            ->with('student.grade')
+            ->get();
+        $baptisms = $baptisms->where('student', '<>', null);
+
         if ($role === 'catechist') {
             $today_group = auth()->user()->groups()->whereHas('encounters', function ($query) {
                 $query->where('date', date('Y-m-d'));
@@ -72,6 +82,7 @@ class DashboardController extends Controller
             'groups_count' => $groups_count,
             'events' => $events,
             'birthdays' => $birthdays,
+            'baptisms' => $baptisms,
             'today_group' => $today_group,
         ]);
     }
