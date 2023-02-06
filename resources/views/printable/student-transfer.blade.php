@@ -25,8 +25,8 @@
                 <thead>
                     <tr>
                         <th>Ano</th>
-                        <th class="text-left">Etapa</th>
-                        <th class="text-left">Catequista(s)</th>
+                        <th class="text-left w-[5cm]">Etapa</th>
+                        <th class="text-left w-[6cm]">Catequista(s)</th>
                         <th>Situação</th>
                     </tr>
                 </thead>

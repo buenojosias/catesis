@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Group;
 
 use App\Models\Encounter;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -24,7 +25,7 @@ class About extends Component
     public $showCatechistsModal;
     public $students_count;
     public $weekdays;
-    public $currentEncounter;
+    public $today_encounter;
 
     public function openFormModal()
     {
@@ -109,8 +110,8 @@ class About extends Component
         if($this->role === 'admin') {
             $this->community = $group->community;
         }
-        if($this->role === 'catechist' && $this->catechists->contains(auth()->user())) {
-            //
+        if($this->role === 'catechist' && $group->users->contains(session('user_id'))) {
+            $this->today_encounter = $group->encounters()->where('date', date('Y-m-d'))->first();
         }
         $this->weekdays = $weekdays;
         $this->getCurrentEncounter();

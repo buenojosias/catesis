@@ -59,14 +59,21 @@
         </div>
         <div>
             <ul class="space-y-2">
+                @if ($today_encounter)
+                    <li>
+                        <x-button href="{{ route('groups.encounter', [$group, $today_encounter]) }}" md primary icon="check" label="Registrar frequência de hoje"
+                            class="w-full shadow" />
+                    </li>
+                @endif
                 <li>
-                    <x-button href="{{ route('group.print', $group) }}" target="_blanck" md white icon="printer" label="Imprimir ficha" class="w-full shadow" />
+                    <x-button href="{{ route('group.print', $group) }}" target="_blanck" md white icon="printer"
+                        label="Imprimir ficha" class="w-full shadow" />
                 </li>
                 <li>
                     <x-button href="{{ route('groups.printableattendance', $group) }}" target="_blank" md white
                         icon="table" label="Imprimir chamada" class="w-full shadow" />
                 </li>
-                @can ('group_edit')
+                @can('group_edit')
                     <li>
                         <x-button wire:click="openCatechistsModal" md white icon="users" label="Gereciar catequistas"
                             class="w-full shadow" />
@@ -76,10 +83,6 @@
                             class="w-full shadow" />
                     </li>
                 @endcan
-                <li>
-                    <x-button href="#" md negative
-                        icon="table" label="!! Lançar frequência de hoje !!" class="w-full shadow" />
-                </li>
             </ul>
         </div>
     </div>

@@ -21,9 +21,8 @@ class DashboardController extends Controller
         $students_count = Student::query()
             ->when($role == 'catechist', function ($query) use ($user_id) {
                 $students = $query->whereHas('groups', function ($query) use ($user_id) {
-                    // $groups = Group::query()->whereIn('group_id', $user_id)->where('year', date('Y'))->where('finished', false)->pluck('id');
-                    $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
-                    return $query->whereIn('group_id', $groups);
+                        $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
+                        return $query->whereIn('group_id', $groups);
                     }
                 );
             })
@@ -54,6 +53,16 @@ class DashboardController extends Controller
             ->orderByRaw('DAYOFYEAR(birthday)')
             ->get();
 
+        if ($role === 'catechist') {
+            $today_group = auth()->user()->groups()->whereHas('encounters', function ($query) {
+                $query->where('date', date('Y-m-d'));
+            })->with('encounters', function ($query) {
+                $query->where('date', date('Y-m-d'))->first();
+            })->first();
+        } else {
+            $today_group = null;
+        }
+
         return view('dashboard', [
             'role' => $role,
             'name' => strstr(session('user_name'), ' ', true),
@@ -63,6 +72,7 @@ class DashboardController extends Controller
             'groups_count' => $groups_count,
             'events' => $events,
             'birthdays' => $birthdays,
+            'today_group' => $today_group,
         ]);
     }
 }

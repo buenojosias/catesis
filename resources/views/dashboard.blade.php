@@ -47,6 +47,18 @@
     </div>
     <div class="mt-4 grid md:grid-cols-2 gap-4">
         <div>
+            @if($today_group)
+                <div class="card mb-4">
+                    <div class="card-body display px-4 sm:flex content-center gap-4">
+                        <div class="">
+                            <p>Um ou mais de seus grupos tem encontro hoje.</p>
+                        </div>
+                        <div class="pt-2 sm:pt-0 sm:w-1/2 flex content-center">
+                            <x-button href="{{ route('groups.encounter', [$today_group, $today_group->encounters->first()]) }}" sm primary label="Registrar frequência" class="w-full" />
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="card mb-4">
                 <div class="card-header">
                     <h3 class="card-title">Próximos eventos</h3>

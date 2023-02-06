@@ -32,16 +32,16 @@
 
             @can('student_edit')
                 <div x-show="!showform" class="card-footer flex justify-between">
-                    <div class="grow text-center">
-                        <x-button @click="showform=true" sm flat label="Alterar" />
+                    <div class="flex-1">
+                        <x-button @click="showform=true" sm flat label="Alterar" class="w-full" />
                     </div>
                     @if ($transfer)
-                        <div class="grow text-center">
-                            <x-button href="{{ route('student.transfer.print', [$student, $transfer]) }}" target="_blank" sm flat label="Imprimir ficha de transferência" />
+                        <div class="flex-1">
+                            <x-button href="{{ route('student.transfer.print', [$student, $transfer]) }}" target="_blank" sm flat label="Imprimir ficha de transferência" class="w-full" />
                         </div>
                     @else
-                        <div class="grow text-center">
-                            <x-button wire:click="openTransferModal" sm flat label="Gerar transferência" />
+                        <div class="flex-1">
+                            <x-button wire:click="openTransferModal" sm flat label="Gerar transferência" class="w-full" />
                         </div>
                     @endif
                 </div>
