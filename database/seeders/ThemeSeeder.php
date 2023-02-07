@@ -7,6 +7,7 @@ use App\Models\Parish;
 use App\Models\Theme;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ThemeSeeder extends Seeder
 {
@@ -17,6 +18,9 @@ class ThemeSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Theme::query()->truncate();
+
         // $grades = Grade::all();
         $parishes = Parish::all();
 

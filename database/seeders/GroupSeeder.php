@@ -25,7 +25,7 @@ class GroupSeeder extends Seeder
         // Group::query()->truncate();
 
         $year = 2023;
-        $users = User::all();
+        $users = User::role('catechist')->get();
         $communities = Community::all();
         $parishes = Parish::whereDoesntHave('communities')->get();
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KinshipController;
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     )->name('groups.printableattendance');
     Route::get('/grupos/{group}/encontro-{encounter}', [GroupController::class, 'encounter'])->name('groups.encounter');
     Route::get('/grupos/{group}/{section?}', [GroupController::class, 'show'])->name('groups.show');
+
+    Route::get('/encontros/{section?}', [EncounterController::class, 'index'])->name('encounters.index');
 
     Route::get('/catequizandos', [StudentController::class, 'index'])->name('students.index');
     Route::get('/catequizandos/cadastro', [StudentController::class, 'create'])->middleware('can:student_create')->name('students.create');

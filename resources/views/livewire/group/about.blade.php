@@ -56,13 +56,21 @@
                     </div>
                 </div>
             </div>
+            @if ($show_finish)
+                @livewire('group.finish', ['group' => $group])
+            @endif
         </div>
         <div>
             <ul class="space-y-2">
+                @if ($allow_finish)
+                    <li>
+                        <x-button wire:click="showFinish" md positive icon="check" label="Marcar como concluído" class="w-full shadow" />
+                    </li>
+                @endif
                 @if ($today_encounter)
                     <li>
-                        <x-button href="{{ route('groups.encounter', [$group, $today_encounter]) }}" md primary icon="check" label="Registrar frequência de hoje"
-                            class="w-full shadow" />
+                        <x-button href="{{ route('groups.encounter', [$group, $today_encounter]) }}" md primary
+                            icon="check" label="Registrar frequência de hoje" class="w-full shadow" />
                     </li>
                 @endif
                 <li>

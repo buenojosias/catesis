@@ -16,11 +16,6 @@ class EventFactory extends Factory
      * @return array<string, mixed>
      */
 
-    public function withFaker()
-    {
-        return \Faker\Factory::create('pt_BR');
-    }
-
     public function definition()
     {
         $start_date = $this->faker->dateTimeBetween($startDate = '- 2 weeks', $endDate = '+3 months');
@@ -28,7 +23,7 @@ class EventFactory extends Factory
         $end_date = $this->faker->randomElement([null,null,null,\Carbon\Carbon::parse($start_date)->addDays(1)->format('Y-m-d')]);
         if($end_date && $start_time) { $end_time = rand(8, 20) . ':' . Arr::random(['00', '15', '30', '45']) . ':00'; }
         return [
-            'title' => $this->faker->sentence($nbWords = 3, $variableNbWords = true),
+            'title' => $this->faker->realText($maxNbChars = 32, $indexSize = 1),
             'description' => $this->faker->text($maxNbChars = 160),
             'start_date' => $start_date,
             'start_time' => $start_time,

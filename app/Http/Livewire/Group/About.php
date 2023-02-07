@@ -26,9 +26,23 @@ class About extends Component
     public $students_count;
     public $weekdays;
     public $today_encounter;
+    public $allow_finish;
+    public $show_finish;
 
-    public function openFormModal()
+    protected $listeners = [
+        'emitCloseFinish',
+    ];
+
+    public function emitCloseFinish()
     {
+        $this->allow_finish = false;
+        $this->show_finish = false;
+    }
+
+    public function openFormModal($group = null)
+    {
+        if ($group) {
+            $this->group = $group; }
         $this->showFormModal = true;
     }
 
@@ -95,8 +109,20 @@ class About extends Component
 
     public function getCurrentEncounter() {
         if ($this->group->users->contains($this->user_id)) {
-            $this->current_group = $this->group->encounters()->where('date', date('Y-m-d'))->first();
+            $this->today_encounter = $this->group->encounters()->where('date', date('Y-m-d'))->first();
         }
+    }
+
+    public function checkFinished() {
+        if($this->group->end_date <= date('Y-m-d') && !$this->group->finished) {
+            if($this->group->users->contains($this->user_id) || auth()->user()->can('group_edit')) {
+                $this->allow_finish = true;
+            }
+        }
+    }
+
+    public function showFinish() {
+        $this->show_finish = true;
     }
 
     public function mount($group, $weekdays)
@@ -110,11 +136,12 @@ class About extends Component
         if($this->role === 'admin') {
             $this->community = $group->community;
         }
-        if($this->role === 'catechist' && $group->users->contains(session('user_id'))) {
-            $this->today_encounter = $group->encounters()->where('date', date('Y-m-d'))->first();
-        }
+        // if($this->role === 'catechist' && $group->users->contains(session('user_id'))) {
+        //     $this->today_encounter = $group->encounters()->where('date', date('Y-m-d'))->first();
+        // }
         $this->weekdays = $weekdays;
         $this->getCurrentEncounter();
+        $this->checkFinished();
     }
 
     public function render()
