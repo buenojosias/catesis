@@ -21,6 +21,11 @@ class StudentController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('students.create');
+    }
+
     public function printCard(Student $student)
     {
         $monthLabels = array('0', 'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'junho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro');

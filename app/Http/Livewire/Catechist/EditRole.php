@@ -18,7 +18,7 @@ class EditRole extends Component
     public function loadData()
     {
         $this->role = $this->catechist->roles()->first()->id ?? null;
-        $roles = Role::query();
+        $roles = Role::query()->where('name','<>','super-admin');
         if(!$this->user->hasRole('admin')) {
             $roles->where('name','<>','admin');
         }
