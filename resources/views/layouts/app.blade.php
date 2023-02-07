@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('icons/all.min.css') }}">
     <style>[x-cloak] { display: none !important; }</style>
     @wireUiScripts
-    <link rel="stylesheet" href="{{ asset('build/assets/app-17a124b4.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-9bc5e30d.css') }}">
     <script src="{{ asset('build/assets/app-dc72fc33.js') }}" defer></script>
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     @livewireStyles
