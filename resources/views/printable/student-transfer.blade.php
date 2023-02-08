@@ -51,7 +51,7 @@
                 </tbody>
             </table>
             <p class="text-right">Curitiba, {{ $transfer->created_at->format('d') }} de {{ $monthLabels[intval($transfer->created_at->format('m'))] }} de {{ $transfer->created_at->format('Y') }}.</p>
-            <div class="mt-16 grid grid-cols-2 gap-10 text-center text-[11pt] leading-tight">
+            <div class="mt-16 mb-8 grid grid-cols-2 gap-10 text-center text-[11pt] leading-tight">
                 <div class="border-t border-black pt-1">
                     {{ $transfer->user->name }}<br>
                     {{ $transfer->user->roles[0]->label }}
@@ -62,6 +62,11 @@
                 </div>
             </div>
 
+            <p class="text-xs">Para verificar a autenticidade deste documento, scaneie o QR Code abaixo ou acesse
+                <a href="https://tansferencia.catesis.com.br" target="_blank">https://tansferencia.catesis.com.br</a>
+                e digite o seguinte código:
+                <span class="text-sm text-semibold">{{ $transfer->token }}</span>
+            </p>
         </div>
     </div>
 @endsection

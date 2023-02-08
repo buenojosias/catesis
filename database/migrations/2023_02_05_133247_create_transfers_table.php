@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('kinship_id')->constrained();
+            $table->string('token', 24);
             $table->timestamps();
         });
     }

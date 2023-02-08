@@ -2,8 +2,8 @@
 
 @php
 $classes = ($active ?? false)
-    ? 'active'
-    : '';
+    ? 'active whitespace-nowrap'
+    : 'whitespace-nowrap';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes])}}>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('build/assets/printable-8296b330.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/printable-e74b2816.css') }}">
     {{-- @vite(['resources/css/printable.css']) --}}
     <title>{{ $title }}</title>
 </head>

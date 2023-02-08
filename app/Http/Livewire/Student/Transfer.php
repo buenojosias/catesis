@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Student;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -19,6 +20,7 @@ class Transfer extends Component
         'kinship_id' => 'Familiar solicitante',
     ];
     public function submitTransfer() {
+        $token = Str::upper(Str::random(5).'-').Str::upper(Str::random(5).'-').Str::upper(Str::random(5).'-').Str::upper(Str::random(5));
         $validKinships = $this->kinships->pluck('id')->toArray();
         $validate = $this->validate([
             'kinship_id' => 'required|in:' . implode(',', $validKinships),
@@ -28,6 +30,7 @@ class Transfer extends Component
             $transfer = $this->student->transfer()->create([
                 'user_id' => auth()->user()->id,
                 'kinship_id' => $this->kinship_id,
+                'token' => $token,
             ]);
             if($this->group) {
                 $update_group = $this->student->groups()->updateExistingPivot($this->group->id, ['status' => 'Transferido']);

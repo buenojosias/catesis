@@ -3,16 +3,12 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Movimentos e Pastorais</h2>
         <nav class="tabs" x-data="{ showtabs: false }">
             <div>
-                <div class="hidden sm:block">
-                    <div class="flex items-baseline space-x-2">
-                        <x-tab-link href="{{ route('pastorals.index') }}" active="{{ !$list || $list === 'past' }}"
-                            label="Por pastorais" />
-                        <x-tab-link href="{{ route('pastorals.index', 'cat') }}" active="{{ $list === 'cat' }}"
-                            label="Por catequizandos" />
-                    </div>
-                </div>
+                <x-tab-link href="{{ route('pastorals.index') }}" active="{{ !$list || $list === 'past' }}"
+                    label="Por pastorais" />
+                <x-tab-link href="{{ route('pastorals.index', 'cat') }}" active="{{ $list === 'cat' }}"
+                    label="Por catequizandos" />
             </div>
-            <div class="flex sm:hidden">
+            {{-- <div class="flex sm:hidden">
                 <x-button type="button" right-icon="chevron-down" class="block w-full" aria-controls="mobile-menu"
                     aria-expanded="false" @click="showtabs = !showtabs">
                     @php
@@ -41,7 +37,7 @@
                     label="Por pastorais" />
                 <x-tab-link href="{{ route('pastorals.index', 'cat') }}" active="{{ $list === 'cat' }}"
                     label="Por catequizandos" />
-            </div>
+            </div> --}}
         </nav>
     </x-slot>
 

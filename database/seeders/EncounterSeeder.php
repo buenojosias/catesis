@@ -32,7 +32,7 @@ class EncounterSeeder extends Seeder
                 $theme_id = $themes->where('sequence', $key+1)->first()->id ?? null;
                 $group->encounters()->create([
                     'parish_id' => $group->parish_id,
-                    'date' => $date,
+                    'date' => date($date .' '. $group->time->format('H:i:s')),
                     'method' => Arr::random(['Presencial','Familiar']),
                     'theme_id' => $theme_id,
                 ]);
@@ -40,21 +40,21 @@ class EncounterSeeder extends Seeder
         }
 
         # Registrar algumas frequências
-        $groups = Group::query()
-            ->whereHas('encounters')
-            ->with('students', function ($query) {
-                $query->wherePivot('status', 'Ativo');
-            })
-            ->with('encounters', function ($query) {
-                $query->where('date', '2023-01-07')->orWhere('date', '2023-01-14')->orWhere('date', '2023-01-21');
-            })
-            ->get();
-        foreach($groups as $group) {
-            foreach($group->encounters as $encounter) {
-                foreach($group->students as $student) {
-                    $encounter->students()->attach($student->id, ['attendance' => Arr::random(['C', 'C', 'C', 'C', 'F', 'J'])]);
-                }
-            }
-        }
+        // $groups = Group::query()
+        //     ->whereHas('encounters')
+        //     ->with('students', function ($query) {
+        //         $query->wherePivot('status', 'Ativo');
+        //     })
+        //     ->with('encounters', function ($query) {
+        //         $query->where('date', '2023-01-07')->orWhere('date', '2023-01-14')->orWhere('date', '2023-01-21');
+        //     })
+        //     ->get();
+        // foreach($groups as $group) {
+        //     foreach($group->encounters as $encounter) {
+        //         foreach($group->students as $student) {
+        //             $encounter->students()->attach($student->id, ['attendance' => Arr::random(['C', 'C', 'C', 'C', 'F', 'J'])]);
+        //         }
+        //     }
+        // }
     }
 }

@@ -17,11 +17,7 @@
             </div>
             <div class="md:pb-0 flex items-center">
                 <p class="font-semibold text-gray-700">
-                    @if ($role === 'admin')
-                        Coordenador Paroquial
-                    @else
-                        {{-- {{ $community->name }} --}}
-                    @endif
+                    {{ auth()->user()->roles->first()->label }}
                 </p>
             </div>
         </div>

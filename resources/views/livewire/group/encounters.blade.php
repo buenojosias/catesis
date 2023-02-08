@@ -74,9 +74,7 @@
                                 </x-native-select>
                                 <div class="col-span-2">
                                     <x-native-select wire:model.defer="form.theme_id" label="Tema">
-                                        @if ($method === 'create')
-                                            <option value="">Selecione</option>
-                                        @endif
+                                        <option value="">Selecione</option>
                                         @foreach ($themes as $theme)
                                             <option value="{{ $theme->id }}">{{ $theme->title }}</option>
                                         @endforeach

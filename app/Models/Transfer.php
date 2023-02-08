@@ -10,7 +10,7 @@ class Transfer extends Model
 {
     use Parishable, Communityable;
 
-    protected $fillable = ['user_id', 'student_id', 'kinship_id'];
+    protected $fillable = ['token','user_id', 'student_id', 'kinship_id'];
 
     public function user() {
         return $this->belongsTo(User::class);

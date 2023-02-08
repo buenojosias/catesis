@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Group;
 
 use App\Models\Encounter;
 use App\Models\Theme;
+use Carbon\Carbon;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -31,6 +32,8 @@ class Encounters extends Component
         $this->form = $encounter;
         if ($method === 'create') {
             $this->form['date'] = null;
+        } else {
+            $this->form['date'] = Carbon::parse($encounter['date'])->format('Y-m-d');
         }
         $this->themes = Theme::where('grade_id', $this->group->grade_id)->orderBy('sequence', 'asc')->get();
         $this->showFormModal = true;
@@ -47,6 +50,8 @@ class Encounters extends Component
         ]);
         if ($this->method === 'create') {
             try {
+                // dd(Carbon::parse($this->group->time)->addHours(3));
+                $this->form['date'] = date($this->form['date'] .' '. $this->group->time->format('H:i:s'));
                 $this->group->encounters()->create($this->form);
                 $this->notification()->success($description = 'Encontro cadastrado com sucesso.');
                 $this->showFormModal = false;
@@ -56,6 +61,7 @@ class Encounters extends Component
             }
         } else if ($this->method === 'edit') {
             try {
+                $this->form['date'] = date($this->form['date'] .' '. $this->group->time->format('H:i:s'));
                 $this->group->encounters()->findOrFail($this->form['id'])->update($this->form);
                 $this->notification()->success($description = 'Encontro salvo com sucesso.');
                 $this->showFormModal = false;
@@ -76,7 +82,7 @@ class Encounters extends Component
     {
         $this->dialog()->confirm([
             'title' => 'Remover encontro',
-            'description' => 'Tem certeza que deseja remover o encontro do dia '.\Carbon\Carbon::parse($encounter['date'])->format('d/m/Y').'?',
+            'description' => 'Tem certeza que deseja remover o encontro do dia '.Carbon::parse($encounter['date'])->format('d/m/Y').'?',
             'method' => 'doRemoveEncounter',
             'params' => ['encounter' => $encounter['id']],
             'acceptLabel' => 'Confirmar',
