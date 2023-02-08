@@ -23,43 +23,44 @@ class ParishSeeder extends Seeder
             'parson' => 'Pe. Mauro Zandoná',
             'address' => 'Rua Roberto Gava, 310',
             'district' => 'Pilarzinho',
+            'zip_code' => '82120-500',
             'city' => 'Curitiba',
         ]);
         $parish1->contact()->create([
             'phone' => '(41) 3338-4450',
-            'email' => 'lamenha@mitradecuritiba.org.br',
+            'email' => 'saomarcos@mitradecuritiba.org.br',
             'facebook' => 'https://www.facebook.com/paroquiasaomarcoscuritiba',
         ]);
 
-        $parish2 = Parish::create([
-            'name' => 'Paróquia São João Batista',
-            'tenancy_type' => 'multi',
-        ]);
-        $parish2->detail()->create([
-            'address' => 'Rua Ver. Wadislau Bugalski, 4880',
-            'district' => 'Jardim Marize',
-            'city' => 'Almirante Tamandaré',
-        ]);
-        $parish2->contact()->create([
-            'phone' => '(41) 3657-1144',
-            'whatsapp' => '(41) 3657-1144',
-            'email' => 'lamenha@mitradecuritiba.org.br',
-            'facebook' => 'https://www.facebook.com/paroquiasjbtamandare/',
-        ]);
+        // $parish2 = Parish::create([
+        //     'name' => 'Paróquia São João Batista',
+        //     'tenancy_type' => 'multi',
+        // ]);
+        // $parish2->detail()->create([
+        //     'address' => 'Rua Ver. Wadislau Bugalski, 4880',
+        //     'district' => 'Jardim Marize',
+        //     'city' => 'Almirante Tamandaré',
+        // ]);
+        // $parish2->contact()->create([
+        //     'phone' => '(41) 3657-1144',
+        //     'whatsapp' => '(41) 3657-1144',
+        //     'email' => 'lamenha@mitradecuritiba.org.br',
+        //     'facebook' => 'https://www.facebook.com/paroquiasjbtamandare/',
+        // ]);
 
-        $parish3 = Parish::create([
-            'name' => 'Paróquia São Jorge',
-            'tenancy_type' => 'single',
-        ]);
-        $parish3->detail()->create([
-            'address' => 'Rua Itacolomi, 1840',
-            'district' => 'Portão',
-            'city' => 'Curitiba',
-            'site' => 'http://paroquiasaojorge.com.br/',
-        ]);
-        $parish3->contact()->create([
-            'phone' => '(41) 3308-3075',
-            'facebook' => 'https://www.facebook.com/paroquiasaojorgecuritiba',
-        ]);
+        // $parish3 = Parish::create([
+        //     'name' => 'Paróquia São Jorge',
+        //     'tenancy_type' => 'single',
+        // ]);
+        // $parish3->detail()->create([
+        //     'address' => 'Rua Itacolomi, 1840',
+        //     'district' => 'Portão',
+        //     'city' => 'Curitiba',
+        //     'site' => 'http://paroquiasaojorge.com.br/',
+        // ]);
+        // $parish3->contact()->create([
+        //     'phone' => '(41) 3308-3075',
+        //     'facebook' => 'https://www.facebook.com/paroquiasaojorgecuritiba',
+        // ]);
     }
 }

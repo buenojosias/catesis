@@ -37,11 +37,14 @@
                     </div>
                     @if ($transfer)
                         <div class="flex-1">
-                            <x-button href="{{ route('student.transfer.print', [$student, $transfer]) }}" target="_blank" sm flat label="Imprimir ficha de transferência" class="w-full" />
+                            <x-button href="{{ route('student.transfer.print', [$student, $transfer]) }}" target="_blank" sm
+                                flat label="Imprimir ficha de transferência" class="w-full" />
                         </div>
                     @else
                         <div class="flex-1">
-                            <x-button wire:click="openTransferModal" sm flat label="Gerar transferência" class="w-full" />
+                            @can('student_transfer')
+                                <x-button wire:click="openTransferModal" sm flat label="Gerar transferência" class="w-full" />
+                            @endcan
                         </div>
                     @endif
                 </div>

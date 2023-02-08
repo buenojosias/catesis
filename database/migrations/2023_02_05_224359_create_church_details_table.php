@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('parson', 60)->nullable();
             $table->string('address', 120);
             $table->string('district', 60);
+            $table->string('zip_code', 9);
             $table->string('city', 60);
             $table->string('site')->nullable();
             $table->timestamps();

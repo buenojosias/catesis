@@ -35,6 +35,7 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'student_create', 'label' => 'Cadastrar catequizando'])->roles()->attach([2,3]);
         Permission::create(['name' => 'student_edit', 'label' => 'Editar catequizando'])->roles()->attach([2,3,4]);
+        Permission::create(['name' => 'student_transfer', 'label' => 'Transferir catequizando'])->roles()->attach([2,3]);
 
         Permission::create(['name' => 'catechist_create', 'label' => 'Cadastrar catequistas'])->roles()->attach([2,3]);
         Permission::create(['name' => 'catechist_read', 'label' => 'Ver catequistas'])->roles()->attach([2,3,4,5]);
