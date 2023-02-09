@@ -41,7 +41,7 @@ class Create extends Component
         if($this->auth_role === 'admin') {
             $this->communities = Community::all();
         }
-        $roles = Role::query();
+        $roles = Role::query()->where('name','<>','super-admin');
         if($this->auth_role !== 'admin') {
             $roles->where('name','<>','admin');
         }
