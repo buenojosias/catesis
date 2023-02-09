@@ -15,22 +15,26 @@ class ParishSeeder extends Seeder
      */
     public function run()
     {
-        $parish1 = Parish::create([
-            'name' => 'Paróquia São Marcos',
-            'tenancy_type' => 'multi',
-        ]);
-        $parish1->detail()->create([
-            'parson' => 'Pe. Mauro Zandoná',
-            'address' => 'Rua Roberto Gava, 310',
-            'district' => 'Pilarzinho',
-            'zip_code' => '82120-500',
-            'city' => 'Curitiba',
-        ]);
-        $parish1->contact()->create([
-            'phone' => '(41) 3338-4450',
-            'email' => 'saomarcos@mitradecuritiba.org.br',
-            'facebook' => 'https://www.facebook.com/paroquiasaomarcoscuritiba',
-        ]);
+        # PRODUÇÃO
+        /*$psm = Parish::create(['name' => 'Paróquia São Marcos', 'tenancy_type' => 'multi']);
+            $psm->detail()->create(['parson' => 'Pe. Mauro Zandoná', 'address' => 'Rua Roberto Gava, 310', 'district' => 'Pilarzinho', 'zip_code' => '82120-500', 'city' => 'Curitiba']);
+            $psm->contact()->create(['phone' => '(41) 3338-4450', 'email' => 'saomarcos@mitradecuritiba.org.br', 'facebook' => 'https://www.facebook.com/paroquiasaomarcoscuritiba']);*/
+        # FIM PRODUÇÃO
+
+        # SANDBOX
+        /*$par = Parish::create(['name' => 'Paróquia de Demonstração', 'tenancy_type' => 'multi']);
+            $par->detail()->create(['parson' => 'Padre John Doe', 'address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '00000-000', 'city' => 'Curitiba']);
+            $par->contact()->create(['phone' => '(33) 3333-3333', 'email' => 'paroquia1@catesis.com']);*/
+        # FIM SANDBOX
+
+        # TESTES DESENVOLVIMENTO
+        $par1 = Parish::create(['name' => 'Paróquia 1', 'tenancy_type' => 'multi']);
+            $par1->detail()->create(['parson' => 'Padre John Doe', 'address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '00000-000', 'city' => 'Curitiba']);
+            $par1->contact()->create(['phone' => '(33) 3333-3333', 'email' => 'paroquia1@catesis.com']);
+        $par2 = Parish::create(['name' => 'Paróquia 2', 'tenancy_type' => 'single']);
+            $par2->detail()->create(['parson' => 'Padre John Doe', 'address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '00000-000', 'city' => 'Curitiba']);
+            $par2->contact()->create(['phone' => '(33) 3333-3333', 'email' => 'paroquia1@catesis.com']);
+        # FIM TESTES DESENVOLVIMENTO
 
         // $parish2 = Parish::create([
         //     'name' => 'Paróquia São João Batista',

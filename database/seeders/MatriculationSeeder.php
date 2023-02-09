@@ -21,7 +21,7 @@ class MatriculationSeeder extends Seeder
 
         $students = Student::whereHas('kinships')->get();
         $all_groups = Group::all();
-        $all_users = User::whereBetween('id', [3, 15])->get();
+        $all_users = User::all();
         $year = 2023;
 
         foreach($students as $student) {
@@ -53,7 +53,7 @@ class MatriculationSeeder extends Seeder
                     ]);
                     $student->groups()->attach($retroactive_group['id'], [
                         'matriculation_id' => $retroactive_matriculation->id,
-                        'status' => Arr::random(['Aprovado','Aprovado','Aprovado','Aprovado','Aprovado','Transferido','Reprovado','Removido']),
+                        'status' => Arr::random(['Aprovado','Aprovado','Aprovado','Aprovado','Ativo','Ativo','Ativo','Aprovado','Transferido','Reprovado','Removido']),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
@@ -68,7 +68,7 @@ class MatriculationSeeder extends Seeder
                 ]);
                 $student->groups()->attach($group['id'], [
                     'matriculation_id' => $current_matriculation->id,
-                    'status' => Arr::random(['Ativo','Ativo','Ativo','Ativo','Ativo','Transferido','Removido']),
+                    'status' => Arr::random(['Ativo','Ativo','Ativo','Ativo','Ativo','Ativo','Ativo','Ativo','Ativo','Transferido','Removido']),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

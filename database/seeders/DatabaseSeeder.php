@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class,
             MatriculationSeeder::class,
             EncounterSeeder::class,
-            CommentSeeder::class,
+            // CommentSeeder::class,
             PastoralSeeder::class,
             EventSeeder::class,
         ]);

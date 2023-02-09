@@ -16,7 +16,7 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::query()->where('id', '>', 1)->orderByRaw('RAND()')->limit(20)->get();
+        $users = User::query()->where('id', '>', 1)->orderByRaw('RAND()')->limit(5)->get();
 
         foreach($users as $user) {
             Event::factory(rand(1,3))->create([

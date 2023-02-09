@@ -31,25 +31,21 @@ class PastoralSeeder extends Seeder
         $users = User::where('parish_id', $parish_id)->get()->pluck('id')->toArray();
         $pastorals = [
             'Grupo de Jovens',
-            'Pastoral da Comunicação',
             'Pastoral Familiar',
             'Legião de Maria',
-            'Terço dos Homens',
-            'Grupo de Oração',
-            'Pastoral do Empreendedor',
             'Pastoral da Música',
             'Pastoral da Liturgia',
             'Terço dos Homens',
         ];
 
-        for($i = 0; $i <= 9; $i++) {
-            Pastoral::create(['user_id' => Arr::random($users), 'parish_id' => $parish_id, 'community_id' => rand(1, 4), 'name' => $pastorals[$i], 'coordinator' => null])->students()->sync(Arr::random($students, rand(1,10)));
+        for($i = 0; $i <= 5; $i++) {
+            Pastoral::create(['user_id' => Arr::random($users), 'parish_id' => $parish_id, 'community_id' => rand(1, 2), 'name' => $pastorals[$i], 'coordinator' => null])->students()->sync(Arr::random($students, rand(1,4)));
         }
 
         $kinships = Kinship::where('parish_id', $parish_id);
         $kinships = $kinships->pluck('id')->toArray();
         foreach(Pastoral::where('parish_id', $parish_id)->whereDoesntHave('students')->get() as $pastoral) {
-            $pastoral->kinships()->sync(Arr::random($kinships, rand(1, 10)));
+            $pastoral->kinships()->sync(Arr::random($kinships, rand(1, 4)));
         }
    }
 }

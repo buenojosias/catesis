@@ -15,62 +15,36 @@ class CommunitySeeder extends Seeder
      */
     public function run()
     {
-        $psm = Community::create([
-            'parish_id' => 1,
-            'name' => 'Paróquia São Marcos (Matriz)',
-        ]);
-        $psm->detail()->create([
-            'parson' => 'Pe. Mauro Zandoná',
-            'address' => 'Rua Roberto Gava, 310',
-            'district' => 'Pilarzinho',
-            'zip_code' => '82120-500',
-            'city' => 'Curitiba',
-        ]);
-        $psm->contact()->create([
-            'phone' => '(41) 3338-4450',
-        ]);
+        # PRODUÇÃO
+        /*$psm = Community::create(['parish_id' => 1,'name' => 'Paróquia São Marcos (Matriz)']);
+            $psm->detail()->create(['parson' => 'Pe. Mauro Zandoná', 'address' => 'Rua Roberto Gava, 310', 'district' => 'Pilarzinho', 'zip_code' => '82120-500', 'city' => 'Curitiba']);
+            $psm->contact()->create(['phone' => '(41) 3338-4450']);
+        $bgc = Community::create(['parish_id' => 1, 'name' => 'Capela Beato Giácomo Cusmano']);
+            $bgc->detail()->create(['address' => 'Rua Victório Gabardo, 325', 'district' => 'Pilarzinho', 'zip_code' => '82115-130', 'city' => 'Curitiba']);
+            $bgc->contact()->create(['phone' => null]);
+        $nsm = Community::create(['parish_id' => 1, 'name' => 'Capela Nossa Senhora da Misericórdia']);
+            $nsm->detail()->create(['address' => 'Rua Campo Largo da Piedade, 460', 'district' => 'Pilarzinho', 'zip_code' => '82110-160', 'city' => 'Curitiba']);
+            $nsm->contact()->create(['phone' => null]);
+        $nsp = Community::create(['parish_id' => 1,'name' => 'Capela Nossa Senhora da Perseverança']);
+            $nsp->detail()->create(['address' => 'Alexandre Von Humboldt, 283', 'district' => 'Pilarzinho', 'zip_code' => '82110-000', 'city' => 'Curitiba']);
+            $nsp->contact()->create(['phone' => null]);*/
+        # FIM PRODUÇÃO
 
-        $bgc = Community::create([
-            'parish_id' => 1,
-            'name' => 'Capela Beato Giácomo Cusmano',
-        ]);
-        $bgc->detail()->create([
-            'address' => 'Rua Victório Gabardo, 325',
-            'district' => 'Pilarzinho',
-            'zip_code' => '82115-130',
-            'city' => 'Curitiba',
-        ]);
-        $bgc->contact()->create([
-            'phone' => null,
-        ]);
+        # SANDBOX
+        /*$com = Community::create(['parish_id' => 1, 'name' => 'Comunidade de Demonstração']);
+            $com->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
+            $com->contact()->create(['phone' => null]);*/
+        # FIM SANDBOX
 
-        $nsm = Community::create([
-            'parish_id' => 1,
-            'name' => 'Capela Nossa Senhora da Misericórdia',
-        ]);
-        $nsm->detail()->create([
-            'address' => 'Rua Campo Largo da Piedade, 460',
-            'district' => 'Pilarzinho',
-            'zip_code' => '82110-160',
-            'city' => 'Curitiba',
-        ]);
-        $nsm->contact()->create([
-            'phone' => null,
-        ]);
+        # TESTES DESENVOLVIMENTO
+        $com1 = Community::create(['parish_id' => 1, 'name' => 'Comunidade 1']);
+            $com1->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
+            $com1->contact()->create(['phone' => null]);
+        $com2 = Community::create(['parish_id' => 1,'name' => 'Comunidade 2']);
+            $com2->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
+            $com2->contact()->create(['phone' => null]);
+        #FIM  TESTES DESENVOLVIMENTO
 
-        $nsp = Community::create([
-            'parish_id' => 1,
-            'name' => 'Capela Nossa Senhora da Perseverança',
-        ]);
-        $nsp->detail()->create([
-            'address' => 'Alexandre Von Humboldt, 283',
-            'district' => 'Pilarzinho',
-            'zip_code' => '82110-000',
-            'city' => 'Curitiba',
-        ]);
-        $nsp->contact()->create([
-            'phone' => null,
-        ]);
 
         // $community5 = Community::create([
         //     'parish_id' => 2,
