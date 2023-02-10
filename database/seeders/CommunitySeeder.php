@@ -31,18 +31,18 @@ class CommunitySeeder extends Seeder
         # FIM PRODUÇÃO
 
         # SANDBOX
-        /*$com = Community::create(['parish_id' => 1, 'name' => 'Comunidade de Demonstração']);
+        $com = Community::create(['parish_id' => 1, 'name' => 'Comunidade de Demonstração']);
             $com->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
-            $com->contact()->create(['phone' => null]);*/
+            $com->contact()->create(['phone' => null]);
         # FIM SANDBOX
 
         # TESTES DESENVOLVIMENTO
-        $com1 = Community::create(['parish_id' => 1, 'name' => 'Comunidade 1']);
+        /*$com1 = Community::create(['parish_id' => 1, 'name' => 'Comunidade 1']);
             $com1->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
             $com1->contact()->create(['phone' => null]);
         $com2 = Community::create(['parish_id' => 1,'name' => 'Comunidade 2']);
             $com2->detail()->create(['address' => 'Rua Dom Pedro, 123', 'district' => 'Pilarzinho', 'zip_code' => '80000-000', 'city' => 'Curitiba']);
-            $com2->contact()->create(['phone' => null]);
+            $com2->contact()->create(['phone' => null]);*/
         #FIM  TESTES DESENVOLVIMENTO
 
 

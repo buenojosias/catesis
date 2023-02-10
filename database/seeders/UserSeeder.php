@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         # FIM PRODUÇÃO
 
         # SANDBOX
-        /*$super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
+        $super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
             $super_admin->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
             $super_admin->contact()->create(['phone' => '(99) 99999-9999']);
         $coord_par = User::create(['parish_id' => 1, 'name' => 'Coordenador Paroquial', 'email' => 'admin@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
@@ -51,11 +51,11 @@ class UserSeeder extends Seeder
             $cat1->contact()->create(['phone' => '(99) 99999-9999']);
         $cat2 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 2', 'email' => 'catequista2@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
             $cat2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat2->contact()->create(['phone' => '(99) 99999-9999']);*/
+            $cat2->contact()->create(['phone' => '(99) 99999-9999']);
         # FIM SANDBOX
 
         # TESTES DESENVOLVIMENTO
-        $super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
+        /*$super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
             $super_admin->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
             $super_admin->contact()->create(['phone' => '(99) 99999-9999']);
         $coord_par1 = User::create(['parish_id' => 1, 'name' => 'Coordenador da Paróquia 1', 'email' => 'admin1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
@@ -90,7 +90,7 @@ class UserSeeder extends Seeder
             $cat5->contact()->create(['phone' => '(99) 99999-9999']);
         $cat6 = User::create(['parish_id' => 2, 'name' => 'Catequista 6', 'email' => 'catequista6@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
             $cat6->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat6->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat6->contact()->create(['phone' => '(99) 99999-9999']);*/
         # FIM TESTES DESENVOLVIMENTO
 
 
