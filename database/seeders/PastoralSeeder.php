@@ -39,7 +39,7 @@ class PastoralSeeder extends Seeder
         ];
 
         for($i = 0; $i <= 5; $i++) {
-            Pastoral::create(['user_id' => Arr::random($users), 'parish_id' => $parish_id, 'community_id' => rand(1, 2), 'name' => $pastorals[$i], 'coordinator' => null])->students()->sync(Arr::random($students, rand(1,4)));
+            Pastoral::create(['user_id' => Arr::random($users), 'parish_id' => $parish_id, 'community_id' => 1, 'name' => $pastorals[$i], 'coordinator' => null])->students()->sync(Arr::random($students, rand(1,4)));
         }
 
         $kinships = Kinship::where('parish_id', $parish_id);
