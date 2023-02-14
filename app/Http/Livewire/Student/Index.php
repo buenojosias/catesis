@@ -15,7 +15,7 @@ class Index extends Component
     public $search = null;
     public $community = null;
     public $grade = null;
-    public $status = 'Ativo';
+    public $status;
     public $student;
 
     public function render()

@@ -45,7 +45,7 @@ class About extends Component
         $this->gender = $this->profile->gender;
         $this->naturalness = $this->profile->naturalness;
         $this->has_baptism = $this->profile->has_baptism;
-        $this->baptism_date = Carbon::parse($this->profile->baptism_date)->format('Y-m-d');
+        if($student->profile->baptism_date) { $this->baptism_date = Carbon::parse($this->profile->baptism_date)->format('Y-m-d'); }
         $this->baptism_church = $this->profile->baptism_church;
         $this->married_parents = $this->profile->married_parents;
         $this->health_problems = $this->profile->health_problems;
@@ -56,6 +56,7 @@ class About extends Component
         if(auth()->user()->hasRole('admin')) {
             $this->community = $student->community;
         }
+        // dd($this->baptism_date);
     }
 
     public function submitProfile()
@@ -75,6 +76,7 @@ class About extends Component
             'school' => 'nullable|string|max:160',
         ]);
         try {
+            if($validateProfile['baptism_date'] == "") { $validateProfile['baptism_date'] = null; };
             $saveStudent = $this->student->update($validateStudent);
             $saveProfile = $this->student->profile()->update($validateProfile);
             // $this->student = $validateStudent;

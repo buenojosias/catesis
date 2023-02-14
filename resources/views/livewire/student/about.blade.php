@@ -36,11 +36,11 @@
                 </div>
                 <div>
                     <h4>Data do batismo</h4>
-                    <p>{{ $baptism_date ? Carbon\Carbon::parse($baptism_date)->format('d/m/Y') : '' }}</p>
+                    <p>{{ $baptism_date ? Carbon\Carbon::parse($baptism_date)->format('d/m/Y') : '---' }}</p>
                 </div>
                 <div class="col-span-2">
                     <h4>Igreja do batismo</h4>
-                    <p>{{ $baptism_church }}</p>
+                    <p>{{ $baptism_church ?? '---' }}</p>
                 </div>
                 <div>
                     <h4>Os pais são casados?</h4>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-span-2">
                     <h4>Escola onde estuda</h4>
-                    <p>{{ $school }}</p>
+                    <p>{{ $school ?? '---' }}</p>
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@
                                 </x-native-select>
                             </div>
                             <div class="sm:col-span-4">
-                                <x-input label="Naturalidade" placeholder="Cidade de nascimento"
+                                <x-input label="Naturalidade" placeholder="Cidade/UF"
                                     wire:model.defer="naturalness" />
                             </div>
                             <div class="sm:col-span-2">

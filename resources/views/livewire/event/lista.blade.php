@@ -87,8 +87,8 @@
                                 @if (
                                     $event->user_id === auth()->user()->id ||
                                         auth()->user()->hasRole('admin'))
-                                    <div class="flex items-center">
-                                        <x-dropdown class="px-4">
+                                    <div class="flex items-center px-2">
+                                        <x-dropdown>
                                             <x-dropdown.item wire:click="openFormModal('edit', {{ $event }})"
                                                 icon="pencil-alt" label="Editar" />
                                             <x-dropdown.item wire:click="removeEvent({{ $event }})"

@@ -28,12 +28,13 @@
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="Password" class="sr-only" />
+                {{-- <x-input-label for="password" value="Password" class="sr-only" /> --}}
 
-                <x-text-input
+                <x-input
                     id="password"
                     name="password"
                     type="password"
+                    label="Senha"
                     class="mt-1 block w-3/4"
                     placeholder="Password"
                 />

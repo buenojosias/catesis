@@ -3,7 +3,7 @@
         <div class="card w-full">
             @if ($eventData)
                 <div class="card-header">
-                    <h3 class="card-title">{{ $eventData['title'] }} {{ $eventData['title'] }}</h3>
+                    <h3 class="card-title">{{ $eventData['title'] }}</h3>
                     <div class="card-tools my-1">
                         <x-button @click="close" icon="x" sm flat />
                     </div>

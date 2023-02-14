@@ -150,7 +150,7 @@
                                 <x-input wire:model.defer="district" label="Bairro" />
                             </div>
                             <div class="sm:col-span-2">
-                                <x-input wire:model.defer="city" label="Cidade" />
+                                <x-input wire:model.defer="city" label="Cidade" suffix="/PR" required />
                             </div>
                         </div>
                     </div>

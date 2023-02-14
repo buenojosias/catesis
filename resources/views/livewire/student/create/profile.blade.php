@@ -27,7 +27,7 @@
                             </x-native-select>
                         </div>
                         <div class="sm:col-span-4">
-                            <x-input label="Naturalidade" placeholder="Cidade de nascimento"
+                            <x-input label="Naturalidade" placeholder="Cidade/UF"
                                 wire:model.defer="naturalness" />
                         </div>
                         <div class="sm:col-span-2">

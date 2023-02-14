@@ -91,8 +91,9 @@
                                         required />
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
-                                        wire:model.defer="ks_birthday" without-tips without-time :max="now()->subYears(2)" required />
+                                    <x-input type="date" wire:model.defer="birthday" label="Data de nascimento *" required />
+                                    {{-- <x-datetime-picker label="Data de nascimento" placeholder="Data de nascimento *"
+                                        wire:model.defer="ks_birthday" without-tips without-time :max="now()->subYears(2)" required /> --}}
                                 </div>
                             @endif
                             @if ($option)

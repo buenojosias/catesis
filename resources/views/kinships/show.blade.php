@@ -7,10 +7,10 @@
         <div>
             <div class="card mb-4">
                 <div class="card-header">
-                    <h3 class="card-title">Catequizandos relacionados</h3>
+                    <h3 class="card-title">Catequizandos vinculados</h3>
                 </div>
                 <div class="card-body">
-                    @foreach ($students as $student)
+                    @forelse ($students as $student)
                         <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
                             <div class="font-medium text-gray-900">
                                 <a href="{{ route('students.show', $student) }}">{{ $student->name }}</a>
@@ -29,7 +29,9 @@
                             <div class="basis-full text-sm font-medium text-gray-600" mt-1>
                                 {{ $student->grade->title ?? 'Nenhuma etapa' }}</div>
                         </div>
-                    @endforeach
+                    @empty
+                        <x-empty label="Nenhum catequizando vinculado" />
+                    @endforelse
                 </div>
             </div>
             @livewire('pastoral.related-list', ['model' => $kinship])
