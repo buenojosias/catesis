@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
         $coord_com1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Coordenador da Comunidade 1', 'email' => 'coordenador1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
             $coord_com1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
             $coord_com1->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_com2 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Coordenador da Comunidade 2', 'email' => 'coordenador2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
+        $coord_com2 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Coordenador da Comunidade 2', 'email' => 'coordenador2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
             $coord_com2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
             $coord_com2->contact()->create(['phone' => '(99) 99999-9999']);
         $sec = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Secretário da Comunidade 1', 'email' => 'secretario@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('secretary');

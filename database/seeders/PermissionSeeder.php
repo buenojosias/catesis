@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
+        Permission::query()->truncate();
         // attach(1) = super admin
         // attach(2) = coordenador paroquial
         // attach(3) = coordenador de comunidade
@@ -33,7 +34,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'group_edit', 'label' => 'Editar grupos'])->roles()->attach([2,3]);
         Permission::create(['name' => 'attendance_edit', 'label' => 'Alterar frequência'])->roles()->attach([2,3]);
 
-        Permission::create(['name' => 'student_create', 'label' => 'Cadastrar catequizando'])->roles()->attach([2,3]);
+        Permission::create(['name' => 'student_create', 'label' => 'Cadastrar catequizando'])->roles()->attach([3,4]);
         Permission::create(['name' => 'student_edit', 'label' => 'Editar catequizando'])->roles()->attach([2,3,4]);
         Permission::create(['name' => 'student_transfer', 'label' => 'Transferir catequizando'])->roles()->attach([2,3]);
 

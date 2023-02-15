@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $role = session('role');
 
         $students_count = Student::query()
-            ->when($role == 'catechist', function ($query) use ($user_id) {
+            ->when(auth()->user()->hasExactRoles('catechist'), function ($query) use ($user_id) {
                 $students = $query->whereHas('groups', function ($query) use ($user_id) {
                         $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
                         return $query->whereIn('group_id', $groups);
@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->where('status', 'Ativo')
             ->count();
 
-        $catechists_count = User::query()->count();
+        $catechists_count = User::role('catechist')->count();
         $groups_count = Group::query()->where('finished', false)->count();
         $events = Event::query()
             ->whereDate('start_date', '>=', date('Y-m-d'))
@@ -63,11 +63,11 @@ class DashboardController extends Controller
             ->get();
         $baptisms = $baptisms->where('student', '<>', null);
 
-        if ($role === 'catechist') {
+        if (auth()->user()->hasRole('catechist')) {
             $today_group = auth()->user()->groups()->whereHas('encounters', function ($query) {
-                $query->where('date', date('Y-m-d'));
+                $query->whereDate('date', date('Y-m-d'))->where('date', '<=', date('Y-m-d H:i:s'));
             })->with('encounters', function ($query) {
-                $query->where('date', date('Y-m-d'))->first();
+                $query->whereDate('date', date('Y-m-d'))->first();
             })->first();
         } else {
             $today_group = null;

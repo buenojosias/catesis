@@ -32,7 +32,7 @@ class Index extends Component
             ->when(auth()->user()->community_id, function($query) {
                 return $query->where('community_id', auth()->user()->community_id);
             })
-            ->when(auth()->user()->hasRole('catechist'), function($query) {
+            ->when(auth()->user()->hasExactRoles('catechist'), function($query) {
                 $students = $query->whereHas('groups', function($query) {
                     $groups = auth()->user()->groups()->where('year', date('Y'))->where('finished', false)->pluck('id');
                     return $query->whereIn('group_id', $groups);

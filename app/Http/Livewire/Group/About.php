@@ -50,7 +50,7 @@ class About extends Component
     {
         $this->avaliable_catechists = User::query()
             ->when($this->group->community, function ($query) {
-                $query->where('community_id', $this->group->community_id);
+                $query->where('community_id', $this->group->community_id)->orWhere('id', auth()->user()->id);
             })
             ->whereDoesntHave('groups', function ($query) {
                 return $query->where('group_id', $this->group->id);
@@ -109,7 +109,7 @@ class About extends Component
 
     public function getCurrentEncounter() {
         if ($this->group->users->contains($this->user_id)) {
-            $this->today_encounter = $this->group->encounters()->where('date', date('Y-m-d'))->first();
+            $this->today_encounter = $this->group->encounters()->whereDate('date', date('Y-m-d'))->where('date', '<=', date('Y-m-d H:i:s'))->first();
         }
     }
 

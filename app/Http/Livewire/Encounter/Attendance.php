@@ -9,7 +9,6 @@ class Attendance extends Component
 {
     use Actions;
 
-    public $role;
     public $encounter;
     public $group;
     public $students;
@@ -40,9 +39,8 @@ class Attendance extends Component
     {
         $this->encounter = $encounter;
         $this->group = $group;
-        $this->role = session('role');
 
-        if($this->group->users()->find(auth()->user()) || ($this->role === 'coordinator' || $this->role === 'secretary') && $this->group->community_id === auth()->user()->community_id)
+        if($this->group->users()->find(auth()->user()) || (auth()->user()->hasAnyRole(['coordinator','secretary']) && $this->group->community_id === auth()->user()->community_id))
         {
             $this->canRegisterAttendance = true;
         } else {

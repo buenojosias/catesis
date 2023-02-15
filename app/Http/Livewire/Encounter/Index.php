@@ -38,7 +38,7 @@ class Index extends Component
             ->when($this->community_id, function ($query) {
                 $query->whereRelation('group', 'community_id', $this->community_id);
             })
-            ->when(auth()->user()->hasRole('catechist'), function ($query) {
+            ->when(auth()->user()->hasExactRoles('catechist'), function ($query) {
                 $groups = auth()->user()->groups()->pluck('id');
                 return $query->whereIn('group_id', $groups);
             })

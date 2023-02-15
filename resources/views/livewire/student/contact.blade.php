@@ -26,7 +26,7 @@
                     </div>
                     <div>
                         <h4>Cidade</h4>
-                        <p>{{ $city }}</p>
+                        <p>{{ $city }}/PR</p>
                     </div>
                 </div>
             </div>
