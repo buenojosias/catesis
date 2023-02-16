@@ -4,11 +4,11 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Temas</h3>
-            @can('theme_edit')
+            @if($can_edit)
                 <div class="card-tools">
                     <x-button wire:click="openModal('create')" sm flat primary label="Adicionar" />
                 </div>
-            @endcan
+            @endif
         </div>
     </div>
     <ul class="focusable">
@@ -23,11 +23,11 @@
                             <h4><span class="text-sm text-gray-600 font-medium">{{ $theme->sequence }}.</span>
                                 {{ $theme->title }}</h4>
                         </div>
-                        @can('theme_edit')
+                        @if($can_edit)
                             <div class="px-2">
                                 <x-button wire:click="openModal('edit', {{ $theme }})" sm flat icon="pencil-alt" />
                             </div>
-                        @endcan
+                        @endif
                     </div>
                     <div class="py-2">
                         <p class="text-justify">{{ $theme->description }}</p>
@@ -41,7 +41,7 @@
         @endforelse
     </ul>
 
-    @can('theme_edit')
+    @if($can_edit)
         <x-modal wire:model.defer="showModal" max-width="md">
             <div class="card w-full">
                 <form wire:submit.prevent="submit">
@@ -66,5 +66,5 @@
                 </form>
             </div>
         </x-modal>
-    @endcan
+    @endif
 </div>

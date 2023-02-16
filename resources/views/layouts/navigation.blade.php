@@ -18,9 +18,9 @@
                     <x-nav-link :href="route('encounters.index')" :active="request()->routeIs('encounters.*')" icon="book">Encontros</x-nav-link>
                 </div>
                 <div class="space-y-2 pt-2">
-                    @if(session('role') == 'admin')
+                    @role('admin')
                         <x-nav-link :href="route('communities.index')" :active="request()->routeIs('communities.*')" icon="church">Comunidades</x-nav-link>
-                    @endif
+                    @endrole
                     <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.*')" icon="list-ol">Etapas</x-nav-link>
                     <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.*')" icon="calendar-alt">Agenda de eventos</x-nav-link>
                     <x-nav-link :href="route('kinships.index')" :active="request()->routeIs('kinships.*')" icon="people-line">Familiares</x-nav-link>

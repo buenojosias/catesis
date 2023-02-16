@@ -47,12 +47,12 @@
                             <h4>Data final</h4>
                             <p>{{ $group->end_date ? $group->end_date->format('d/m/Y') : '' }}</p>
                         </div>
-                        @if ($role === 'admin')
+                        @role ('admin')
                             <div class="col-span-3">
                                 <h4>Comunidade</h4>
                                 <p>{{ $group->community->name }}</p>
                             </div>
-                        @endif
+                        @endrole
                     </div>
                 </div>
             </div>

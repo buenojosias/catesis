@@ -16,9 +16,9 @@
                             <td>{{ $grade->active_students_count }}</td>
                             <td class="text-right">
                                 <x-button href="{{ route('grades.show', $grade) }}" sm flat icon="eye" />
-                                @can('grade_edit')
+                                @if($can_edit)
                                     <x-button href="#" sm flat icon="pencil" />
-                                @endcan
+                                @endif
                             </td>
                         </tr>
                     @endforeach

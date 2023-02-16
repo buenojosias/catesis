@@ -44,7 +44,7 @@
                                             <div class="sm:flex-1 font-semibold text-gray-900">{{ $student->name }}
                                             </div>
                                             <div class="sm:text-right text-gray-600">
-                                                {{ session('role') === 'admin' ? $student->community->name : $student->grade->title }}
+                                                {{ auth()->user()->hasRole('admin') ? $student->community->name : $student->grade->title }}
                                             </div>
                                         </li>
                                     @endforeach

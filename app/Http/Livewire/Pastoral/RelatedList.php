@@ -14,7 +14,6 @@ class RelatedList extends Component
     public $showList;
     public $model;
     public $pastorals;
-
     public $communities;
     public $community_id;
     public $community_pastorals = []; # excluir já vinculadas
@@ -94,7 +93,7 @@ class RelatedList extends Component
 
     public function render()
     {
-        if (session('role') !== 'admin' && !auth()->user()->community_id) {
+        if (auth()->user()->hasAnyRole(['coordinator','secretary']) && !auth()->user()->community_id) {
             $this->community_pastorals = Pastoral::query()->orderBy('name', 'asc')->get();
         } else if ($this->community_id) {
             $this->community_pastorals = Pastoral::query()->where('community_id', $this->community_id)->orderBy('name', 'asc')->get();

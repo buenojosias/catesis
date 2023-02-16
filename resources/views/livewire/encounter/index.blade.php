@@ -32,9 +32,9 @@
                 <tr>
                     <th>Data</th>
                     <th>Grupo</th>
-                    @if (session('role') === 'admin')
+                    @role ('admin')
                         <th>Comunidade</th>
-                    @endif
+                    @endrole
                     <th>Tema</th>
                     @if ($period && $period === 'realizados')
                         <th width="1%" class="text-center">Presenças</th>
@@ -55,9 +55,9 @@
                                 {{ $encounter->group->grade->title }}
                         </td>
                         </a>
-                        @if (session('role') === 'admin')
+                        @role ('admin')
                             <td>{{ $encounter->group->community->name }}</td>
-                        @endif
+                        @endrole
                         <td>{{ $encounter->theme->title ?? '' }}</td>
                         @if ($period && $period === 'realizados')
                             @if ($encounter->students->count() === 0)

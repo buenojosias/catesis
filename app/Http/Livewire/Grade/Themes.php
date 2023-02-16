@@ -16,6 +16,7 @@ class Themes extends Component
     public $modalTheme;
     public $themes;
     public $grade;
+    public $can_edit;
 
     protected $validationAttributes = [
         'title' => 'Título',
@@ -60,6 +61,7 @@ class Themes extends Component
 
     public function mount($grade)
     {
+        $this->can_edit = auth()->user()->hasRole('admin') || (auth()->user()->hasRole('coordinator') && auth()->user()->community_id === null);
         $this->grade = $grade;
         $this->themes = $grade->themes;
     }

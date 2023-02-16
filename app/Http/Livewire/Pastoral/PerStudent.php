@@ -28,7 +28,7 @@ class PerStudent extends Component
 
     public function mount() {
         $this->community = auth()->user()->community_id ?? null;
-        if(session('role') === 'admin') {
+        if(auth()->user()->hasRole('admin')) {
             $this->communities = Community::all();
             $this->selectCommunity(1);
         }

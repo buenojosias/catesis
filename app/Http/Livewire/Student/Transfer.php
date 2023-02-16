@@ -13,6 +13,8 @@ class Transfer extends Component
 
     public $kinships;
     public $kinship_id;
+    public $parish_id;
+    public $community_id;
     public $group;
     public $student;
 
@@ -30,6 +32,8 @@ class Transfer extends Component
             $transfer = $this->student->transfer()->create([
                 'user_id' => auth()->user()->id,
                 'kinship_id' => $this->kinship_id,
+                'parish_id' => $this->student->parish_id,
+                'community_id' => $this->student->community_id,
                 'token' => $token,
             ]);
             if($this->group) {
@@ -61,6 +65,7 @@ class Transfer extends Component
 
     public function render()
     {
+        dump($this->student);
         $this->kinships = $this->student->kinships;
         return view('livewire.student.transfer');
     }

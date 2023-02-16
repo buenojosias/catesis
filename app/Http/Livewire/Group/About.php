@@ -14,7 +14,6 @@ class About extends Component
 
     public $community_id;
     public $user_id;
-    public $role;
     public $avaliable_catechists;
     public $catechists;
     public $community;
@@ -129,11 +128,10 @@ class About extends Component
     {
         $this->user_id = session('user_id');
         $this->community_id = session('community_id');
-        $this->role = session('role');
         $this->group = $group;
         $this->catechists = $this->group->users;
         $this->students_count = $group->active_students()->count();
-        if($this->role === 'admin') {
+        if(auth()->user()->hasRole('admin')) {
             $this->community = $group->community;
         }
         // if($this->role === 'catechist' && $group->users->contains(session('user_id'))) {

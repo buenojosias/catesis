@@ -31,12 +31,12 @@
                             <p>{{ $encounter->theme->title }}</p>
                         </div>
                     @endif
-                    @if ($role === 'admin')
+                    @role ('admin')
                         <div class="mt-4">
                             <h4>Comunidade</h4>
                             <p>{{ $group->community->name }}</p>
                         </div>
-                    @endif
+                    @endrole
                 </div>
             </div>
         </div>

@@ -15,7 +15,6 @@ class Index extends Component
     public $community = null;
     public $showFormModal;
     public $grade = null;
-    public $role;
     public $weekdays;
     public $year = 2023;
     public $years = [2023, 2022, 2021, 2020];
@@ -27,13 +26,12 @@ class Index extends Component
 
     public function mount($weekdays)
     {
-        $this->role = session('role');
         $this->weekdays = $weekdays;
     }
 
     public function render()
     {
-        if ($this->role === 'admin') {
+        if (auth()->user()->hasRole('admin')) {
             $communities = Community::all();
             $grades = Grade::all();
         }
@@ -42,7 +40,7 @@ class Index extends Component
             ->with(['grade', 'users'])
             ->withCount('active_students')
             ->where('year', $this->year)
-            ->when($this->role === 'admin', function ($query) {
+            ->when(auth()->user()->hasRole('admin'), function ($query) {
                 return $query->with('community');
             })
             ->when($this->community, function ($query) {
@@ -55,7 +53,6 @@ class Index extends Component
             ->paginate();
 
         foreach ($groups as $group) {
-            # VERIFICAR GRUPOS DO USUÁRIO AUTENTICADO
             if ($group->users->contains(session('user_id'))) {
                 $group->priority = 1;
             } else {

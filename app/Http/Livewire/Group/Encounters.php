@@ -12,10 +12,10 @@ class Encounters extends Component
 {
     use Actions;
 
-    public $role;
     public $encounters;
     public $form;
     public $group;
+    public $is_admin;
     public $method;
     public $showFormModal;
     public $themes;
@@ -74,7 +74,7 @@ class Encounters extends Component
 
     public function mount($group)
     {
-        $this->role = session('role');
+        $this->is_admin = auth()->user()->hasRole('admin');
         $this->group = $group;
     }
 

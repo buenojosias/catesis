@@ -9,7 +9,7 @@
                 <x-button flat icon="filter" @click="filters = !filters" />
             </div>
             <div x-show="filters" @click.outside="filters = false" class="filters">
-                @if($role === 'admin')
+                @role('admin')
                     <div>
                         <x-native-select label="Etapa" wire:model="grade">
                             <option value="">Todas</option>
@@ -26,7 +26,7 @@
                             @endforeach
                         </x-native-select>
                     </div>
-                @endif
+                @endrole
                 <div>
                     <x-native-select label="Ano" wire:model="year">
                         @foreach ($years as $year)
@@ -41,9 +41,9 @@
                 <thead>
                     <tr>
                         <th>Etapa</th>
-                        @if($role === 'admin')
+                        @role('admin')
                             <th>Comunidade</th>
-                        @endif
+                        @endrole
                         <th>Catequizandos</th>
                         <th>Catequista(s)</th>
                         <th></th>
@@ -53,9 +53,9 @@
                     @forelse ($groups->sortByDesc('priority') as $group)
                         <tr class="{{ $group->priority == 1 ? 'bg-slate-100' : '' }}">
                             <td><a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a></td>
-                            @if($role === 'admin')
+                            @role('admin')
                                 <td>{{ $group->community->name }}</td>
-                            @endif
+                            @endrole
                             <td>{{ $group->active_students_count }}</td>
                             <td>
                                 <ul>

@@ -27,7 +27,7 @@
                             </td>
                             <td>{{ $encounter->method }}</td>
                             <td>{{ $encounter->theme->title ?? '' }}</td>
-                            @if ($group->community_id === auth()->user()->community_id || $role === 'admin')
+                            @if ($group->community_id === auth()->user()->community_id || $is_admin)
                                 <td class="text-right">
                                     <x-button href="{{ route('groups.encounter', [$group, $encounter]) }}" sm flat
                                         icon="eye" />

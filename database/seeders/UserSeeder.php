@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         /*$superadmin = User::create(['name' => 'Administrador Master', 'email' => 'admin@catesis.com.br', 'password' => bcrypt('JPB@2019'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
             $superadmin->profile()->create(['birthday' => '1988-03-09', 'marital_status' => 'Solteiro(a)']);
             $superadmin->contact()->create(['whatsapp' => '(41) 99688-1818']);
-        $coord_par = User::create(['parish_id' => 1, 'name' => 'Coordenadora Paroquial São Marcos', 'email' => 'admin@psmarcos.org.br', 'password' => bcrypt('Ritinha@123'), 'remember_token' => Str::random(10)])->assignRole('admin');
+        $coord_par = User::create(['parish_id' => 1, 'name' => 'Coordenadora Paroquial São Marcos', 'email' => 'admin@psmarcos.org.br', 'password' => bcrypt('Ritinha@123'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
             $coord_par->profile()->create(['birthday' => '1986-05-10', 'marital_status' => 'Casado(a)']);
             $coord_par->contact()->create(['whatsapp' => '(41) 99601-7057']);*/
         # FIM PRODUÇÃO
