@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::query()->truncate();
+        // Permission::query()->truncate();
         // attach(1) = super admin
         // attach(2) = coordenador paroquial
         // attach(3) = coordenador de comunidade

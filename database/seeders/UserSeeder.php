@@ -25,74 +25,56 @@ class UserSeeder extends Seeder
         // User::query()->truncate();
 
         # PRODUÇÃO
-        /*$superadmin = User::create(['name' => 'Administrador Master', 'email' => 'admin@catesis.com.br', 'password' => bcrypt('JPB@2019'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
-            $superadmin->profile()->create(['birthday' => '1988-03-09', 'marital_status' => 'Solteiro(a)']);
-            $superadmin->contact()->create(['whatsapp' => '(41) 99688-1818']);
-        $coord_par = User::create(['parish_id' => 1, 'name' => 'Coordenadora Paroquial São Marcos', 'email' => 'admin@psmarcos.org.br', 'password' => bcrypt('Ritinha@123'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
-            $coord_par->profile()->create(['birthday' => '1986-05-10', 'marital_status' => 'Casado(a)']);
-            $coord_par->contact()->create(['whatsapp' => '(41) 99601-7057']);*/
+        if (env('APP_ENV') === 'production') {
+            $superadmin = User::create(['name' => 'Administrador Master', 'email' => 'admin@catesis.com.br', 'password' => bcrypt('JPB@2019'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
+                $superadmin->profile()->create(['birthday' => '1988-03-09', 'marital_status' => 'Solteiro(a)']);
+                $superadmin->contact()->create(['whatsapp' => '(41) 99688-1818']);
+            $coord_par = User::create(['parish_id' => 1, 'name' => 'Rita de Cássia Nascimento Clemente', 'email' => 'ritaclemente63@gmail.com', 'password' => bcrypt('Ritinha@123'), 'remember_token' => Str::random(10)])->assignRole('admin');
+                $coord_par->profile()->create(['birthday' => '1986-05-19', 'marital_status' => 'Casado(a)']);
+                $coord_par->contact()->create(['whatsapp' => '(41) 99601-7057']);
+        }
         # FIM PRODUÇÃO
 
-        # SANDBOX
-        $super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
-            $super_admin->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $super_admin->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_par = User::create(['parish_id' => 1, 'name' => 'Coordenador Paroquial', 'email' => 'admin@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
-            $coord_par->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $coord_par->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_com = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Coordenador de Comunidade', 'email' => 'coordenador@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
-            $coord_com->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
-            $coord_com->contact()->create(['phone' => '(99) 99999-9999']);
-        $sec = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Secretário de Comunidade', 'email' => 'secretario@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('secretary');
-            $sec->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $sec->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 1', 'email' => 'catequista1@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat1->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat2 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 2', 'email' => 'catequista2@sandbox.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat2->contact()->create(['phone' => '(99) 99999-9999']);
-        # FIM SANDBOX
-
-        # TESTES DESENVOLVIMENTO
-        /*$super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
-            $super_admin->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $super_admin->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_par1 = User::create(['parish_id' => 1, 'name' => 'Coordenador da Paróquia 1', 'email' => 'admin1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
-            $coord_par1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $coord_par1->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_par2 = User::create(['parish_id' => 2, 'name' => 'Coordenador da Paróquia 2', 'email' => 'admin2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
-            $coord_par2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $coord_par2->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_com1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Coordenador da Comunidade 1', 'email' => 'coordenador1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
-            $coord_com1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
-            $coord_com1->contact()->create(['phone' => '(99) 99999-9999']);
-        $coord_com2 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Coordenador da Comunidade 2', 'email' => 'coordenador2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
-            $coord_com2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
-            $coord_com2->contact()->create(['phone' => '(99) 99999-9999']);
-        $sec = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Secretário da Comunidade 1', 'email' => 'secretario@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('secretary');
-            $sec->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $sec->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 1', 'email' => 'catequista1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat1->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat2 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 2', 'email' => 'catequista2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat2->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat3 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Catequista 3', 'email' => 'catequista3@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat3->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat3->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat4 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Catequista 4', 'email' => 'catequista4@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat4->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat4->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat5 = User::create(['parish_id' => 2, 'name' => 'Catequista 5', 'email' => 'catequista5@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat5->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat5->contact()->create(['phone' => '(99) 99999-9999']);
-        $cat6 = User::create(['parish_id' => 2, 'name' => 'Catequista 6', 'email' => 'catequista6@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
-            $cat6->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
-            $cat6->contact()->create(['phone' => '(99) 99999-9999']);*/
-        # FIM TESTES DESENVOLVIMENTO
-
+        # DESENVOLVIMENTO/SANDBOX
+        else if (env('APP_ENV') === 'local') {
+            $super_admin = User::create(['name' => 'Super Admin', 'email' => 'superadmin@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('super-admin');
+                $super_admin->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $super_admin->contact()->create(['phone' => '(99) 99999-9999']);
+            $coord_par1 = User::create(['parish_id' => 1, 'name' => 'Coordenador da Paróquia 1', 'email' => 'admin1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('admin');
+                $coord_par1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $coord_par1->contact()->create(['phone' => '(99) 99999-9999']);
+            $coord_par2 = User::create(['parish_id' => 2, 'name' => 'Coordenador da Paróquia 2', 'email' => 'admin2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
+                $coord_par2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $coord_par2->contact()->create(['phone' => '(99) 99999-9999']);
+            $coord_com1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Coordenador da Comunidade 1', 'email' => 'coordenador1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
+                $coord_com1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
+                $coord_com1->contact()->create(['phone' => '(99) 99999-9999']);
+            $coord_com2 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Coordenador da Comunidade 2', 'email' => 'coordenador2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('coordinator');
+                $coord_com2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Casado(a)']);
+                $coord_com2->contact()->create(['phone' => '(99) 99999-9999']);
+            $sec = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Secretário da Comunidade 1', 'email' => 'secretario@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('secretary');
+                $sec->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $sec->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat1 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 1', 'email' => 'catequista1@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat1->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat1->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat2 = User::create(['parish_id' => 1, 'community_id' => 1, 'name' => 'Catequista 2', 'email' => 'catequista2@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat2->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat2->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat3 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Catequista 3', 'email' => 'catequista3@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat3->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat3->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat4 = User::create(['parish_id' => 1, 'community_id' => 2, 'name' => 'Catequista 4', 'email' => 'catequista4@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat4->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat4->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat5 = User::create(['parish_id' => 2, 'name' => 'Catequista 5', 'email' => 'catequista5@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat5->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat5->contact()->create(['phone' => '(99) 99999-9999']);
+            $cat6 = User::create(['parish_id' => 2, 'name' => 'Catequista 6', 'email' => 'catequista6@catesis.com', 'password' => bcrypt('123456'), 'remember_token' => Str::random(10)])->assignRole('catechist');
+                $cat6->profile()->create(['birthday' => '2000-01-01', 'marital_status' => 'Solteiro(a)']);
+                $cat6->contact()->create(['phone' => '(99) 99999-9999']);
+        }
+        # FIM DESENVOLVIMENTO/SANDBOX
 
         // User::create([
         //     'parish_id' => 1,

@@ -16,9 +16,9 @@ class UserProfileSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::where('id', '<', 26)->get();
-        foreach ($users as $user) {
-            UserProfile::factory(1)->create(['user_id' => $user->id]);
-        }
+        // $users = User::where('id', '<', 26)->get();
+        // foreach ($users as $user) {
+        //     UserProfile::factory(1)->create(['user_id' => $user->id]);
+        // }
     }
 }

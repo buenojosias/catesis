@@ -2,8 +2,6 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
-
         @if (env('APP_ENV') === 'local')
             <x-native-select id="email" name="email" label="Selecione um usuário para entrar" required autofocus>
                 <option value="">Selecione</option>

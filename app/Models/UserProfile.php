@@ -9,7 +9,7 @@ class UserProfile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['birthday','marital_status'];
+    protected $fillable = ['birthday','naturalness','marital_status','scholarity','catechist_from','catechist_invitation','encounter_preparation'];
     protected $dates = ['birthday'];
 
     public function user() {
