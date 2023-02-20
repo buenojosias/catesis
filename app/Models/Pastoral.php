@@ -21,7 +21,7 @@ class Pastoral extends Model
         return $this->morphedByMany(Student::class, 'pastorable');
     }
 
-    public function user() {
+    public function users() {
         return $this->belongsTo(User::class);
     }
 

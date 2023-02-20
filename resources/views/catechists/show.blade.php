@@ -1,66 +1,47 @@
 <x-app-layout>
+    <x-dialog />
+    <x-notifications />
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Catequista: {{ $catechist->name }}</h2>
+        <nav class="tabs">
+            <div>
+                <x-tab-link href="{{ route('catechists.show', $catechist) }}"
+                    active="{{ !$section || $section === 'sobre' }}" label="Sobre" />
+                <x-tab-link href="{{ route('catechists.show', [$catechist, 'perfil']) }}"
+                    active="{{ $section === 'perfil' }}" label="Perfil e formações" />
+                <x-tab-link href="{{ route('catechists.show', [$catechist, 'contatos']) }}"
+                    active="{{ $section === 'contatos' }}" label="Contatos" />
+                <x-tab-link href="{{ route('catechists.show', [$catechist, 'historico']) }}"
+                    active="{{ $section === 'historico' }}" label="Histórico" />
+                @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+                    <x-tab-link href="{{ route('catechists.show', [$catechist, 'conta']) }}"
+                        active="{{ $section === 'conta' }}" label="Configurações da conta" />
+                @endif
+            </div>
+        </nav>
     </x-slot>
     @if (session('success'))
         <x-success message="{{ session('success') }}" />
     @endif
-    <div class="card">
-        <div class="card-body display">
-            <div class="md:grid md:grid-cols-4 space-y-3 md:space-y-0 gap-4">
-                <div class="col-span-2">
-                    <h4>Nome completo</h4>
-                    <p>{{ $catechist->name }}</p>
-                </div>
-                <div class="col-span-2">
-                    <h4>E-mail</h4>
-                    <p>{{ $catechist->email }}</p>
-                </div>
-                <div class="col-span-2">
-                    <h4>Data de nascimento</h4>
-                    <p>{{ $catechist->profile->birthday->format('d/m/Y') }}</p>
-                </div>
-                <div class="col-span-2">
-                    <h4>Estado civil</h4>
-                    <p>{{ $catechist->profile->marital_status }}</p>
-                </div>
-                @hasrole('admin')
-                    <div class="col-span-4">
-                        <h4>Comunidade</h4>
-                        <p>{{ $catechist->community->name ?? '' }}</p>
-                    </div>
-                @endhasrole
-            </div>
-        </div>
-    </div>
-    <div class="mt-4 md:grid md:grid-cols-2 gap-4">
-        <div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        {{ $groups->where('year', date('Y'))->where('finished', false)->count() > 1? 'Grupos atuais': 'Grupo atual' }}
-                    </h3>
-                </div>
-                <div class="card-body">
-                    @forelse ($groups->where('year', date('Y'))->where('finished', false) as $group)
-                        <div class="flex justify-between flex-wrap p-4 border-b last:border-none">
-                            <div class="font-semibold">
-                                <a href="{{ route('groups.show', $group) }}">{{ $group->grade->title }}</a>
-                            </div>
-                            <div>
-                                <x-badge outline secondary
-                                    label="{{ $weekdays[$group->weekday] }}, {{ $group->time->format('H:i') }}" />
-                            </div>
-                            <div class="basis-full text-sm">{{ $group->students_count }} catequizandos</div>
-                        </div>
-                    @empty
-                        <div class="p-4 text-center text-sm font-semibold">
-                            Nenhum grupo adicionado.
-                        </div>
-                    @endforelse
-                </div>
-            </div>
-            <div class="card mb-4">
+    @if (!$section || $section === 'sobre')
+        @livewire('catechist.about', ['catechist' => $catechist])
+    @endif
+    @if ($section === 'contatos')
+        @livewire('catechist.contact', ['catechist' => $catechist])
+    @endif
+    @if ($section === 'conta')
+        @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+            @livewire('catechist.account', ['catechist' => $catechist])
+        @else
+            @php
+                abort(403);
+            @endphp
+        @endif
+    @endif
+
+    {{-- <div class="mt-4 md:grid md:grid-cols-2 gap-4">
+        <div> --}}
+    {{-- <div class="card mb-4">
                 <div class="card-header">
                     <h3 class="card-title">Histórico de grupos</h3>
                 </div>
@@ -88,20 +69,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        <div>
-            <div class="card">
-                @livewire('catechist.contact', ['catechist' => $catechist])
-            </div>
-            @if (
-                (auth()->user()->can('catechist_edit') &&
-                    auth()->user()->community_id === $catechist->community_id) ||
-                    auth()->user()->hasRole('admin'))
-                <div class="card mt-4">
-                    @livewire('catechist.edit-role', ['catechist' => $catechist])
-                </div>
-            @endif
-        </div>
-    </div>
+            </div> --}}
+    {{-- </div> --}}
 </x-app-layout>

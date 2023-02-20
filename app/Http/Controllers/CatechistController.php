@@ -12,16 +12,11 @@ class CatechistController extends Controller
         return view('catechists.index');
     }
 
-    public function show(User $user)
+    public function show(User $user, $section = 'sobre')
     {
-        $weekdays = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
-        $user->load('profile');
-        $user->load('community');
-        $groups = $user->groups()->with('grade')->withCount('students')->orderBy('year', 'desc')->get();
         return view('catechists.show', [
+            'section' => $section,
             'catechist' => $user,
-            'groups' => $groups,
-            'weekdays' => $weekdays,
         ]);
     }
 

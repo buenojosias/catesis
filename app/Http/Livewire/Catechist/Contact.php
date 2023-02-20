@@ -6,10 +6,12 @@ use Livewire\Component;
 
 class Contact extends Component
 {
+    public $address;
     public $contact;
 
     public function mount($catechist)
     {
+        $this->address = $catechist->address;
         $this->contact = $catechist->contact;
     }
 

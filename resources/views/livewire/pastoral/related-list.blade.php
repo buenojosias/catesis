@@ -16,11 +16,11 @@
                                     <p class="text-sm font-medium text-gray-600">{{ $pastoral->community->name }}</p>
                                 @endif
                             </div>
-                            @can('student_edit')
+                            @if(($model->getTable() !== 'users' && auth()->user()->can('student_edit')) || ($model->getTable() === 'users' && (auth()->user()->can('catechist_edit') || $model->id === auth()->user()->id)))
                                 <div class="flex items-center">
                                     <x-button wire:click="detach({{ $pastoral }})" xs flat icon="trash" />
                                 </div>
-                            @endcan
+                            @endif
                         </li>
                     @empty
                         <x-empty label="Nenhum movimento ou pastoral vinculado." />
@@ -33,11 +33,11 @@
             @endif
         </div>
         @if ($pastorals)
-            @can('student_edit')
+            @if(($model->getTable() !== 'users' && auth()->user()->can('student_edit')) || ($model->getTable() === 'users' && (auth()->user()->can('catechist_edit') || $model->id === auth()->user()->id)))
                 <div class="card-footer justify-end">
                     <x-button wire:click="openFormModal" label="Adicionar" sm flat primary />
                 </div>
-            @endcan
+            @endif
         @endif
     </div>
     @if ($showFormModal)

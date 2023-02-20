@@ -65,7 +65,6 @@ class Transfer extends Component
 
     public function render()
     {
-        dump($this->student);
         $this->kinships = $this->student->kinships;
         return view('livewire.student.transfer');
     }

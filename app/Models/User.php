@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function address() {
+        return $this->hasOne(UserAddress::class);
+    }
+
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');
     }
@@ -54,8 +58,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
-    public function pastorals() {
+    public function createdPastorals() {
         return $this->hasMany(Pastoral::class);
+    }
+
+    public function pastorals() {
+        return $this->morphToMany(Pastoral::class, 'pastorable');
     }
 
     public function profile() {
