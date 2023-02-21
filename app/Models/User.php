@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->hasOne(UserAddress::class);
     }
 
+    public function characteristics() {
+        return $this->belongsToMany(Characteristic::class);
+    }
+
     public function contact() {
         return $this->morphOne(Contact::class, 'contactable');
     }
@@ -68,5 +72,9 @@ class User extends Authenticatable
 
     public function profile() {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function trainings() {
+        return $this->belongsToMany(Training::class);
     }
 }

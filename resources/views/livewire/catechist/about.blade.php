@@ -45,6 +45,39 @@
                 {{ $catechist->profile->encounter_preparation ?? 'Sem resposta' }}
             </div>
         </div>
+        @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+        <div x-data="{ 'showCharacteristics': false }" class="card mb-4">
+            <div class="card-header">
+                <h3 @click="showCharacteristics = !showCharacteristics" wire:click="loadCharacteristics" class="card-title cursor-pointer">Características interpessoais</h3>
+            </div>
+            <div x-show="showCharacteristics" class="card-body py-2 px-4">
+                @if ($catechist->id === auth()->user()->id)
+                    <p class="mb-2 text-sm">O "ser" do catequista revela um rosto humano e cristão.<br>
+                        Dentro de um <span class="font-semibold">ideal a ser conquistado</span>,
+                        assinale somente as características com as quais se identifica.</p>
+                @endif
+                @if ($characteristics)
+                    <ul>
+                        @foreach ($characteristics as $characteristic)
+                            <li
+                                class="py-1 flex items-center space-x-2 {{ $catechist->id !== auth()->user()->id ? 'border-b last:border-none' : '' }}">
+                                @if ($catechist->id === auth()->user()->id)
+                                    <x-checkbox :label="$characteristic['title']" wire:model.defer="catechistCharacteristics" wire:click="syncCharacteristc({{$characteristic['id']}})" :value="$characteristic['id']" />
+                                @else
+                                    <div class="w-4">
+                                        <x-icon name="check"
+                                            class="w-4 h-4 {{ in_array($characteristic->id, $catechistCharacteristics) ? 'text-green-500' : 'text-gray-100' }}"
+                                            solid />
+                                    </div>
+                                    <div>{{ $characteristic->title }}</div>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        </div>
+        @endif
     </div>
 
     <div class="col-span-2">

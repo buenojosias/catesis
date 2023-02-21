@@ -42,7 +42,7 @@
                         </div>
                         <ul class="py-1" aria-labelledby="user-menu-button">
                             <li>
-                                <x-dropdown-link :href="route('profile.edit')">Perfil</x-dropdown-link>
+                                <x-dropdown-link :href="route('catechists.show', auth()->user())">Perfil</x-dropdown-link>
                             </li>
                         </ul>
                         <ul class="py-1" aria-labelledby="user-menu-button">
