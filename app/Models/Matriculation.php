@@ -34,7 +34,7 @@ class Matriculation extends Model
     //     return $this->hasOne(GroupStudent::class);
     // }
 
-    // public function payments() {
-    //     return $this->hasMany(Payment::class);
-    // }
+    public function payments() {
+        return $this->hasMany(Movementation::class);
+    }
 }

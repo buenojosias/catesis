@@ -45,7 +45,7 @@ class Account extends Component
         ]);
         try {
             $this->catechist->update([
-                'password' => $this->new_password,
+                'password' => bcrypt($this->new_password),
             ]);
             $this->current_password = $this->new_password = $this->confirmation_password = '';
             $this->notification()->success($description = 'Senha alterada com sucesso.');

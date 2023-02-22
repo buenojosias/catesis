@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Student\Create;
 
 use App\Models\Group;
+use App\Models\Movementation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -14,9 +15,10 @@ class Matriculation extends Component
     public $student;
     public $comment;
     public $groups;
+    public $group;
     public $kinship;
     public $matriculation;
-    public $group;
+    public $payment;
 
     protected $listeners = [
         'emitKinship'
@@ -68,11 +70,32 @@ class Matriculation extends Component
             DB::commit();
             $this->matriculation = $matriculation;
             $this->group = $group;
+            if($this->payment && $this->payment != '') {
+                $this->registerPayment($matriculation);
+            }
             return redirect()->route('students.show', $this->student)->with('success','Cadastro concluído com sucesso.');
         } else {
             DB::rollback();
             $this->notification()->error($description = 'Ocorreu um erro ao concluir rematrícula.');
         }
+    }
+
+    public function registerPayment($matriculation) {
+        $balance = $this->student->community->balance ?? $this->student->parish->balance;
+        $amount = $this->payment * 100;
+        $balance_after = $balance->amount + $amount;
+        Movementation::create([
+            'parish_id' => $this->student->community_id ? null : $this->student->parish_id,
+            'community_id' => $this->student->community_id ?? null,
+            'user_id' => auth()->user()->id,
+            'matriculation_id' => $matriculation->id,
+            'description' => 'Pagamento da taxa de inscrição do ano '. $matriculation->year .' de '.$this->student->name,
+            'amount' => $amount,
+            'balance_before' => $balance->amount,
+            'balance_after' => $balance_after,
+            'date' => date('Y-m-d'),
+        ]);
+        $balance->update(['amount' => $balance_after]);
     }
 
     public function mount($student)

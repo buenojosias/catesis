@@ -30,6 +30,9 @@
                                 @endforeach
                             </x-native-select>
                         </div>
+                        <div class="col-span-2">
+                            <x-inputs.currency label="Pagamento" prefix="R$" thousands="." decimal="," wire:model.defer="payment" />
+                        </div>
                         <div class="col-span-4">
                             <x-textarea wire:model.defer="comment" label="Comentário"
                                 placeholder="Se preferir, você pode escrever uma observação sobre o(a) catequizando(a)." />
@@ -65,7 +68,7 @@
                             <p>{{ $group->grade->title }}</p>
                         </div>
                         <div>
-                            <h4>Incínio</h4>
+                            <h4>Início</h4>
                             <p>{{ Carbon\Carbon::parse($group->start_date)->format('d/m/Y') }}</p>
                         </div>
                     </div>

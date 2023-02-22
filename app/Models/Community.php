@@ -54,4 +54,12 @@ class Community extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function balance() {
+        return $this->hasOne(Balance::class);
+    }
+
+    public function movementations() {
+        return $this->hasMany(Movementation::class);
+    }
 }

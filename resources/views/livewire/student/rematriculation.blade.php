@@ -28,6 +28,9 @@
                     @endforeach
                 </x-native-select>
             </div>
+            <div class="my-4">
+                <x-inputs.currency label="Pagamento" prefix="R$" thousands="." decimal="," wire:model.defer="payment" />
+            </div>
             <div>
                 <x-textarea wire:model.defer="comment" label="Comentário"
                     placeholder="Se preferir, você pode escrever uma observação sobre o(a) catequizando(a)." />

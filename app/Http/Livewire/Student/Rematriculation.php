@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Group;
-use App\Models\Matriculation;
+use App\Models\Movementation;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -20,6 +20,14 @@ class Rematriculation extends Component
     public $group;
     public $kinship;
     public $comment;
+    public $payment;
+
+    protected $validationAttributes = [
+        'group' => 'Grupo',
+        'kinship' => 'Familiar representante',
+        'comment' => 'Observações',
+    ];
+
 
     protected $listeners = ['submitRematriculation'];
 
@@ -77,6 +85,9 @@ class Rematriculation extends Component
         }
         if($matriculation && $update_student) {
             DB::commit();
+            if($this->payment && $this->payment != '') {
+                $this->registerPayment($matriculation);
+            }
             return redirect()->route('students.show', [$this->student, 'historico'])->with('success','Rematrícula efetuada com sucesso.');
         } else {
             DB::rollback();
@@ -84,11 +95,23 @@ class Rematriculation extends Component
         }
     }
 
-    protected $validationAttributes = [
-        'group' => 'Grupo',
-        'kinship' => 'Familiar representante',
-        'comment' => 'Observações',
-    ];
+    public function registerPayment($matriculation) {
+        $balance = $this->student->community->balance ?? $this->student->parish->balance;
+        $amount = $this->payment * 100;
+        $balance_after = $balance->amount + $amount;
+        Movementation::create([
+            'parish_id' => $this->student->community_id ? null : $this->student->parish_id,
+            'community_id' => $this->student->community_id ?? null,
+            'user_id' => auth()->user()->id,
+            'matriculation_id' => $matriculation->id,
+            'description' => 'Pagamento da taxa de inscrição do ano '. $matriculation->year .' de '.$this->student->name,
+            'amount' => $amount,
+            'balance_before' => $balance->amount,
+            'balance_after' => $balance_after,
+            'date' => date('Y-m-d'),
+        ]);
+        $balance->update(['amount' => $balance_after]);
+    }
 
     public function render()
     {

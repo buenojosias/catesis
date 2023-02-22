@@ -155,7 +155,7 @@
                                 <option value="Ensino Médio Completo">Ensino Médio Completo</option>
                                 <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
                                 <option value="Cursando Ensino Superior">Cursando Ensino Superior</option>
-                                <option value="Ensino Superio Completo">Ensino Superio Completo</option>
+                                <option value="Ensino Superior Completo">Ensino Superior Completo</option>
                                 <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
                             </x-native-select>
                         </div>
