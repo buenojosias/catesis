@@ -34,7 +34,11 @@ class CharacteristicSeeder extends Seeder
 
         if (env('APP_ENV') === 'local') {
             foreach ($titles as $title) {
-                Characteristic::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(4, count($users))));
+                Characteristic::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(1, count($users))));
+            }
+        } else if (env('APP_ENV') === 'production') {
+            foreach ($titles as $title) {
+                Characteristic::create(['title' => $title]);
             }
         }
     }
