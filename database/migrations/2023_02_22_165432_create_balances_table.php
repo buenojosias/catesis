@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parish_id')->constrained();
+            $table->foreignId('parish_id')->nullable()->constrained();
             $table->foreignId('community_id')->nullable()->constrained();
             $table->integer('amount');
             $table->timestamps();
