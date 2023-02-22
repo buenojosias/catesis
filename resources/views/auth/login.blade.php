@@ -40,8 +40,6 @@
                 <x-button type="submit" label="Entrar" primary />
             </div>
         @endif
-
-
         </div>
     </form>
 </x-guest-layout>

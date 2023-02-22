@@ -30,9 +30,10 @@ class TrainingSeeder extends Seeder
             'Encontros Setoriais',
             'Encontros Arquidiocesanos',
         ];
-
-        foreach ($titles as $title) {
-            Training::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(5,10)));
+        if (env('APP_ENV') === 'local') {
+            foreach ($titles as $title) {
+                Training::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(5, count($users))));
+            }
         }
     }
 }

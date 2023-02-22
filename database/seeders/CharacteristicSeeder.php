@@ -32,8 +32,10 @@ class CharacteristicSeeder extends Seeder
             'Unificador: ponto de união e de comunhão',
         ];
 
-        foreach ($titles as $title) {
-            Characteristic::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(4,10)));
+        if (env('APP_ENV') === 'local') {
+            foreach ($titles as $title) {
+                Characteristic::create(['title' => $title])->catechists()->sync(Arr::random($users, rand(4, count($users))));
+            }
         }
     }
 }
