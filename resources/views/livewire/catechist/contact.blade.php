@@ -1,24 +1,26 @@
 <div class="md:grid md:grid-cols-2 gap-4">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Endereço</h3>
-        </div>
-        <div class="card-body display">
-            <div>
-                <h4>Endereço</h4>
-                <p class="h-8">{{ $address->address ?? 'Não informado' }}</p>
+    <div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Endereço</h3>
             </div>
-            <div>
-                <h4>Complemento</h4>
-                <p class="h-8">{{ $address->complement ?? '' }}</p>
-            </div>
-            <div>
-                <h4>Bairro</h4>
-                <p class="h-8">{{ $address->district ?? 'Não informado' }}</p>
-            </div>
-            <div>
-                <h4>Cidade</h4>
-                <p class="h-8">{{ $address->city ?? 'Não informada' }}</p>
+            <div class="card-body display">
+                <div>
+                    <h4>Endereço</h4>
+                    <p class="h-8">{{ $address->address ?? 'Não informado' }}</p>
+                </div>
+                <div>
+                    <h4>Complemento</h4>
+                    <p class="h-8">{{ $address->complement ?? '' }}</p>
+                </div>
+                <div>
+                    <h4>Bairro</h4>
+                    <p class="h-8">{{ $address->district ?? 'Não informado' }}</p>
+                </div>
+                <div>
+                    <h4>Cidade</h4>
+                    <p class="h-8">{{ $address->city ?? 'Não informada' }}</p>
+                </div>
             </div>
         </div>
     </div>

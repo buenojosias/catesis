@@ -10,7 +10,7 @@ class UserProfile extends Model
     use HasFactory;
 
     protected $fillable = ['birthday','naturalness','marital_status','scholarity','catechist_from','catechist_invitation','encounter_preparation'];
-    protected $dates = ['birthday'];
+    protected $dates = ['birthday','catechist_from'];
 
     public function user() {
         return $this->belongsTo(User::class);
