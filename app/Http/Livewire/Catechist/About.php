@@ -18,6 +18,17 @@ class About extends Component
     public $showEditProfileModal;
     public $weekdays = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
 
+    protected $validationAttributes = [
+        'name' => 'Nome',
+        'birthday' => 'Data de nascimento',
+        'naturalness' => 'Naturalidade',
+        'marital_status' => 'Estado civil',
+        'scholarity' => 'Escolaridade',
+        'catechist_from' => 'Catequista desde',
+        'catechist_invitation' => 'Chamado',
+        'encounter_preparation' => 'Preparação dos encontros',
+];
+
     public function loadCharacteristics() {
         if(!$this->characteristics) {
             $this->characteristics = Characteristic::all();
@@ -53,13 +64,13 @@ class About extends Component
             'naturalness' => 'nullable|string|max:100',
             'marital_status' => 'nullable|string|max:50',
             'scholarity' => 'nullable|string|max:128',
-            'catechist_from' => 'required|date|before:now',
+            'catechist_from' => 'nullable|date|before:now',
             'catechist_invitation' => 'nullable|string',
             'encounter_preparation' => 'nullable|string',
         ]);
         // dd([$this->catechistForm, $this->profileForm]);
         try {
-            if($this->catechist_from == "") { $this->catechist_from = null; };
+            if($this->catechist_from == "") { $validateProfile['catechist_from'] = null; };
             $saveCatechist = $this->catechist->update($validateCatechist);
             $saveProfile = $this->catechist->profile()->update($validateProfile);
             $this->notification()->success($description = 'Informações atualizadas com sucesso.');
@@ -78,7 +89,7 @@ class About extends Component
         $this->naturalness = $catechist->profile->naturalness;
         $this->marital_status = $catechist->profile->marital_status;
         $this->scholarity = $catechist->profile->scholarity;
-        $this->catechist_from = Carbon::parse($catechist->profile->catechist_from)->format('Y-m-d');
+        if($catechist->profile->catechist_from) { $this->catechist_from = Carbon::parse($catechist->profile->catechist_from)->format('Y-m-d'); }
         $this->catechist_invitation = $catechist->profile->catechist_invitation;
         $this->encounter_preparation = $catechist->profile->encounter_preparation;
         $this->groups = $catechist->groups()->where('year', date('Y'))->where('finished', false)->with('grade')->withCount('students')->orderBy('year', 'desc')->get();
