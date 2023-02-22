@@ -17,6 +17,10 @@ class Encounter extends Model
         return $this->belongsToMany(Student::class)->wherePivot('attendance', 'F');
     }
 
+    public function comments() {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function group() {
         return $this->belongsTo(Group::class);
     }

@@ -15,8 +15,8 @@ class Comment extends Model
     protected $guarded = ['id'];
     protected $dates = ['timestamp'];
 
-    public function student() {
-        return $this->belongsTo(Student::class);
+    public function commentable() {
+        return $this->morphTo();
     }
 
     public function user() {

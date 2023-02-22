@@ -31,7 +31,7 @@
                             <p>{{ $encounter->theme->title }}</p>
                         </div>
                     @endif
-                    @role ('admin')
+                    @role('admin')
                         <div class="mt-4">
                             <h4>Comunidade</h4>
                             <p>{{ $group->community->name }}</p>
@@ -52,6 +52,7 @@
                     @livewire('encounter.attendance', ['encounter' => $encounter, 'group' => $group])
                 </div>
             @endif
+            @livewire('encounter.comments', ['encounter' => $encounter, 'group' => $group])
         </div>
     </div>
 </x-app-layout>

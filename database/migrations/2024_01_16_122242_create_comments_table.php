@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('parish_id')->constrained();
             $table->foreignId('community_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->morphs('commentable');
             $table->text('description');
             $table->timestamps();
         });
