@@ -9,10 +9,10 @@
                     <h4>Endereço</h4>
                     <p class="mb-2">{{ $address->address ?? 'Não informado' }}</p>
                 </div>
-                @if ($address->complement)
+                @if (@$address->complement)
                     <div>
                         <h4>Complemento</h4>
-                        <p class="mb-2">{{ $address->complement ?? '' }}</p>
+                        <p class="mb-2">{{ $address->complement }}</p>
                     </div>
                 @endif
                 <div>

@@ -57,7 +57,7 @@ class PerPastoral extends Component
         ]);
         if ($this->method === 'create') {
             try {
-                $pastoral = auth()->user()->pastorals()->create($this->form);
+                $pastoral = auth()->user()->createdPastorals()->create($this->form);
                 $this->notification()->success($description = 'Movimento/pastoral salva com sucesso.');
                 $this->selectCommunity($pastoral->community->id ?? null);
                 $this->showFormModal = false;
