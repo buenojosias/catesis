@@ -1,56 +1,49 @@
 <?php
 
-namespace App\Http\Livewire\Student;
+namespace App\Http\Livewire\Enrollment;
 
+use App\Models\Enrollment;
 use App\Models\Group;
 use App\Models\Movementation;
-use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Rematriculation extends Component
+class Show extends Component
 {
     use Actions;
 
-    public $student;
-    public $groups;
-    public $kinships;
-
+    public $code;
+    public $confirmationEnrollmentModal;
+    public $enrollmentData, $student, $kinship;
+    public $enrollments;
     public $group;
-    public $kinship;
+    public $groups;
     public $comment;
     public $payment;
 
     protected $validationAttributes = [
         'group' => 'Grupo',
-        'kinship' => 'Familiar representante',
         'comment' => 'Comentário',
     ];
 
-
-    protected $listeners = ['submitRematriculation'];
-
-    public function mount(Student $student)
+    public function openConfirmModal($enrollment)
     {
-        $this->student = $student;
-        $this->kinships = $student->kinships;
-        $this->groups = Group::query()
-            ->where('community_id', $student->community_id)
-            ->when($student->grade_id, function($query) use ($student) {
-                return $query->where('grade_id', '>=', $student->grade_id);
-            })
-            ->where('finished', false)
-            ->with('grade')
-            ->get();
+        $this->enrollmentData = Enrollment::with(['student','kinship'])->find($enrollment);
+        $this->student = $this->enrollmentData->student;
+        $this->student['age'] = Carbon::parse($this->student->birthday)->age;
+        $this->kinship = $this->enrollmentData->kinship;
+        $this->groups = Group::where('finished', false)->when($this->student->age < 9, function($query){
+            $query->whereRelation('grade', 'id', 1);
+        })->with('grade')->get();
+        $this->confirmationEnrollmentModal = true;
     }
 
-    public function submitRematriculation() {
+    public function submitConfirmation() {
         $validGroups = $this->groups->pluck('id')->toArray();
-        $validKinships = $this->kinships->pluck('id')->toArray();
         $validate = $this->validate([
             'group' => 'required|in:' . implode(',', $validGroups),
-            'kinship' => 'required|in:' . implode(',', $validKinships),
             'comment' => 'nullable|string',
         ]);
         $group = $this->groups->where('id', $this->group)->first();
@@ -60,7 +53,7 @@ class Rematriculation extends Component
             $matriculation = $this->student->matriculations()->create([
                 'user_id' => auth()->user()->id,
                 'community_id' => $this->student->community_id,
-                'kinship_id' => $this->kinship,
+                'kinship_id' => $this->kinship->id,
                 'year' => $group->year,
             ]);
             $this->student->groups()->attach($group->id, [
@@ -73,6 +66,9 @@ class Rematriculation extends Component
                 'grade_id' => $group->grade_id,
                 'status' => 'Ativo',
             ]);
+            $update_entollment = $this->enrollmentData->update([
+                'status' => 'Confirmado',
+            ]);
             if($this->comment) {
                 $this->student->comments()->create([
                     'user_id' => auth()->user()->id,
@@ -80,19 +76,21 @@ class Rematriculation extends Component
                 ]);
             }
         } catch (\Throwable $th) {
-            $this->dialog(['description'=>'Ocorreu um erro ao fazer rematrícula.','icon'=>'error']);
+            $this->dialog(['description'=>'Ocorreu um erro ao confirmar inscrição.','icon'=>'error']);
             dd($th);
         }
-        if($matriculation && $update_student) {
+        if($matriculation && $update_student && $update_entollment) {
             DB::commit();
             if($this->payment && $this->payment != '') {
                 $this->registerPayment($matriculation);
             }
-            return redirect()->route('students.show', [$this->student, 'historico'])->with('success','Rematrícula efetuada com sucesso.');
+            $this->notification()->success($description = 'Inscrição confirmada com sucesso.');
+            $this->confirmationEnrollmentModal = false;
         } else {
             DB::rollback();
-            $this->dialog(['description'=>'Ocorreu um erro ao fazer rematrícula.','icon'=>'error']);
+            $this->dialog(['description'=>'Ocorreu um erro ao confirmar inscrição.','icon'=>'error']);
         }
+        // fechar modal
     }
 
     public function registerPayment($matriculation) {
@@ -113,8 +111,14 @@ class Rematriculation extends Component
         $balance->update(['amount' => $balance_after]);
     }
 
+    public function mount($code)
+    {
+        $this->code = $code;
+    }
+
     public function render()
     {
-        return view('livewire.student.rematriculation');
+        $this->enrollments = $this->code->enrollments()->with(['student','kinship'])->get();
+        return view('livewire.enrollment.show');
     }
 }

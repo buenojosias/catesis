@@ -26,6 +26,11 @@
                     <x-nav-link :href="route('kinships.index')" :active="request()->routeIs('kinships.*')" icon="people-line">Familiares</x-nav-link>
                     <x-nav-link :href="route('pastorals.index')" :active="request()->routeIs('pastorals.*')" icon="circle-nodes">Movimentos e Pastorais</x-nav-link>
                 </div>
+                <div class="space-y-2 pt-2">
+                    @can('student_edit')
+                        <x-nav-link :href="route('enrollments')" :active="request()->routeIs('enrollments')" icon="clipboard">Festa das inscrições</x-nav-link>
+                    @endcan
+                </div>
             </div>
         </div>
     </div>

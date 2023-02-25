@@ -4,6 +4,7 @@ use App\Http\Controllers\CatechistController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KinshipController;
@@ -34,8 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
         Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
         Route::get('/comunidades/{community}/editar', [CommunityController::class, 'edit'])->name('communities.edit');
-    }
-    );
+    });
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
     Route::get('/catequistas/cadastro', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
@@ -63,6 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/catequizandos/{student}/transferencia-{transfer}', [StudentController::class, 'printTransfer'])->name('student.transfer.print');
     Route::get('/catequizandos/{student}/imprimir', [StudentController::class, 'printCard'])->name('student.print');
     Route::get('/catequizandos/{student}/{section?}', [StudentController::class, 'show'])->name('students.show');
+    Route::get('/inscricoes/{code?}', EnrollmentController::class)->middleware('can:student_edit')->name('enrollments');
 
     Route::get('/familiares', [KinshipController::class, 'index'])->name('kinships.index');
     Route::get('/familiares/{kinship}', [KinshipController::class, 'show'])->name('kinships.show');

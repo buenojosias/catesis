@@ -63,4 +63,14 @@ class Parish extends Model
     public function movementations() {
         return $this->hasMany(Movementation::class);
     }
+
+    public function enrollements()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function enrollmentCodes()
+    {
+        return $this->hasMany(EnrollmentCode::class);
+    }
 }
