@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Grade;
 
+use App\Models\Theme;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -9,7 +10,7 @@ class Themes extends Component
 {
     use Actions;
 
-    public $theme_id, $title, $description;
+    public $theme_id, $title, $description, $global = false;
     public $showModal;
     public $method;
     public $modalTitle;
@@ -32,7 +33,8 @@ class Themes extends Component
 
         if($this->method === 'create') {
             try {
-                $savedTheme = $this->grade->themes()->create([
+                $savedTheme = Theme::create([
+                    'grade_id' => $this->global === false ? $this->grade->id : null,
                     'title' => $this->title,
                     'description' => $this->description,
                     'sequence' => $this->themes->count() + 1,
@@ -45,9 +47,10 @@ class Themes extends Component
                 dd($th);
             }
         } else if($this->method === 'edit') {
+            $validate['grade_id'] = $this->global === false ? $this->grade->id : null;
             try {
-                $theme = $this->grade->themes()->findOrFail($this->theme_id)->update($validate);
-                $this->themes = $this->grade->themes()->get();
+                $theme = Theme::findOrFail($this->theme_id)->update($validate);
+                $this->themes = Theme::where('grade_id', $this->grade->id)->orWhereNull('grade_id')->orderBy('grade_id')->get();
                 $this->notification()->success($description = 'Tema alterado com sucesso.');
                 $this->showModal = false;
             } catch (\Throwable $th) {
@@ -63,7 +66,7 @@ class Themes extends Component
     {
         $this->can_edit = auth()->user()->hasRole('admin') || (auth()->user()->hasRole('coordinator') && auth()->user()->community_id === null);
         $this->grade = $grade;
-        $this->themes = $grade->themes;
+        $this->themes = Theme::where('grade_id', $this->grade->id)->orWhereNull('grade_id')->orderBy('grade_id')->get();
     }
 
     public function openModal($method, $modalTheme = null)
@@ -73,6 +76,9 @@ class Themes extends Component
         $this->theme_id = $modalTheme['id'] ?? null;
         $this->title = $modalTheme['title'] ?? null;
         $this->description = $modalTheme['description'] ?? null;
+        if($method === 'edit') {
+            $this->global = $modalTheme['grade_id'] ? false : true;
+        }
         $this->showModal = true;
     }
 

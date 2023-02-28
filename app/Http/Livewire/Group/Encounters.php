@@ -35,7 +35,7 @@ class Encounters extends Component
         } else {
             $this->form['date'] = Carbon::parse($encounter['date'])->format('Y-m-d');
         }
-        $this->themes = Theme::where('grade_id', $this->group->grade_id)->orderBy('sequence', 'asc')->get();
+        $this->themes = Theme::where('grade_id', $this->group->grade_id)->orWhereNull('grade_id')->orderBy('grade_id')->orderBy('sequence', 'asc')->get();
         $this->showFormModal = true;
     }
 

@@ -76,7 +76,7 @@
                                     <x-native-select wire:model.defer="form.theme_id" label="Tema">
                                         <option value="">Selecione</option>
                                         @foreach ($themes as $theme)
-                                            <option value="{{ $theme->id }}">{{ $theme->title }}</option>
+                                            <option value="{{ $theme->id }}">{{ $theme->title }} {{ !$theme->grade_id ? '(tema global)' : '' }}</option>
                                         @endforeach
                                     </x-native-select>
                                 </div>
