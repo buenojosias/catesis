@@ -4,17 +4,65 @@ namespace App\Http\Livewire\Encounter;
 
 use App\Models\Community;
 use App\Models\Encounter;
+use App\Models\Group;
+use App\Models\Theme;
 use Livewire\Component;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class Index extends Component
 {
+    use Actions;
     use WithPagination;
 
     public $community_id;
     public $date;
     public $filter_date;
     public $period;
+    public $form;
+    public $showFormModal;
+    public $themes;
+
+    protected $validationAttributes = [
+        'form.date' => 'Data do encontro',
+        'form.method' => 'Método',
+        'form.theme_id' => 'Tema',
+    ];
+
+    public function openFormModal()
+    {
+        $this->form['date'] = null;
+        $this->themes = Theme::whereNull('grade_id')->orderBy('title', 'asc')->get();
+        $this->showFormModal = true;
+    }
+
+    public function submitEncounter()
+    {
+        $validThemes = $this->themes->pluck('id')->toArray();
+        $validMethods = ['Presencial', 'Familiar'];
+        $validate = $this->validate([
+            'form.date' => 'required|date',
+            'form.method' => 'required|string|in:' . implode(',', $validMethods),
+            'form.theme_id' => 'nullable|integer|in:' . implode(',', $validThemes),
+        ]);
+        $groups = Group::where('finished', false)->where('year', date('Y'))->whereDoesntHave('encounters', function($query){
+            $query->whereDate('date', $this->form['date']);
+        })->get();
+        try {
+            foreach($groups as $group) {
+                $group->encounters()->create([
+                    'date' => date($this->form['date'] . ' ' . $group->time->format('H:i:s')),
+                    'method' => $this->form['method'],
+                    'theme_id' => $this->form['theme_id'] ?? null,
+                ]);
+            }
+            $this->notification()->success($description = 'Encontros cadastrados com sucesso.');
+            $this->showFormModal = false;
+        } catch (\Throwable $th) {
+            $this->notification()->error($description = 'Ocorreu um erro ao salvar encontros.');
+            dd($th);
+        }
+    }
 
     public function mount($period)
     {
@@ -25,7 +73,7 @@ class Index extends Component
 
     public function render()
     {
-        if(auth()->user()->hasRole('admin')) {
+        if (auth()->user()->hasRole('admin')) {
             $communities = Community::all();
         }
 
