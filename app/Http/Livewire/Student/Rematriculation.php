@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Student;
 use App\Models\Group;
 use App\Models\Movementation;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -14,9 +15,9 @@ class Rematriculation extends Component
     use Actions;
 
     public $student;
+    public $isUnderNine;
     public $groups;
     public $kinships;
-
     public $group;
     public $kinship;
     public $comment;
@@ -34,11 +35,17 @@ class Rematriculation extends Component
     public function mount(Student $student)
     {
         $this->student = $student;
+        $maxYear = date('Y')-10;
+        $maxBirthdayDate = Carbon::parse($maxYear.'-12-31');
+        $this->isUnderNine = $this->student->birthday > $maxBirthdayDate;
         $this->kinships = $student->kinships;
         $this->groups = Group::query()
             ->where('community_id', $student->community_id)
             ->when($student->grade_id, function($query) use ($student) {
                 return $query->where('grade_id', '>=', $student->grade_id);
+            })
+            ->when($this->isUnderNine, function($query) {
+                return $query->where('grade_id', 1);
             })
             ->where('finished', false)
             ->with('grade')

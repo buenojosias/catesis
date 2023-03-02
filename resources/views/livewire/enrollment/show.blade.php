@@ -52,6 +52,10 @@
                             <p>{{ $student['name'] }}</p>
                         </div>
                         <div class="mb-4">
+                            <h4>Data de nascimento</h4>
+                            <p>{{ Carbon\Carbon::parse($student['birthday'])->format('d/m/Y') }} ({{ Carbon\Carbon::parse($student['birthday'])->age }} anos)</p>
+                        </div>
+                        <div class="mb-4">
                             <h4>Responsável</h4>
                             <p>{{ $kinship['name'] }}</p>
                         </div>

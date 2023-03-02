@@ -71,7 +71,7 @@
                                         {{ strtolower($event->start_date->format('d/m')) }}
                                         @if ($event->start_time)
                                             <i class="fa fa-clock text-xs text-gray-500 mr-0.5 ml-2"></i>
-                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->start_time)->format('h:i') }}
+                                            {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->start_time)->format('H:i') }}
                                         @endif
                                         @if ($event->end_date)
                                             <span class="px-2">a</span>
@@ -79,7 +79,7 @@
                                             {{ strtolower($event->end_date->format('d/m')) }}
                                             @if ($event->start_time)
                                                 <i class="fa fa-clock text-xs text-gray-500 mr-0.5 ml-2"></i>
-                                                {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->end_time)->format('h:i') }}
+                                                {{ \Carbon\Carbon::createFromFormat('H:i:s', $event->end_time)->format('H:i') }}
                                             @endif
                                         @endif
                                     </p>

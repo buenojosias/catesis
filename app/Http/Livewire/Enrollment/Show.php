@@ -16,7 +16,7 @@ class Show extends Component
 
     public $code;
     public $confirmationEnrollmentModal;
-    public $enrollmentData, $student, $kinship;
+    public $enrollmentData, $student, $kinship, $isUnderNine;
     public $enrollments;
     public $group;
     public $groups;
@@ -32,10 +32,14 @@ class Show extends Component
     {
         $this->enrollmentData = Enrollment::with(['student','kinship'])->find($enrollment);
         $this->student = $this->enrollmentData->student;
-        $this->student['age'] = Carbon::parse($this->student->birthday)->age;
         $this->kinship = $this->enrollmentData->kinship;
-        $this->groups = Group::where('finished', false)->when($this->student->age < 9, function($query){
-            $query->whereRelation('grade', 'id', 1);
+        $maxYear = date('Y')-10;
+        $maxBirthdayDate = Carbon::parse($maxYear.'-12-31');
+        $this->isUnderNine = $this->student->birthday > $maxBirthdayDate;
+        $this->groups = Group::query()
+        ->where('finished', false)
+        ->when($this->isUnderNine, function($query) {
+            $query->where('grade_id', 1);
         })->with('grade')->get();
         $this->confirmationEnrollmentModal = true;
     }

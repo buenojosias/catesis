@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Student\Create;
 
 use App\Models\Group;
 use App\Models\Movementation;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -13,6 +14,7 @@ class Matriculation extends Component
     use Actions;
 
     public $student;
+    public $isUnderNine;
     public $comment;
     public $groups;
     public $group;
@@ -101,9 +103,14 @@ class Matriculation extends Component
     public function mount($student)
     {
         $this->student = $student;
+        $maxYear = date('Y')-10;
+        $maxBirthdayDate = Carbon::parse($maxYear.'-12-31');
+        $this->isUnderNine = $this->student->birthday > $maxBirthdayDate;
         $this->groups = Group::query()
-            // ->where('community_id', $student->community_id)
             ->where('finished', false)
+            ->when($this->isUnderNine, function($query) {
+                return $query->where('grade_id', 1);
+            })
             ->with('grade')
             ->get();
     }
