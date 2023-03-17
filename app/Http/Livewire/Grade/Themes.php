@@ -64,7 +64,8 @@ class Themes extends Component
 
     public function mount($grade)
     {
-        $this->can_edit = auth()->user()->hasRole('admin') || (auth()->user()->hasRole('coordinator') && auth()->user()->community_id === null);
+        // $this->can_edit = auth()->user()->hasRole('admin') || (auth()->user()->hasRole('coordinator') && auth()->user()->community_id === null);
+        $this->can_edit = auth()->user()->hasRole(['admin','coordinator']);
         $this->grade = $grade;
         $this->themes = Theme::where('grade_id', $this->grade->id)->orWhereNull('grade_id')->orderBy('grade_id')->get();
     }

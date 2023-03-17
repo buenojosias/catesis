@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/printable.css',
+                'resources/css/inscription.css',
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],

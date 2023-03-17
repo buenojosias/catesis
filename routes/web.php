@@ -13,6 +13,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Livewire\Event\Index as Event;
 use App\Http\Livewire\Group\PrintableAttendance;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Inscription\Index as Inscription;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,5 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/eventos/{section?}', Event::class)->name('events.index');
 });
+
+Route::get('/inscricao', Inscription::class)->name('inscription');
 
 require __DIR__ . '/auth.php';

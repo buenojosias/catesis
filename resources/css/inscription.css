@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-sky-600 overflow-hidden;
+}
+
+.main {
+    @apply w-full h-screen sm:max-w-[540px] mx-auto flex flex-col overflow-hidden;
+}
+header {
+    @apply p-4 text-white;
+}
+header > h4 {
+    @apply text-2xl font-semibold;
+}
+header > h5 {
+    @apply text-lg font-thin;
+}
+section {
+    @apply flex-1 flex flex-col bg-gray-50 rounded-t-lg shadow overflow-y-auto;
+}
+section > .body {
+    @apply flex-1 p-4 overflow-auto;
+}
+section > .footer {
+    @apply bg-gray-100 shadow;
+}
