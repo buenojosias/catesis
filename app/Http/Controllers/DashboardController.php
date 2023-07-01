@@ -52,6 +52,7 @@ class DashboardController extends Controller
             ->with('grade')
             ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(birthday) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(birthday)')
             ->orderByRaw('DAYOFYEAR(birthday)')
+            ->where('status', 'Ativo')
             ->get();
 
         $baptisms = StudentProfile::query()
@@ -59,6 +60,7 @@ class DashboardController extends Controller
             ->whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(baptism_date) AND DAYOFYEAR(curdate()) + 4 >=  dayofyear(baptism_date)')
             ->orWhereRaw('DAYOFYEAR(curdate()) >= DAYOFYEAR(baptism_date) AND DAYOFYEAR(curdate()) - 3 <=  dayofyear(baptism_date)')
             ->orderByRaw('DAYOFYEAR(baptism_date)')
+            ->whereRelation('student', 'status', 'Ativo')
             ->with('student.grade')
             ->get();
         $baptisms = $baptisms->where('student', '<>', null);

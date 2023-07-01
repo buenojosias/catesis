@@ -49,7 +49,7 @@
                             </td>
                             @can('attendance_edit')
                                 <td class="w-8">
-                                    <x-button outline xs label="Alterar" />
+                                    <x-button wire:click="openChangeModal({{ $student }})" outline xs label="Alterar" />
                                 </td>
                             @endcan
                         </tr>
@@ -60,4 +60,40 @@
             </table>
         </div>
     </div>
+    @can('attendance_edit')
+        @if ($showChangeModal)
+            <x-modal wire:model.defer="showChangeModal" max-width="md">
+                <div class="card w-full">
+                    <div class="card-header">
+                        <h3 class="card-title">Alterar registro</h3>
+                        <div class="card-tools">
+                            <x-button flat sm icon="x" wire:click="closeChangeModal" />
+                        </div>
+                    </div>
+                    <div class="card-body display">
+                        <div class="space-y-2">
+                            <div>
+                                <x-input label="Catequizando(a)" value="{{ $changeStudent['name'] }}" readonly />
+                            </div>
+                            <div>
+                                <x-native-select wire:model="newAttendance" label="Novo status" required>
+                                    <option value="">Selecione</option>
+                                    <option value="C">C</option>
+                                    <option value="F">F</option>
+                                    <option value="J">J</option>
+                                    <option value="R">R</option>
+                                </x-native-select>
+                            </div>
+                            <div>
+                                <x-textarea wire:model="newComment" rows="2" label="Motivo da alteração" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <x-button wire:click="saveChange" primary label="Salvar" />
+                    </div>
+                </div>
+            </x-modal>
+        @endif
+    @endcan
 </div>

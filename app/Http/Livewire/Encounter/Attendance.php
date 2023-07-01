@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Encounter;
 
+use App\Models\Student;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -16,6 +17,11 @@ class Attendance extends Component
     public $studentsWithoutAttendence;
     public $selectedAttendance = [];
     public $canRegisterAttendance;
+    public $showChangeModal = false;
+
+    public $changeStudent, $changeAttendance;
+
+    public $newAttendance, $newComment = '';
 
     public function submitAttendance()
     {
@@ -45,6 +51,30 @@ class Attendance extends Component
             $this->canRegisterAttendance = true;
         } else {
             $this->canRegisterAttendance = false;
+        }
+    }
+
+    public function openChangeModal($student) {
+        $this->changeStudent = $student;
+        $this->showChangeModal = true;
+    }
+
+    public function closeChangeModal() {
+        $this->showChangeModal = false;
+    }
+
+    public function saveChange() {
+        if($this->newAttendance && in_array($this->newAttendance, ['C','F','J','R'])) {
+            $this->encounter->students()->sync([$this->changeStudent['id'] => ['attendance' => $this->newAttendance]], false);
+            Student::find($this->changeStudent['id'])->comments()->create([
+                'user_id' => auth()->user()->id,
+                'description' => "Frequência alterada para $this->newAttendance. ". $this->newComment
+            ]);
+            $this->notification()->success($description = 'Registro alterado com sucesso.');
+            $this->newAttendance = $this->newComment = '';
+            $this->showChangeModal = false;
+        } else {
+            return;
         }
     }
 
