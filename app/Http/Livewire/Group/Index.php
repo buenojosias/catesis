@@ -16,8 +16,8 @@ class Index extends Component
     public $showFormModal;
     public $grade = null;
     public $weekdays;
-    public $year = 2023;
-    public $years = [2023, 2022, 2021, 2020];
+    public $year = 2024;
+    public $years = [2024, 2023, 2022, 2021, 2020];
 
     public function openFormModal()
     {
