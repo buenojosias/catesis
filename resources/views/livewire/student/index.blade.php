@@ -11,7 +11,7 @@
             <div x-show="filters" @click.outside="filters = false" class="filters">
                 <div>
                     <x-native-select label="Status" wire:model="status">
-                        <option value="">Todos</option>
+                        <option value="Todos">Todos</option>
                         <option value="Ativo">Ativos</option>
                         <option value="Crismado">Crismados</option>
                         <option value="Transferido">Transferidos</option>

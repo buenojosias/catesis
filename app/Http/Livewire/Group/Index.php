@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Group;
 use App\Models\Community;
 use App\Models\Grade;
 use App\Models\Group;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,8 +17,29 @@ class Index extends Component
     public $showFormModal;
     public $grade = null;
     public $weekdays;
-    public $year = 2024;
-    public $years = [2024, 2023, 2022, 2021, 2020];
+    public $year;
+    public $years;
+
+    protected $queryString = [
+        'year' => ['exept' => ''],
+        'grade' => ['exept' => ''],
+        'community' => ['exept' => '']
+    ];
+
+    public function updatingYear()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingGrade()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCommunity()
+    {
+        $this->resetPage();
+    }
 
     public function openFormModal()
     {
@@ -26,6 +48,11 @@ class Index extends Component
 
     public function mount($weekdays)
     {
+        $this->year = date('Y');
+        $this->years = collect();
+        for($i = $this->year; $i >= 2022; $i--) {
+            $this->years->push($i);
+        };
         $this->weekdays = $weekdays;
     }
 

@@ -16,6 +16,21 @@ class PerStudent extends Component
     public $community_name;
     public $has_pastoral = true;
 
+    protected $queryString = [
+        'community' => ['except' => ''],
+        'has_pastoral' => ['except' => '']
+    ];
+
+    public function updatingCommunity()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingHas_pastoral()
+    {
+        $this->resetPage();
+    }
+
     public function selectFilter($has_pastoral) {
         $this->has_pastoral = $has_pastoral;
     }

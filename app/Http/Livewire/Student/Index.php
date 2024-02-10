@@ -15,8 +15,35 @@ class Index extends Component
     public $search = null;
     public $community = null;
     public $grade = null;
-    public $status = 'Ativo';
+    public $status = null;
     public $student;
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'community' => ['except' => ''],
+        'grade' => ['except' => ''],
+        'status' => ['except' => ''],
+    ];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCommunity()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingGrade()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
@@ -44,8 +71,12 @@ class Index extends Component
             ->when($this->grade, function($query) {
                 return $query->where('grade_id', $this->grade);
             })
+            ->when(!$this->status, function($query) {
+                return $query->where('status', 'Ativo');
+            })
             ->when($this->status, function($query) {
-                return $query->where('status', $this->status);
+                if ($this->status !== 'Todos')
+                    return $query->where('status', $this->status);
             })
             ->when($this->search, function($query) {
                 return $query->where('name', 'LIKE', "%$this->search%");

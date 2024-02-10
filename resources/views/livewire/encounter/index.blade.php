@@ -12,7 +12,7 @@
             <div x-show="filters" @click.outside="filters = false" class="filters">
                 @role('admin')
                     <div>
-                        <x-native-select label="Comunidade" wire:model="community_id">
+                        <x-native-select label="Comunidade" wire:model="community">
                             <option value="">Todas</option>
                             @foreach ($communities as $community)
                                 <option value="{{ $community->id }}">{{ $community->name }}</option>
@@ -23,10 +23,10 @@
                 <div>
                     @if ($period === 'realizados')
                         <x-datetime-picker without-time label="Filtrar por data" placeholder="Selecione uma data"
-                            wire:model="filter_date" clearable="false" :max="now()" />
+                            wire:model="date" clearable="true" :max="now()" />
                     @else
                         <x-datetime-picker without-time label="Filtrar por data" placeholder="Selecione uma data"
-                            wire:model="filter_date" clearable="false" :min="now()" />
+                            wire:model="date" clearable="true" :min="now()" />
                     @endif
                 </div>
             </div>

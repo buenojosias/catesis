@@ -15,19 +15,34 @@ class Index extends Component
     use Actions;
     use WithPagination;
 
-    public $community_id;
+    public $community;
+    public $now;
     public $date;
-    public $filter_date;
     public $period;
     public $form;
     public $showFormModal;
     public $themes;
+
+    protected $queryString = [
+        'community' => ['except' => ''],
+        'date' => ['except' => ''],
+    ];
 
     protected $validationAttributes = [
         'form.date' => 'Data do encontro',
         'form.method' => 'Método',
         'form.theme_id' => 'Tema',
     ];
+
+    public function updatingCommunity()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingdate()
+    {
+        $this->resetPage();
+    }
 
     public function openFormModal()
     {
@@ -67,8 +82,8 @@ class Index extends Component
     public function mount($period)
     {
         $this->period = $period;
-        $this->date = date('Y-m-d');
-        $this->community_id = session('community_id') ?? null;
+        $this->now = date('Y-m-d');
+        $this->community = session('community_id') ?? null;
     }
 
     public function render()
@@ -79,28 +94,30 @@ class Index extends Component
 
         $encounters = Encounter::query()
             ->with('theme', 'group.grade')
-            ->whereRelation('group', 'year', date('Y'))
+            ->when(!$this->date, function ($query) {
+                $query->whereRelation('group', 'year', date('Y'));
+            })
             ->when(auth()->user()->hasRole('admin'), function ($query) {
                 $query->with('group.community');
             })
-            ->when($this->community_id, function ($query) {
-                $query->whereRelation('group', 'community_id', $this->community_id);
+            ->when($this->community, function ($query) {
+                $query->whereRelation('group', 'community_id', $this->community);
             })
             ->when(auth()->user()->hasExactRoles('catechist'), function ($query) {
                 $groups = auth()->user()->groups()->pluck('id');
                 return $query->whereIn('group_id', $groups);
             })
-            ->when($this->filter_date, function ($query) {
-                $query->whereDate('date', $this->filter_date);
+            ->when($this->date, function ($query) {
+                $query->whereDate('date', $this->date);
             })
             ->when($this->period === 'proximos', function ($query) {
                 $query
-                    ->whereDate('date', '>=', $this->date)
+                    ->whereDate('date', '>=', $this->now)
                     ->orderBy('date', 'asc');
             })
             ->when($this->period === 'realizados', function ($query) {
                 $query
-                    ->whereDate('date', '<=', $this->date)
+                    ->whereDate('date', '<=', $this->now)
                     ->with('students')
                     ->orderBy('date', 'desc');
             })

@@ -4,7 +4,9 @@
     @endcan
     <div class="card">
         <div class="card-header relative" x-data="{ filters: false }">
-            <div class="card-search"></div>
+            <div class="card-search text-sm text-gray-700">
+                Exibindo grupos do ano: <strong>{{ $year }}</strong>
+            </div>
             <div class="card-tools py-1">
                 <x-button flat icon="filter" @click="filters = !filters" />
             </div>

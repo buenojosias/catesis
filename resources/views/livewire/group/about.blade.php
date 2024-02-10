@@ -1,7 +1,7 @@
 <div>
     @if ($group->finished)
         <div class="alert info font-medium">
-            Este grupo finalizou em {{ $group->end_date->format('d/m/Y') }}
+            Este grupo finalizou em {{ $group->end_date ? $group->end_date->format('d/m/Y') : '' }}
         </div>
     @endif
     <div class="sm:grid sm:grid-cols-3 gap-4">

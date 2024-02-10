@@ -19,6 +19,10 @@ class PerPastoral extends Component
     public $pastorals;
     public $showFormModal;
 
+    protected $queryString = [
+        'community' => ['except' => '']
+    ];
+
     protected $validationAttributes = [
         'form.community_id' => 'Comunidade',
         'form.name' => 'Nome do movimento/pastoral',

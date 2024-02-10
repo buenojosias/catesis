@@ -126,6 +126,7 @@ class About extends Component
 
     public function mount($group, $weekdays)
     {
+        // dd($group);
         $this->user_id = session('user_id');
         $this->community_id = session('community_id');
         $this->group = $group;

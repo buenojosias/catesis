@@ -32,6 +32,12 @@ class Lista extends Component
     public $method;
     public $showFormModal;
 
+    protected $queryString = [
+        'currentYear' => ['except' => ''],
+        'currentDay' => ['except' => ''],
+        'currentMonth' => ['except' => ''],
+    ];
+
     protected $validationAttributes = [
         'form.title' => 'Título',
         'form.description' => 'Descrição',

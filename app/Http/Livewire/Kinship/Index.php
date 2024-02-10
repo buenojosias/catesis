@@ -12,6 +12,15 @@ class Index extends Component
 
     public $search = null;
 
+    protected $queryString = [
+        'search' => ['except' => '']
+    ];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $kinships = Kinship::query()

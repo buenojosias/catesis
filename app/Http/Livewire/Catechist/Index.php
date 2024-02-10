@@ -15,6 +15,21 @@ class Index extends Component
     public $community = null;
     public $role;
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'community' => ['except' => '']
+    ];
+
+    public function updatingSearch ()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCommunity()
+    {
+        $this->resetPage();
+    }
+
     public function mount()
     {
         $this->role = session('role');

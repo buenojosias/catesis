@@ -38,6 +38,11 @@
                 </tbody>
             </table>
         </div>
+        <div class="card-paginate">
+            @if ($enrollments->count() === 0 && $code->expires_at < now())
+                <x-button label="Remover" sm />
+            @endif
+        </div>
     </div>
     @if ($enrollmentData)
         <x-modal wire:model.defer="confirmationEnrollmentModal" max-width="md">

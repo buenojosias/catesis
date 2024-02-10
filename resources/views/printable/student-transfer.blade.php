@@ -62,11 +62,11 @@
                 </div>
             </div>
 
-            <p class="text-xs">Para verificar a autenticidade deste documento, scaneie o QR Code abaixo ou acesse
+            {{-- <p class="text-xs">Para verificar a autenticidade deste documento, scaneie o QR Code abaixo ou acesse
                 <a href="https://tansferencia.catesis.com.br" target="_blank">https://tansferencia.catesis.com.br</a>
                 e digite o seguinte código:
                 <span class="text-sm text-semibold">{{ $transfer->token }}</span>
-            </p>
+            </p> --}}
         </div>
     </div>
 @endsection
