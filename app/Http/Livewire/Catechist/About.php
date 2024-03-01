@@ -16,7 +16,7 @@ class About extends Component
     public $characteristics, $catechistCharacteristics;
     public $groups;
     public $showEditProfileModal;
-    public $weekdays = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+    public $weekdays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
     protected $validationAttributes = [
         'name' => 'Nome',
@@ -27,18 +27,20 @@ class About extends Component
         'catechist_from' => 'Catequista desde',
         'catechist_invitation' => 'Chamado',
         'encounter_preparation' => 'Preparação dos encontros',
-];
+    ];
 
-    public function loadCharacteristics() {
-        if(!$this->characteristics) {
+    public function loadCharacteristics()
+    {
+        if (!$this->characteristics) {
             $this->characteristics = Characteristic::all();
             $catechistCharacteristics = $this->catechist->characteristics;
             $this->catechistCharacteristics = $catechistCharacteristics->pluck('id')->toArray();
         }
     }
 
-    public function syncCharacteristc($id) {
-        if(in_array($id, $this->catechistCharacteristics)) {
+    public function syncCharacteristc($id)
+    {
+        if (in_array($id, $this->catechistCharacteristics)) {
             $this->catechist->characteristics()->attach($id);
         } else {
             $this->catechist->characteristics()->detach($id);
@@ -48,7 +50,7 @@ class About extends Component
     public function openEditProfileModal()
     {
         $this->birthday = Carbon::parse($this->birthday)->format('Y-m-d');
-        if($this->catechist_from) {
+        if ($this->catechist_from) {
             $this->catechist_from = Carbon::parse($this->catechist_from)->format('Y-m-d');
         }
         $this->showEditProfileModal = true;
@@ -70,7 +72,10 @@ class About extends Component
         ]);
         // dd([$this->catechistForm, $this->profileForm]);
         try {
-            if($this->catechist_from == "") { $validateProfile['catechist_from'] = null; };
+            if ($this->catechist_from == "") {
+                $validateProfile['catechist_from'] = null;
+            }
+            ;
             $saveCatechist = $this->catechist->update($validateCatechist);
             $saveProfile = $this->catechist->profile()->update($validateProfile);
             $this->notification()->success($description = 'Informações atualizadas com sucesso.');
@@ -89,11 +94,13 @@ class About extends Component
         $this->naturalness = $catechist->profile->naturalness;
         $this->marital_status = $catechist->profile->marital_status;
         $this->scholarity = $catechist->profile->scholarity;
-        if($catechist->profile->catechist_from) { $this->catechist_from = Carbon::parse($catechist->profile->catechist_from)->format('Y-m-d'); }
+        if ($catechist->profile->catechist_from) {
+            $this->catechist_from = Carbon::parse($catechist->profile->catechist_from)->format('Y-m-d');
+        }
         $this->catechist_invitation = $catechist->profile->catechist_invitation;
         $this->encounter_preparation = $catechist->profile->encounter_preparation;
         $this->groups = $catechist->groups()->where('year', date('Y'))->where('finished', false)->with('grade')->withCount('students')->orderBy('year', 'desc')->get();
-        if(!auth()->user()->community_id) {
+        if (!auth()->user()->community_id) {
             $this->catechist->load('community');
         }
     }

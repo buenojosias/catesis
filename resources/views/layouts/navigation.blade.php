@@ -18,7 +18,10 @@
                     <x-nav-link :href="route('encounters.index')" :active="request()->routeIs('encounters.*')" icon="book">Encontros</x-nav-link>
                 </div>
                 <div class="space-y-2 pt-2">
-                    @role('admin')
+                    @role('super-admin')
+                        <x-nav-link :href="route('parishes.index')" :active="request()->routeIs('parishes.*')" icon="church">Paróquias</x-nav-link>
+                    @endrole
+                    @role(['admin','super-admin'])
                         <x-nav-link :href="route('communities.index')" :active="request()->routeIs('communities.*')" icon="church">Comunidades</x-nav-link>
                     @endrole
                     <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.*')" icon="list-ol">Etapas</x-nav-link>

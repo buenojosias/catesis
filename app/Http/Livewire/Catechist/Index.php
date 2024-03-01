@@ -13,6 +13,7 @@ class Index extends Component
 
     public $search = null;
     public $community = null;
+    public $userCommunity = null;
     public $role;
 
     protected $queryString = [
@@ -32,8 +33,10 @@ class Index extends Component
 
     public function mount()
     {
+        $this->userCommunity = session('community_id');
         $this->role = session('role');
     }
+
     public function render()
     {
         if($this->role === 'admin') {
@@ -48,6 +51,9 @@ class Index extends Component
             // ->where('id', '<>', auth()->user()->id)
             ->when($this->community, function($query) {
                 return $query->where('community_id', $this->community);
+            })
+            ->when($this->userCommunity, function($query) {
+                return $query->where('community_id', $this->userCommunity);
             })
             ->when($this->search, function($query) {
                 return $query->where('name', 'LIKE', "%$this->search%");

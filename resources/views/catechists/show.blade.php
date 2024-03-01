@@ -11,7 +11,10 @@
                     active="{{ $section === 'contatos' }}" label="Contatos" />
                 <x-tab-link href="{{ route('catechists.show', [$catechist, 'historico']) }}"
                     active="{{ $section === 'historico' }}" label="Histórico e formações" />
-                @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+                @if (
+                    (auth()->user()->can('catechist_edit') && !$catechist->hasRole('admin')) ||
+                        $catechist->id === auth()->user()->id ||
+                        auth()->user()->hasRole('super-admin'))
                     <x-tab-link href="{{ route('catechists.show', [$catechist, 'conta']) }}"
                         active="{{ $section === 'conta' }}" label="Configurações da conta" />
                 @endif
@@ -31,7 +34,10 @@
         @livewire('catechist.history', ['catechist' => $catechist])
     @endif
     @if ($section === 'conta')
-        @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+        @if (
+            (auth()->user()->can('catechist_edit') && !$catechist->hasRole('admin')) ||
+                $catechist->id === auth()->user()->id ||
+                auth()->user()->hasRole('super-admin'))
             @livewire('catechist.account', ['catechist' => $catechist])
         @else
             @php

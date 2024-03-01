@@ -34,7 +34,7 @@
             <x-button wire:click="submitEmail" label="Salvar" sm primary />
         </div>
     </div>
-    @can('catechist_edit')
+    @if(auth()->user()->can('catechist_edit') || auth()->user()->hasRole('super-admin'))
     <div x-data="{ roles: false }" class="card mb-4">
         <div @click="roles = true" class="card-header cursor-pointer">
             <h3 class="card-title">Funções de usuário</h3>

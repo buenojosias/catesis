@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Catechist;
 
 use App\Models\Community;
+use App\Models\Parish;
 use App\Models\User;
 use Auth;
 use Illuminate\Contracts\View\View;
@@ -15,8 +16,9 @@ class Create extends Component
 {
     use Actions;
 
-    public $name, $email, $password, $password_confirmation, $community_id, $role;
+    public $name, $email, $password, $password_confirmation, $parish_id, $community_id, $role;
     public $birthday, $marital_status;
+    public $parishes;
     public $communities;
     public $roles;
     public $catechist;
@@ -36,8 +38,15 @@ class Create extends Component
 
     public function mount(): void
     {
+        if(!auth()->user()->can('user_create') && session('role') != 'super-admin')
+            abort(403);
+
         $this->auth_role = session('role');
         $this->user = Auth::user();
+        if($this->auth_role === 'super-admin') {
+            $this->parishes = Parish::all();
+            $this->communities = Community::all();
+        }
         if($this->auth_role === 'admin') {
             $this->communities = Community::all();
         }

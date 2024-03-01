@@ -8,6 +8,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KinshipController;
+use App\Http\Controllers\ParishController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Livewire\Event\Index as Event;
@@ -32,6 +33,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/perfil', [UserProfileController::class, 'update'])->name('profile.update');
     Route::delete('/perfil', [UserProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::middleware('role:super-admin')->group(function () {
+        Route::get('/paroquias', [ParishController::class, 'index'])->name('parishes.index');
+        Route::get('/paroquias/{parish}', [ParishController::class, 'show'])->name('parishes.show');
+    });
+
     Route::middleware('can:communities_show')->group(function () {
         Route::get('/comunidades', [CommunityController::class, 'index'])->name('communities.index');
         Route::get('/comunidades/{community}', [CommunityController::class, 'show'])->name('communities.show');
@@ -39,7 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/catequistas', [CatechistController::class, 'index'])->name('catechists.index');
-    Route::get('/catequistas/cadastro', [CatechistController::class, 'create'])->middleware('can:user_create')->name('catechists.create');
+    Route::get('/catequistas/cadastro', [CatechistController::class, 'create'])->name('catechists.create');
     Route::get('/catequistas/{user}/{section?}', [CatechistController::class, 'show'])->name('catechists.show');
 
     Route::get('/etapas', [GradeController::class, 'index'])->name('grades.index');

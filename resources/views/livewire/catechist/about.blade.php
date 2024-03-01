@@ -44,7 +44,7 @@
                 <h4 class="mt-4">Como prepara seus encontros de catequese?</h4>
                 {{ $encounter_preparation ?? 'Sem resposta' }}
             </div>
-            @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+            @if ((auth()->user()->can('catechist_edit') && !$catechist->hasRole('admin')) || $catechist->id === auth()->user()->id)
                 <div class="card-footer justify-end">
                     <x-button wire:click="openEditProfileModal" label="Editar" flat sm />
                 </div>
@@ -116,7 +116,7 @@
         @livewire('pastoral.related-list', ['model' => $catechist])
     </div>
 
-    @if (auth()->user()->can('catechist_edit') || $catechist->id === auth()->user()->id)
+    @if ((auth()->user()->can('catechist_edit') && !$catechist->hasRole('admin')) || $catechist->id === auth()->user()->id)
     <x-modal wire:model.defer="showEditProfileModal">
         <div class="card w-full">
             <form wire:submit.prevent="submitProfile">

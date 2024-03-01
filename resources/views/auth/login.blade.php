@@ -5,7 +5,7 @@
         @if (env('APP_ENV') === 'local')
             <x-native-select id="email" name="email" label="Selecione um usuário para entrar" required autofocus>
                 <option value="">Selecione</option>
-                @foreach (\App\Models\User::query()->where('id', '>', 1)->get() as $user)
+                @foreach (\App\Models\User::query()->where('id', '>=', 1)->get() as $user)
                     <option value="{{ $user->email }}">{{ $user->name }}</option>
                 @endforeach
             </x-native-select>

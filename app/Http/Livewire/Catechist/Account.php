@@ -29,7 +29,7 @@ class Account extends Component
     public function loadRoles()
     {
         $roles = Role::query()->where('name','<>','super-admin');
-        if(!$this->user->hasRole('admin')) {
+        if(!$this->user->hasRole(['admin','super-admin'])) {
             $roles->where('name','<>','admin');
         }
         $this->roles = $roles->get()->toArray();

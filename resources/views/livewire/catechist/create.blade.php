@@ -26,7 +26,17 @@
                                 <option value="Outro">Outro</option>
                             </x-native-select>
                         </div>
-                        @if($auth_role === 'admin')
+                        @if($auth_role === 'super-admin')
+                            <div class="sm:col-span-4">
+                                <x-native-select wire:model.defer="parish_id" label="Paróquia" required>
+                                    <option value="">Selecione</option>
+                                    @foreach ($parishes as $parish)
+                                        <option value="{{ $parish->id }}">{{ $parish->name }}</option>
+                                    @endforeach
+                                </x-native-select>
+                            </div>
+                        @endif
+                        @if(in_array($auth_role, ['admin','super-admin']))
                             <div class="sm:col-span-4">
                                 <x-native-select wire:model.defer="community_id" label="Comunidade" required>
                                     <option value="">Selecione</option>
